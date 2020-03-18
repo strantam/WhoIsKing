@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <mat-icon *ngIf="!headerTitleService.navigationOff && !headerTitleService.hideBack" class="back-arrow" (click)="this.navigateBack()">arrow_back
+  </mat-icon>
+  <div fxFlexAlign="column">
+    <div class="title"
+       i18n="@@Header.Title">{headerTitleService.title, select, SETTINGS {Settings} PATIENTS {Patients}  PATIENT {Patient}  PATIENT_DETAILS {Patient details}  PATIENT_THERAPIES {Therapies}  THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</div>
+    <div class="subTitle">{{headerTitleService.subtitle}}</div>
+
+  </div>
+  <div *ngIf="!headerTitleService.navigationOff" fxHide.gt-xs fxFlex fxLayout fxLayoutAlign="end">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="!headerTitleService.navigationOff" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li>
+        <a routerLink="/patients" i18n="@@Header.PatientsMenu">Patients</a>
+      </li>
+      <li>
+        <a routerLink="/settings" i18n="@@Header.Settings">Settings</a>
+      </li>
+      <li>
+        <a i18n="@@Header.Logout" (click)="authService.signOut()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

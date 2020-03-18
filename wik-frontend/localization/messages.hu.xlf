@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template" target-language="hu">
+    <body>
+      <trans-unit id="Header.Title" datatype="html">
+        <source>{VAR_SELECT, select, SETTINGS {Settings} PATIENTS {Patients} PATIENT {Patient} PATIENT_DETAILS {Patient details} PATIENT_THERAPIES {Therapies} THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</source><target state="new">{VAR_SELECT, select, SETTINGS {Settings} PATIENTS {Patients} PATIENT {Patient} PATIENT_DETAILS {Patient details} PATIENT_THERAPIES {Therapies} THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.PatientsMenu" datatype="html">
+        <source>Patients</source><target state="new">Patients</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.Settings" datatype="html">
+        <source>Settings</source><target state="new">Settings</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.Logout" datatype="html">
+        <source>Logout</source><target state="new">Logout</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AreYouSure.Header" datatype="html">
+        <source>Are you sure?</source><target state="new">Are you sure?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AreYouSure.Question" datatype="html">
+        <source>
+    <x id="ICU" equiv-text="{data.question, select, DISCARD_THERAPY {...} FINISH_THERAPY {...} DELETE_EARLIER_THERAPY {...}}"/>
+  </source><target state="new">
+    <x id="ICU" equiv-text="{data.question, select, DISCARD_THERAPY {...} FINISH_THERAPY {...} DELETE_EARLIER_THERAPY {...}}"/>
+  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dd1e786aaae8a8f58babaa8a6f696ba9ab7796bd" datatype="html">
+        <source>{VAR_SELECT, select, DISCARD_THERAPY {Are you sure you want to discard therapy? All data of therapy will be lost!} FINISH_THERAPY {Are you sure you want to finish and save therapy?} DELETE_EARLIER_THERAPY {You have an unfinished therapy for another user. You can only start a new therapy if you finish the previous one.} }</source><target state="new">{VAR_SELECT, select, DISCARD_THERAPY {Are you sure you want to discard therapy? All data of therapy will be lost!} FINISH_THERAPY {Are you sure you want to finish and save therapy?} DELETE_EARLIER_THERAPY {You have an unfinished therapy for another user. You can only start a new therapy if you finish the previous one.} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AreYouSure.Cancel" datatype="html">
+        <source>{VAR_SELECT, select, CANCEL {Cancel} }</source><target state="new">{VAR_SELECT, select, CANCEL {Cancel} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AreYouSure.Ok" datatype="html">
+        <source>{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</source><target state="new">{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="SnackBarText" datatype="html">
+        <source>{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</source><target state="new">{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/generic-modals/i18n-snack-bar/i18n-snack-bar.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Login.MainTitle" datatype="html">
+        <source>Welcome to AB App</source><target state="new">Welcome to AB App</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Login.SubTitle" datatype="html">
+        <source>Login to get started...</source><target state="new">Login to get started...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

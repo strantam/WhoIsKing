@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Who Is King API document
+  termsOfService: ''
+  contact:
+    name: T.S.
+
+servers:
+  - url: http://localhost:9090/api
+    description: Local server
+  - url: https://w-i-k-dev.herokuapp.com/api
+    description: DEV environment
+  - url: https://w-i-k-prd.herokuapp.com/api
+    description: PRD environment
+
+paths:
+  "/organization":
+    get:
+      tags:
+        - Organization
+      security:
+        - bearerAuth: []
+      description: List of all organizations that the logged in user is member of.
+      responses:
+        '200':
+          description: Successful query.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+
+        'default':
+          $ref: '#components/responses/GeneralError'
+
+    post:
+      tags:
+        - Organization
+      security:
+        - bearerAuth: []
+      description: Therapists can only start work through an organization than can be created here.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organization'
+      responses:
+        '200':
+          description: You get the created organization back on successful creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        'default':
+          $ref: '#components/responses/GeneralError'
+
+components:
+  responses:
+    GeneralError:
+      description: All backend errors come this way.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  parameters:
+    UserQuery:
+      in: query
+      name: identifier
+      schema:
+        oneOf:
+          - type: string
+            format: email
+          - type: string
+            format: uuid
+      required: true
+
+    OrganizationId:
+      in: path
+      name: organizationId
+      schema:
+        type: string
+        format: uuid
+      required: true
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        errorCode:
+          type: string
+        message:
+          type: string
+        httpStatus:
+          type: number
+      required:
+        - errorCode
+        - message
+
+    Organization:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 300
+          example: "Small Flowers ABA Therapy Center"
+        logo:
+          type: string
+        uid:
+          type: string
+          format: uuid
+        role:
+          description: The role list of the logged in therapist in the organization.
+          type: array
+          items:
+            type: string
+            maxLength: 50
+        approved:
+          type: boolean
+          description: Whether the organization can operate.
+      required:
+        - name
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

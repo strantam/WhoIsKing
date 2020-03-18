@@ -1,0 +1,11 @@
+<h1 mat-dialog-title i18n="@@AreYouSure.Header">Are you sure?</h1>
+<div>
+  <div mat-dialog-content i18n="@@AreYouSure.Question">
+    {data.question, select, DISCARD_THERAPY {Are you sure you want to discard therapy? All data of therapy will be lost!} FINISH_THERAPY {Are you sure you want to finish and save therapy?} DELETE_EARLIER_THERAPY {You have an unfinished therapy for another user. You can only start a new therapy if you finish the previous one.} }
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" i18n="@@AreYouSure.Cancel">{data.cancel, select, CANCEL {Cancel}}</button>
+    <button mat-button (click)="sure()" (keyup.enter)="sure()"
+            i18n="@@AreYouSure.Ok">{data.ok, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new}}</button>
+  </div>
+</div>

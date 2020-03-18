@@ -1,0 +1,20 @@
+<div class="root">
+  <lottie-animation-view
+    [options]="lottieConfig"
+    [width]="200"
+    [height]="200">
+  </lottie-animation-view>
+
+  <h3 i18n="@@Login.MainTitle">Welcome to AB App</h3>
+  <p i18n="@@Login.SubTitle">Login to get started...</p>
+  <div class="w100">
+    <div class="loginOpt">
+      <button (click)="googleSignin()">Google</button>
+    </div>
+  </div>
+  <div class="w100">
+    <div class="loginOpt">
+      <button (click)="fbSignin()">Facebook</button>
+    </div>
+  </div>
+</div>

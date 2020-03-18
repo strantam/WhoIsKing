@@ -1,0 +1,11 @@
+<mat-nav-list>
+  <a mat-list-item routerLink="/patients" (click)="onSidenavClose()">
+    <mat-icon>home</mat-icon> <span class="nav-caption" i18n="@@Header.PatientsMenu">Patients</span>
+  </a>
+  <a mat-list-item routerLink="/settings" (click)="onSidenavClose()">
+    <mat-icon>settings_applications</mat-icon> <span class="nav-caption" i18n="@@Header.Settings">Settings</span>
+  </a>
+  <a mat-list-item (click)="authService.signOut()">
+    <mat-icon>exit_to_app</mat-icon> <span class="nav-caption" i18n="@@Header.Logout">Logout</span>
+  </a>
+</mat-nav-list>
