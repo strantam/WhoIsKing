@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: "https://w-i-k-dev.herokuapp.com/api/",
+  apiUrl: "https://wik-dev.herokuapp.com/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
     authDomain: "who-is-king.firebaseapp.com",
