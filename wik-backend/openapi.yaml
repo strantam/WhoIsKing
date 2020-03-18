@@ -9,19 +9,17 @@ info:
 servers:
   - url: http://localhost:9090/api
     description: Local server
-  - url: https://w-i-k-dev.herokuapp.com/api
+  - url: https://wik-dev.herokuapp.com/api
     description: DEV environment
-  - url: https://w-i-k-prd.herokuapp.com/api
+  - url: https://wik-prd.herokuapp.com/api
     description: PRD environment
 
 paths:
-  "/organization":
+  "/city":
     get:
       tags:
-        - Organization
-      security:
-        - bearerAuth: []
-      description: List of all organizations that the logged in user is member of.
+        - No auth
+      description: List of all cities.
       responses:
         '200':
           description: Successful query.
@@ -30,31 +28,85 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Organization'
+                  $ref: '#/components/schemas/City'
 
         'default':
-          $ref: '#components/responses/GeneralError'
+          $ref: '#/components/responses/GeneralError'
 
     post:
       tags:
-        - Organization
+        - Auth
       security:
         - bearerAuth: []
-      description: Therapists can only start work through an organization than can be created here.
+      description: Set city of player.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Organization'
+              $ref: '#/components/schemas/City'
       responses:
         '200':
-          description: You get the created organization back on successful creation.
+          description: You get an empty 200 on successful save.
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
+  "/nextGame":
+    get:
+      tags:
+        - No auth
+      description: Gets when the next game will be.
+      responses:
+        '200':
+          description: Successful get.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organization'
+                type: object
+                properties:
+                  uid:
+                    type: string
+                    format: uuid
+                  openTime:
+                    type: string
+                    format: date
+                  closeTime:
+                    type: string
+                    format: date
         'default':
-          $ref: '#components/responses/GeneralError'
+          $ref: '#/components/responses/GeneralError'
+
+  "/game/{gameId}":
+    get:
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      tags:
+        - No auth
+      description: Gets the question with the given uid, if openTime is over.
+      responses:
+        '200':
+          description: Successful get
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        'default':
+          $ref: '#/components/responses/GeneralError'
+    post:
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      tags:
+        - Auth
+      description: Sends the answer to the given question. Only accepted if sent before closeTime.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Empty response on successful post.
+        'default':
+          $ref: '#/components/responses/GeneralError'
 
 components:
   responses:
@@ -66,20 +118,9 @@ components:
             $ref: '#/components/schemas/Error'
 
   parameters:
-    UserQuery:
-      in: query
-      name: identifier
-      schema:
-        oneOf:
-          - type: string
-            format: email
-          - type: string
-            format: uuid
-      required: true
-
-    OrganizationId:
+    GameId:
       in: path
-      name: organizationId
+      name: gameId
       schema:
         type: string
         format: uuid
@@ -98,30 +139,36 @@ components:
       required:
         - errorCode
         - message
-
-    Organization:
+    City:
       type: object
       properties:
         name:
           type: string
           maxLength: 300
-          example: "Small Flowers ABA Therapy Center"
-        logo:
-          type: string
+          example: "Veszprém"
         uid:
           type: string
           format: uuid
-        role:
-          description: The role list of the logged in therapist in the organization.
-          type: array
-          items:
-            type: string
-            maxLength: 50
-        approved:
-          type: boolean
-          description: Whether the organization can operate.
+        zip:
+          type: string
+          maxLength: 10
+          example: "8200"
       required:
         - name
+        - zip
+    Game:
+      type: object
+      properties:
+        uid:
+          type: string
+          format: uuid
+        question:
+          type: string
+        questionType:
+          type: string
+        options:
+          type: string
+          format: json
 
   securitySchemes:
     bearerAuth:

@@ -38,8 +38,6 @@ class Server {
     }
 
     constructor() {
-
-
         // Create expressjs application
         this.app = express();
 
@@ -62,7 +60,7 @@ class Server {
 
         this.app.use(async (req, res, next) => {
             hookHandler.init();
-            if (!req.path.startsWith("/auth")) {
+            if (!req.path.startsWith("/api/auth")) {
                 next();
                 return;
             }
