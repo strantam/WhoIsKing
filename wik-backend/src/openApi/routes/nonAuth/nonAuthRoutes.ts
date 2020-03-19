@@ -49,5 +49,25 @@ router.get('/city/registrations', async (req, res, next) => {
     }
 });
 
+/* INSERT INTO public."Question"(
+    uid, type, params, question, points, "openTime", "closeTime")
+VALUES ('ee0999dc-4c6f-4d1e-a29a-0247acb6606d', 'MULTIPLE_CHOICE', '{}', 'Where are you?', 1, '2020-05-19 10:30:00', '2020-05-19 10:35:00'); */
+
+router.get('/nextGame', async (req, res, next) => {
+    try {
+        const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime" FROM "Question" WHERE "openTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
+        console.log(nextQuestion.openTime.toISOString());
+        res.json({
+            uid: nextQuestion.uid,
+            openTime: nextQuestion.openTime.toISOString(),
+            closeTime: nextQuestion.closeTime.toISOString(),
+            currentTime: new Date().toISOString()
+        });
+    } catch (err) {
+        logger.error("Cannot get next question " + JSON.stringify(err.message));
+        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get next question", HttpStatus.INTERNAL_SERVER));
+    }
+});
+
 
 export const nonAuthRouter = router;

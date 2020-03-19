@@ -90,10 +90,19 @@ paths:
                     format: uuid
                   openTime:
                     type: string
-                    format: date
+                    format: date-time
                   closeTime:
                     type: string
-                    format: date
+                    format: date-time
+                  currentTime:
+                    type: string
+                    format: date-time
+                required:
+                  - uid
+                  - openTime
+                  - closeTime
+                  - currentTime
+
         'default':
           $ref: '#/components/responses/GeneralError'
 
