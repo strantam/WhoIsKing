@@ -13,10 +13,13 @@
 import { RequestFile } from '../api';
 
 export class Game {
-    'uid'?: string;
-    'question'?: string;
-    'questionType'?: string;
-    'options'?: string;
+    'uid': string;
+    'question': string;
+    'questionType': string;
+    'options': string;
+    'points': number;
+    'openTime': Date;
+    'closeTime': Date;
 
     static discriminator: string | undefined = undefined;
 
@@ -40,6 +43,21 @@ export class Game {
             "name": "options",
             "baseName": "options",
             "type": "string"
+        },
+        {
+            "name": "points",
+            "baseName": "points",
+            "type": "number"
+        },
+        {
+            "name": "openTime",
+            "baseName": "openTime",
+            "type": "Date"
+        },
+        {
+            "name": "closeTime",
+            "baseName": "closeTime",
+            "type": "Date"
         }    ];
 
     static getAttributeTypeMap() {

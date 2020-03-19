@@ -111,7 +111,8 @@ class Server {
             validateRequests: true, // (default)
             validateResponses: true,
             unknownFormats: [
-                "base64"
+                "base64",
+                "json"
             ]
         }).install(this.app);
 
@@ -122,7 +123,7 @@ class Server {
             res.sendFile(path.resolve(__dirname + '/../../wik-frontend/dist/hu/index.html'));
         });
         this.app.use((err, req, res, next) => {
-            logger.error("Error processing request: " + JSON.stringify(err));
+            logger.error("Error processing request: " + JSON.stringify(err.message) + JSON.stringify(err));
 
             if (res.headersSent) {
                 return next(err)

@@ -13,9 +13,10 @@
 import { RequestFile } from '../api';
 
 export class InlineResponse200 {
-    'uid'?: string;
-    'openTime'?: string;
-    'closeTime'?: string;
+    'uid': string;
+    'openTime': Date;
+    'closeTime': Date;
+    'currentTime': Date;
 
     static discriminator: string | undefined = undefined;
 
@@ -28,12 +29,17 @@ export class InlineResponse200 {
         {
             "name": "openTime",
             "baseName": "openTime",
-            "type": "string"
+            "type": "Date"
         },
         {
             "name": "closeTime",
             "baseName": "closeTime",
-            "type": "string"
+            "type": "Date"
+        },
+        {
+            "name": "currentTime",
+            "baseName": "currentTime",
+            "type": "Date"
         }    ];
 
     static getAttributeTypeMap() {

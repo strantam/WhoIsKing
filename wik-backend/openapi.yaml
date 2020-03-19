@@ -280,6 +280,24 @@ components:
         options:
           type: string
           format: json
+        points:
+          type: number
+          minimum: 0
+        openTime:
+          type: string
+          format: date-time
+        closeTime:
+          type: string
+          format: date-time
+      additionalProperties: false
+      required:
+        - uid
+        - question
+        - questionType
+        - options
+        - points
+        - openTime
+        - closeTime
 
   securitySchemes:
     bearerAuth:

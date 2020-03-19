@@ -1,7 +1,8 @@
 import {getLogger} from "../../../log/logger";
 import {DB} from "../../../db";
-import {City} from "../../../db/DatabaseMapping";
+import {City, Question} from "../../../db/DatabaseMapping";
 import {City as ApiCity} from "../../../openApi/model/city";
+import {Game} from "../../../openApi/model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
 
@@ -55,8 +56,7 @@ VALUES ('ee0999dc-4c6f-4d1e-a29a-0247acb6606d', 'MULTIPLE_CHOICE', '{}', 'Where 
 
 router.get('/nextGame', async (req, res, next) => {
     try {
-        const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime" FROM "Question" WHERE "openTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
-        console.log(nextQuestion.openTime.toISOString());
+        const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime" FROM "Question" WHERE "closeTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
         res.json({
             uid: nextQuestion.uid,
             openTime: nextQuestion.openTime.toISOString(),
@@ -69,5 +69,33 @@ router.get('/nextGame', async (req, res, next) => {
     }
 });
 
+router.get('/game/:gameId', async (req, res, next) => {
+    try {
+        const gameId = req.params.gameId;
+        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2', [gameId, new Date()])).rows[0];
+        if (!question) {
+            throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
+        }
+        const resQuestion: Game = {
+            // @ts-ignore
+            closeTime: question.closeTime.toISOString(),
+            // @ts-ignore
+            openTime: question.openTime.toISOString(),
+            options: JSON.stringify(question.options),
+            points: question.points,
+            question: question.question,
+            questionType: question.questionType,
+            uid: question.uid
+        };
+        res.json(resQuestion);
+    } catch (err) {
+        logger.error("Cannot get question " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get question", HttpStatus.INTERNAL_SERVER));
+        }
+    }
+});
 
 export const nonAuthRouter = router;
