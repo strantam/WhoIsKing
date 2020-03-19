@@ -11,29 +11,24 @@
  */
 
 import { RequestFile } from '../api';
+import { City } from './city';
 
 export class InlineResponse200 {
-    'uid'?: string;
-    'openTime'?: string;
-    'closeTime'?: string;
+    'city'?: City;
+    'registrations'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
+            "name": "city",
+            "baseName": "city",
+            "type": "City"
         },
         {
-            "name": "openTime",
-            "baseName": "openTime",
-            "type": "string"
-        },
-        {
-            "name": "closeTime",
-            "baseName": "closeTime",
-            "type": "string"
+            "name": "registrations",
+            "baseName": "registrations",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
