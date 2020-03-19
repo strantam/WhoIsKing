@@ -12,32 +12,20 @@
 
 import { RequestFile } from '../api';
 
-export class InlineResponse200 {
-    'uid'?: string;
-    'openTime'?: string;
-    'closeTime'?: string;
+export class InlineObject {
+    'cityId'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
-        },
-        {
-            "name": "openTime",
-            "baseName": "openTime",
-            "type": "string"
-        },
-        {
-            "name": "closeTime",
-            "baseName": "closeTime",
+            "name": "cityId",
+            "baseName": "cityId",
             "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse200.attributeTypeMap;
+        return InlineObject.attributeTypeMap;
     }
 }
 

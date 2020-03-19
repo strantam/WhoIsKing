@@ -11,33 +11,34 @@
  */
 
 import { RequestFile } from '../api';
+import { City } from './city';
 
-export class InlineResponse200 {
-    'uid'?: string;
-    'openTime'?: string;
-    'closeTime'?: string;
+export class GameResult {
+    'city'?: City;
+    'avgPoint'?: number;
+    'allResponders'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
+            "name": "city",
+            "baseName": "city",
+            "type": "City"
         },
         {
-            "name": "openTime",
-            "baseName": "openTime",
-            "type": "string"
+            "name": "avgPoint",
+            "baseName": "avgPoint",
+            "type": "number"
         },
         {
-            "name": "closeTime",
-            "baseName": "closeTime",
-            "type": "string"
+            "name": "allResponders",
+            "baseName": "allResponders",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse200.attributeTypeMap;
+        return GameResult.attributeTypeMap;
     }
 }
 

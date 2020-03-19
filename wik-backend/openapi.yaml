@@ -45,18 +45,12 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    city:
-                      $ref: '#/components/schemas/City'
-                    registrations:
-                      type: number
-                      minimum: 0
+                  $ref: '#/components/schemas/CityWithRegs'
 
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/auth/city/registrations":
+  "/auth/city":
     post:
       tags:
         - Auth
@@ -67,7 +61,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/City'
+              type: object
+              properties:
+                cityId:
+                  type: string
+                  format: uuid
       responses:
         '200':
           description: You get an empty 200 on successful save.
@@ -240,6 +238,15 @@ components:
       required:
         - name
         - zip
+    CityWithRegs:
+      type: object
+      properties:
+        city:
+          $ref: '#/components/schemas/City'
+        registrations:
+          type: number
+          minimum: 0
+
     GameResult:
       type: object
       properties:

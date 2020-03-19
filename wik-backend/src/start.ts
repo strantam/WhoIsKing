@@ -72,9 +72,10 @@ class Server {
                     logger.error("Auth token not valid" + JSON.stringify(err));
                     throw new ErrorObject(ErrorCode.FIREBASE_AUTH_ERROR, "Auth token not valid", HttpStatus.UNAUTHENTICATED);
                 }
-                let user = await DB.getDb().pool.query('SELECT * FROM "User" WHERE "firebaseId"=$1', [firebaseUser.uid]);
+                logger.info(firebaseUser.uid);
+                let user = await DB.getDb().pool.query('SELECT * FROM "User" WHERE "fireBaseId"=$1', [firebaseUser.uid]);
                 if (user.rows && user.rows.length === 0) {
-                    user = await DB.getDb().pool.query('INSERT INTO "User" ("uid", "firebaseId") VALUES ($1, $2) RETURNING *', [uuid.v4(), firebaseUser.uid]);
+                    user = await DB.getDb().pool.query('INSERT INTO "User" ("uid", "fireBaseId") VALUES ($1, $2) RETURNING *', [uuid.v4(), firebaseUser.uid]);
                 }
                 if (!user || !user.rows || user.rows.length !== 1) {
                     throw new ErrorObject(ErrorCode.DB_QUERY_ERROR, "DB user id cannot be resolved", HttpStatus.INTERNAL_SERVER);
