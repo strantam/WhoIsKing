@@ -15,7 +15,7 @@ servers:
     description: PRD environment
 
 paths:
-  "/city":
+  "/noAuth/city":
     get:
       tags:
         - No auth
@@ -32,7 +32,7 @@ paths:
 
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/city/registrations":
+  "/noAuth/city/registrations":
     get:
       tags:
         - No auth
@@ -56,6 +56,7 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
+  "/auth/city/registrations":
     post:
       tags:
         - Auth
@@ -73,7 +74,7 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/nextGame":
+  "/noAuth/nextGame":
     get:
       tags:
         - No auth
@@ -98,7 +99,7 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/game/{gameId}":
+  "/noAuth/game/{gameId}":
     get:
       parameters:
         - $ref: '#/components/parameters/GameId'
@@ -114,6 +115,7 @@ paths:
                 $ref: '#/components/schemas/Game'
         'default':
           $ref: '#/components/responses/GeneralError'
+  "/auth/game/{gameId}":
     post:
       parameters:
         - $ref: '#/components/parameters/GameId'
@@ -133,7 +135,7 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/game/{gameId}/result":
+  "/noAuth/game/{gameId}/result":
     get:
       parameters:
         - $ref: '#/components/parameters/GameId'
@@ -151,7 +153,7 @@ paths:
                   $ref: '#/components/schemas/GameResult'
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/game/result":
+  "/noAuth/game/result":
     get:
       parameters:
         - $ref: '#/components/parameters/Interval'
@@ -170,7 +172,7 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/user/me":
+  "/auth/user/me":
     delete:
       tags:
         - Auth
