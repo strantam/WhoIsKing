@@ -20,6 +20,8 @@ export class Game {
     'points': number;
     'openTime': Date;
     'closeTime': Date;
+    'response'?: string;
+    'responseDetails'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -58,6 +60,16 @@ export class Game {
             "name": "closeTime",
             "baseName": "closeTime",
             "type": "Date"
+        },
+        {
+            "name": "response",
+            "baseName": "response",
+            "type": "string"
+        },
+        {
+            "name": "responseDetails",
+            "baseName": "responseDetails",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

@@ -300,6 +300,10 @@ components:
         closeTime:
           type: string
           format: date-time
+        response:
+          type: string
+        responseDetails:
+          type: string
       additionalProperties: false
       required:
         - uid

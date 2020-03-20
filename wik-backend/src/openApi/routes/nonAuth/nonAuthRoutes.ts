@@ -72,7 +72,8 @@ router.get('/nextGame', async (req, res, next) => {
 router.get('/game/:gameId', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
-        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2', [gameId, new Date()])).rows[0];
+        const currentTime = new Date();
+        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2', [gameId, currentTime])).rows[0];
         if (!question) {
             throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
         }
@@ -87,6 +88,10 @@ router.get('/game/:gameId', async (req, res, next) => {
             questionType: question.questionType,
             uid: question.uid
         };
+        if (question.closeTime < currentTime){
+            resQuestion.response = question.response;
+            resQuestion.responseDetails = question.responseDetails;
+        }
         res.json(resQuestion);
     } catch (err) {
         logger.error("Cannot get question " + JSON.stringify(err.message));
