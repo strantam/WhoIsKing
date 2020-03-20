@@ -135,10 +135,21 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              type: object
+              properties:
+                answer:
+                  type: string
       responses:
         '200':
-          description: Empty response on successful post.
+          description: Returns points on successful post.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  points:
+                    type: number
+                    minimum: 0
         'default':
           $ref: '#/components/responses/GeneralError'
 
