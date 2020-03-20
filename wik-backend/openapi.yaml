@@ -174,7 +174,7 @@ paths:
   "/noAuth/game/result":
     get:
       parameters:
-        - $ref: '#/components/parameters/Interval'
+        - $ref: '#/components/parameters/DatePicker'
       tags:
         - No auth
       description: Get the aggregated results.
@@ -220,13 +220,13 @@ components:
         type: string
         format: uuid
       required: true
-    Interval:
+    DatePicker:
       in: query
-      name: interval
+      name: datePicker
       schema:
         type: string
-        enum: ["1D", "1W", "1M", "ALL"]
-        default: "ALL"
+        format: date-time
+      required: false
 
   schemas:
     Error:
@@ -278,6 +278,10 @@ components:
         allResponders:
           type: number
           minimum: 0
+      required:
+        - city
+        - avgPoint
+        - allResponders
     Game:
       type: object
       properties:

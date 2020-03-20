@@ -5,6 +5,7 @@ import {City as ApiCity} from "../../../openApi/model/city";
 import {Game} from "../../../openApi/model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
+import {GameResult} from "../../model/gameResult";
 
 
 const logger = getLogger(module.filename);
@@ -69,6 +70,39 @@ router.get('/nextGame', async (req, res, next) => {
     }
 });
 
+
+
+router.get('/game/result', async (req, res, next) => {
+    try {
+        let fromDate = req.query.datePicker ? new Date(req.query.datePicker) : new Date(1970);
+        const results = (await DB.getDb().pool.query('SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
+            'FROM "Solution" as Sol ' +
+            'INNER JOIN "City" as C ' +
+            'ON C."uid"=Sol."cityId" ' +
+            'WHERE Sol."createdAt" > $1 ' +
+            'GROUP BY "cityId", "name", "zip"', [fromDate])).rows;
+        const apiResult: Array<GameResult> = results.map((result): GameResult => {
+            return {
+                allResponders: result.allresponders,
+                avgPoint: result.avgpoint,
+                city: {
+                    uid: result.cityId,
+                    name: result.name,
+                    zip: result.zip,
+                }
+            }
+        });
+        res.json(apiResult);
+    } catch (err) {
+        logger.error("Cannot get aggregated results " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get aggregated results ", HttpStatus.INTERNAL_SERVER));
+        }
+    }
+});
+
 router.get('/game/:gameId', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
@@ -88,7 +122,7 @@ router.get('/game/:gameId', async (req, res, next) => {
             questionType: question.questionType,
             uid: question.uid
         };
-        if (question.closeTime < currentTime){
+        if (question.closeTime < currentTime) {
             resQuestion.response = question.response;
             resQuestion.responseDetails = question.responseDetails;
         }
@@ -99,6 +133,37 @@ router.get('/game/:gameId', async (req, res, next) => {
             next(err);
         } else {
             next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get question", HttpStatus.INTERNAL_SERVER));
+        }
+    }
+});
+
+router.get('/game/:gameId/result', async (req, res, next) => {
+    try {
+        const gameId = req.params.gameId;
+        const results = (await DB.getDb().pool.query('SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
+            'FROM "Solution" as Sol ' +
+            'INNER JOIN "City" as C ' +
+            'ON C."uid"=Sol."cityId" ' +
+            'WHERE Sol."questionId" = $1 ' +
+            'GROUP BY "cityId", "name", "zip"', [gameId])).rows;
+        const apiResult: Array<GameResult> = results.map((result): GameResult => {
+            return {
+                allResponders: result.allresponders,
+                avgPoint: result.avgpoint,
+                city: {
+                    uid: result.cityId,
+                    name: result.name,
+                    zip: result.zip,
+                }
+            }
+        });
+        res.json(apiResult);
+    } catch (err) {
+        logger.error("Cannot get result for question " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get result for question", HttpStatus.INTERNAL_SERVER));
         }
     }
 });

@@ -14,9 +14,9 @@ import { RequestFile } from '../api';
 import { City } from './city';
 
 export class GameResult {
-    'city'?: City;
-    'avgPoint'?: number;
-    'allResponders'?: number;
+    'city': City;
+    'avgPoint': number;
+    'allResponders': number;
 
     static discriminator: string | undefined = undefined;
 

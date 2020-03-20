@@ -48,9 +48,13 @@ router.post('/game/:gameId', async (req, res, next) => {
     const gameId = req.params.gameId;
     const answer = req.body.answer;
     try {
-        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2', [gameId, new Date()])).rows[0];
+        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2 AND "closeTime" > $2', [gameId, new Date()])).rows[0];
         if (!question) {
             throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
+        }
+        const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
+        if (!user.cityId){
+            throw new ErrorObject(ErrorCode.NO_CITY, "City is required for post answer", HttpStatus.INTERNAL_SERVER);
         }
 
         let points: number = 0;
@@ -69,8 +73,8 @@ router.post('/game/:gameId', async (req, res, next) => {
             default:
                 throw new ErrorObject(ErrorCode.UNKNOWN_QUESTION_TYPE, "Question type not known", HttpStatus.INTERNAL_SERVER);
         }
-        const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
-        await DB.getDb().pool.query('INSERT INTO "Solution" ("uid", "answer", "points", "userId", "questionId", "cityId") VALUES ($1, $2, $3, $4, $5, $6)', [uuid.v4(), answer, points, res.locals.userId, gameId, user.cityId]);
+
+        await DB.getDb().pool.query('INSERT INTO "Solution" ("uid", "answer", "points", "userId", "questionId", "cityId", "createdAt") VALUES ($1, $2, $3, $4, $5, $6, $7)', [uuid.v4(), answer, points, res.locals.userId, gameId, user.cityId, new Date()]);
 
         res.json({points: points});
     } catch (err) {
