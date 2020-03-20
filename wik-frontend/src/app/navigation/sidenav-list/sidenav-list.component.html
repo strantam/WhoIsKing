@@ -1,9 +1,12 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/patients" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon> <span class="nav-caption" i18n="@@Header.PatientsMenu">Patients</span>
+  <a mat-list-item routerLink="/game" (click)="onSidenavClose()">
+    <mat-icon>casino</mat-icon> <span class="nav-caption" i18n="@@Header.Game">Game</span>
   </a>
-  <a mat-list-item routerLink="/settings" (click)="onSidenavClose()">
-    <mat-icon>settings_applications</mat-icon> <span class="nav-caption" i18n="@@Header.Settings">Settings</span>
+  <a mat-list-item routerLink="/statistics" (click)="onSidenavClose()">
+    <mat-icon>insert_chart_outlined</mat-icon> <span class="nav-caption" i18n="@@Header.Statistics">Statistics</span>
+  </a>
+  <a mat-list-item routerLink="/spread" (click)="onSidenavClose()">
+    <mat-icon>settings_applications</mat-icon> <span class="nav-caption" i18n="@@Header.Spread">Spread</span>
   </a>
   <a mat-list-item (click)="authService.signOut()">
     <mat-icon>exit_to_app</mat-icon> <span class="nav-caption" i18n="@@Header.Logout">Logout</span>

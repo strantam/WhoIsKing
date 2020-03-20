@@ -7,7 +7,6 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {HeaderComponent} from './navigation/header/header.component';
-import {SettingsComponent} from './settings/settings.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatIconModule} from "@angular/material/icon";
@@ -43,8 +42,13 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./authentication/auth.interceptor";
-import { GeneralLayoutComponent } from './layout/general-layout/general-layout.component';
+import {GeneralLayoutComponent} from './layout/general-layout/general-layout.component';
 import {LottieAnimationViewModule} from "ng-lottie";
+import {SpreadComponent} from './spread/spread.component';
+import {GameComponent} from './game/game.component';
+import {StatisticsComponent} from './statistics/statistics.component';
+import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
+import {LoggedInComponent} from './logged-in/logged-in.component';
 
 registerLocaleData(localeHu);
 
@@ -52,7 +56,6 @@ registerLocaleData(localeHu);
   declarations: [
     AppComponent,
     HeaderComponent,
-    SettingsComponent,
     LayoutComponent,
     SidenavListComponent,
     AreYouSureModalComponent,
@@ -60,6 +63,11 @@ registerLocaleData(localeHu);
     I18nSnackBarComponent,
     LoginComponent,
     GeneralLayoutComponent,
+    SpreadComponent,
+    GameComponent,
+    StatisticsComponent,
+    NotLoggedInComponent,
+    LoggedInComponent,
 
   ],
   imports: [
@@ -98,7 +106,9 @@ registerLocaleData(localeHu);
   ],
   entryComponents: [
     AreYouSureModalComponent,
-    I18nSnackBarComponent],
+    I18nSnackBarComponent,
+    LoginComponent
+  ],
   providers: [DatePipe, I18nSelectPipe, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

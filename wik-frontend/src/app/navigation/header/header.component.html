@@ -3,7 +3,7 @@
   </mat-icon>
   <div fxFlexAlign="column">
     <div class="title"
-       i18n="@@Header.Title">{headerTitleService.title, select, SETTINGS {Settings} PATIENTS {Patients}  PATIENT {Patient}  PATIENT_DETAILS {Patient details}  PATIENT_THERAPIES {Therapies}  THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</div>
+       i18n="@@Header.Title">{headerTitleService.title, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</div>
     <div class="subTitle">{{headerTitleService.subtitle}}</div>
 
   </div>
@@ -15,13 +15,13 @@
   <div *ngIf="!headerTitleService.navigationOff" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
-        <a routerLink="/patients" i18n="@@Header.PatientsMenu">Patients</a>
+        <a routerLink="/game" i18n="@@Header.Game">Game</a>
       </li>
       <li>
-        <a routerLink="/settings" i18n="@@Header.Settings">Settings</a>
+        <a routerLink="/statistics" i18n="@@Header.Statistics">Statistics</a>
       </li>
       <li>
-        <a i18n="@@Header.Logout" (click)="authService.signOut()">Logout</a>
+        <a routerLink="/spread" i18n="@@Header.Spread">Spread</a>
       </li>
     </ul>
   </div>

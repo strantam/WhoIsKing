@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div class="root" fxLayout="column" fxLayoutAlign="space-between">
+  <div fxFlex="1 1">
+    <router-outlet></router-outlet>
+  </div>
+  <div fxFlex="0 0 fit-content" class="footer">
+    <router-outlet name="footerinfo"></router-outlet>
+  </div>
+</div>
