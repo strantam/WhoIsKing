@@ -255,6 +255,10 @@ components:
           type: string
           maxLength: 10
           example: "8200"
+        lat:
+          type: number
+        lng:
+          type: number
       required:
         - name
         - zip

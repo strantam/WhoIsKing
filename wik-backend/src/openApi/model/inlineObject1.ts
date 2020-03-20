@@ -12,44 +12,20 @@
 
 import { RequestFile } from '../api';
 
-export class City {
-    'name': string;
-    'uid'?: string;
-    'zip': string;
-    'lat'?: number;
-    'lng'?: number;
+export class InlineObject1 {
+    'answer'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "answer",
+            "baseName": "answer",
             "type": "string"
-        },
-        {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
-        },
-        {
-            "name": "zip",
-            "baseName": "zip",
-            "type": "string"
-        },
-        {
-            "name": "lat",
-            "baseName": "lat",
-            "type": "number"
-        },
-        {
-            "name": "lng",
-            "baseName": "lng",
-            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return City.attributeTypeMap;
+        return InlineObject1.attributeTypeMap;
     }
 }
 
