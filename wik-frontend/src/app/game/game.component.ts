@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GameService, GameState} from "./game.service";
 
 @Component({
   selector: 'app-game',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-
-  constructor() { }
+  GameState = GameState;
+  constructor(public gameService: GameService) { }
 
   ngOnInit() {
   }

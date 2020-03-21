@@ -13,20 +13,14 @@
 import { RequestFile } from '../api';
 
 export class InlineResponse2002 {
-    'uid'?: string;
-    'cityId'?: string;
+    'cityName'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
-        },
-        {
-            "name": "cityId",
-            "baseName": "cityId",
+            "name": "cityName",
+            "baseName": "cityName",
             "type": "string"
         }    ];
 

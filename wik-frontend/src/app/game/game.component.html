@@ -1,1 +1,2 @@
-<p>game works!</p>
+<div *ngIf="gameService.state.getValue() === GameState.BEFORE_GAME">Next game in: {{gameService.remainingTimeToOpen | minute}}</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME">Game until: {{gameService.remainingTimeToClose | minute}}</div>

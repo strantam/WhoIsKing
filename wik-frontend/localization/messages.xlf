@@ -85,6 +85,10 @@
           <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="SnackBarText" datatype="html">
         <source>{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</source>
@@ -108,7 +112,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Footer.notloggedin" datatype="html">
-        <source>Your score will not help your city unless you log in.</source>
+        <source>Your score will not count to your city&apos;s score unless you log in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
           <context context-type="linenumber">2</context>
@@ -120,16 +124,51 @@
           <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="AddCity.Header" datatype="html">
+        <source>Select city!</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AddCity.Content" datatype="html">
+        <source>
+    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+
+    <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/><x id="INTERPOLATION" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="AddCity.SearchCityInput" datatype="html">
+        <source>Search city</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AddCity.Cancel" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Footer.loggedin" datatype="html">
-        <source>You are logged in.</source>
+        <source>You need to set your city to add your score to the city.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.addCity" datatype="html">
+        <source>Add city</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
     </body>

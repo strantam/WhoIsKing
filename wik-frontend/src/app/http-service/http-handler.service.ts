@@ -37,4 +37,19 @@ export class HttpHandlerService {
       console.error("Error post city", err);
     }
   }
+
+  public async getNextGame(): Promise<{ uid: string, openTime: Date, closeTime: Date, currentTime: Date }> {
+    try {
+      const nextGame = await this.httpClient.get<{ uid: string, openTime: string, closeTime: string, currentTime: string }>(environment.apiUrl + 'noAuth/nextGame').toPromise();
+      return {
+        uid: nextGame.uid,
+        openTime: new Date(nextGame.openTime),
+        closeTime: new Date(nextGame.closeTime),
+        currentTime: new Date(nextGame.currentTime)
+      }
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post city", err);
+    }
+  }
 }
