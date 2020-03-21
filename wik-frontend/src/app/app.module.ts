@@ -50,6 +50,8 @@ import {StatisticsComponent} from './statistics/statistics.component';
 import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
 import {LoggedInComponent} from './logged-in/logged-in.component';
 import { AddCityComponent } from './addcity/add-city.component';
+import { MultipleChoiceComponent } from './game/multiple-choice/multiple-choice.component';
+import { EstimationComponent } from './game/estimation/estimation.component';
 
 registerLocaleData(localeHu);
 
@@ -70,6 +72,8 @@ registerLocaleData(localeHu);
     NotLoggedInComponent,
     LoggedInComponent,
     AddCityComponent,
+    MultipleChoiceComponent,
+    EstimationComponent,
 
   ],
   imports: [

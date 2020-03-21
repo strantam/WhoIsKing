@@ -1,2 +1,23 @@
-<div *ngIf="gameService.state.getValue() === GameState.BEFORE_GAME">Next game in: {{gameService.remainingTimeToOpen | minute}}</div>
-<div *ngIf="gameService.state.getValue() === GameState.IN_GAME">Game until: {{gameService.remainingTimeToClose | minute}}</div>
+<div *ngIf="gameService.state.getValue() === GameState.BEFORE_GAME">
+  Next game in: {{gameService.remainingTimeToOpen | minute}}
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_NOTSENT">
+  Game until: {{gameService.remainingTimeToClose | minute}}
+  Points: {{gameService.game?.points}}
+  Question: {{gameService.game?.question}}
+  <div [ngSwitch]="gameService.game?.questionType">
+    <app-estimation *ngSwitchCase="'ESTIMATION'"></app-estimation>
+    <app-multiple-choice *ngSwitchCase="'MULTIPLE_CHOICE'"></app-multiple-choice>
+  </div>
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_SENT">
+  Waiting for results SENT
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.AFTER_GAME_WAITING_FOR_RESULT">
+  Waiting for results closed
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.AFTE_GAME_GOT_RESULT">
+  Statistics
+  You got: {{gameService.points}} points
+  <button (click)="gameService.finishRound()">Nice!</button>
+</div>

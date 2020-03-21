@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GameService, GameState} from "./game.service";
 
 @Component({
@@ -8,9 +8,12 @@ import {GameService, GameState} from "./game.service";
 })
 export class GameComponent implements OnInit {
   GameState = GameState;
-  constructor(public gameService: GameService) { }
+
+  constructor(public gameService: GameService) {
+  }
 
   ngOnInit() {
   }
+
 
 }

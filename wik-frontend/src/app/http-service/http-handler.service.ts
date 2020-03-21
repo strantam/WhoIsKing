@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {City} from "../../../../wik-backend/src/openApi/model/city";
+import {Game} from "../../../../wik-backend/src/openApi/model/game";
+
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -47,6 +49,24 @@ export class HttpHandlerService {
         closeTime: new Date(nextGame.closeTime),
         currentTime: new Date(nextGame.currentTime)
       }
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post city", err);
+    }
+  }
+
+  public async getQuestion(gameId: string): Promise<Game> {
+    try {
+      return await this.httpClient.get<Game>(environment.apiUrl + 'noAuth/game/' + gameId).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post city", err);
+    }
+  }
+
+  public async postAnswer(answer: string, gameId: string): Promise<{ points: number }> {
+    try {
+      return await this.httpClient.post<{ points: number }>(environment.apiUrl + 'auth/game/' + gameId, {answer: answer}).toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error post city", err);
