@@ -44,6 +44,23 @@ router.delete('/user/me', async (req, res, next) => {
     }
 });
 
+router.get('/user/me', async (req, res, next) => {
+    try {
+        console.log("HAJDI", res.locals.userId);
+        const currentUserCity = (await DB.getDb().pool.query(
+            'SELECT C."name" ' +
+            'FROM "User" as U ' +
+            'INNER JOIN "City" as C ' +
+            'ON C."uid"= U."cityId" ' +
+            'WHERE U."uid"=$1', [res.locals.userId])).rows[0];
+        res.json({cityName: currentUserCity.name});
+    } catch (err) {
+        logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
+        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
+    }
+
+});
+
 router.post('/game/:gameId', async (req, res, next) => {
     const gameId = req.params.gameId;
     const answer = req.body.answer;
@@ -53,7 +70,7 @@ router.post('/game/:gameId', async (req, res, next) => {
             throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
         }
         const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
-        if (!user.cityId){
+        if (!user.cityId) {
             throw new ErrorObject(ErrorCode.NO_CITY, "City is required for post answer", HttpStatus.INTERNAL_SERVER);
         }
 

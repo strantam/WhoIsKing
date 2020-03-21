@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from "../authentication/auth.service";
+import {AddCityComponent} from "../addcity/add-city.component";
+import {MatDialog} from "@angular/material/dialog";
+import {HttpHandlerService} from "../http-service/http-handler.service";
 
 @Component({
   selector: 'app-logged-in',
@@ -8,14 +10,19 @@ import {AuthService} from "../authentication/auth.service";
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor(private authService: AuthService) {
+  public city;
+
+  constructor(private dialog: MatDialog, private httpHandlerService: HttpHandlerService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.city = (await this.httpHandlerService.getPersonalInfo()).cityName;
   }
 
-  logout() {
-    this.authService.signOut()
+  async openAddCity() {
+    const dialogRef = this.dialog.open(AddCityComponent);
+    await dialogRef.afterClosed().toPromise();
+    this.city = (await this.httpHandlerService.getPersonalInfo()).cityName;
   }
 
 }

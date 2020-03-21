@@ -49,6 +49,7 @@ import {GameComponent} from './game/game.component';
 import {StatisticsComponent} from './statistics/statistics.component';
 import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
 import {LoggedInComponent} from './logged-in/logged-in.component';
+import { AddCityComponent } from './addcity/add-city.component';
 
 registerLocaleData(localeHu);
 
@@ -68,6 +69,7 @@ registerLocaleData(localeHu);
     StatisticsComponent,
     NotLoggedInComponent,
     LoggedInComponent,
+    AddCityComponent,
 
   ],
   imports: [
@@ -107,7 +109,8 @@ registerLocaleData(localeHu);
   entryComponents: [
     AreYouSureModalComponent,
     I18nSnackBarComponent,
-    LoginComponent
+    LoginComponent,
+    AddCityComponent
   ],
   providers: [DatePipe, I18nSelectPipe, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

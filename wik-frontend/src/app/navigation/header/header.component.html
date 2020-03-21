@@ -23,6 +23,9 @@
       <li>
         <a routerLink="/spread" i18n="@@Header.Spread">Spread</a>
       </li>
+      <li>
+        <a (click)="authService.signOut()"><mat-icon>exit_to_app</mat-icon></a>
+      </li>
     </ul>
   </div>
 </mat-toolbar>

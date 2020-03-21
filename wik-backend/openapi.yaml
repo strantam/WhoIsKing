@@ -191,6 +191,25 @@ paths:
           $ref: '#/components/responses/GeneralError'
 
   "/auth/user/me":
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      description: Gets backend info for user.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cityName:
+                    type: string
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
     delete:
       tags:
         - Auth

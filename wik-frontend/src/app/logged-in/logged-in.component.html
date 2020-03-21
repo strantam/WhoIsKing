@@ -1,4 +1,9 @@
-<div class="footer" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem" >
-  <div i18n="@@Footer.loggedin">You are logged in.</div>
-  <button mat-stroked-button  i18n="@@Footer.loginButton" (click)="logout()">Logout</button>
+<div class="footer" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+  <ng-container *ngIf="city">
+    You are fighting for {{city}}!
+  </ng-container>
+  <ng-container *ngIf="!city">
+    <div i18n="@@Footer.loggedin">You need to set your city to add your score to the city.</div>
+    <button mat-stroked-button i18n="@@Footer.addCity" (click)="openAddCity()">Add city</button>
+  </ng-container>
 </div>
