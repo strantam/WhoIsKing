@@ -8,7 +8,8 @@
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Game" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Game" datatype="html">
         <source>Game</source><target state="final">Game</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -18,7 +19,8 @@
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Statistics" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Statistics" datatype="html">
         <source>Statistics</source><target state="final">Statistics</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -28,7 +30,8 @@
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Spread" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Spread" datatype="html">
         <source>Spread</source><target state="final">Spread</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -39,13 +42,13 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      
-      
       <trans-unit id="Header.Logout" datatype="html">
         <source>Logout</source><target state="final">Logout</target>
-        
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">12</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="AreYouSure.Header" datatype="html">
         <source>Are you sure?</source><target state="final">Are you sure?</target>
         <context-group purpose="location">
@@ -81,7 +84,8 @@
       <trans-unit id="AreYouSure.Ok" datatype="html">
         <source>{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</source><target state="final">{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
       <trans-unit id="SnackBarText" datatype="html">
         <source>{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</source><target state="final">{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</target>
         <context-group purpose="location">
@@ -102,23 +106,29 @@
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.notloggedin" datatype="html">
+      </trans-unit>
+      <trans-unit id="Footer.notloggedin" datatype="html">
         <source>Your score will not count to your city's score unless you log in.</source><target state="final">Your score will not count to your city's score unless you log in.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.loginButton" datatype="html">
+      </trans-unit>
+      <trans-unit id="Footer.loginButton" datatype="html">
         <source>Login</source><target state="final">Login</target>
-        
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="AddCity.Header" datatype="html">
-        <source>Select city!</source><target state="final">Select city!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AddCity.HeaderTitle" datatype="html">
+        <source>Choose city!</source><target state="final">Choose city!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.Content" datatype="html">
+      </trans-unit>
+      <trans-unit id="AddCity.Content" datatype="html">
         <source>
     <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/>"/>
 
@@ -132,22 +142,35 @@
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.SearchCityInput" datatype="html">
+      </trans-unit>
+      <trans-unit id="AddCity.SearchCityInput" datatype="html">
         <source>Search city</source><target state="final">Search city</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.Cancel" datatype="html">
+      </trans-unit>
+      <trans-unit id="AddCity.Cancel" datatype="html">
         <source>Cancel</source><target state="final">Cancel</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.loggedin" datatype="html">
+      </trans-unit><trans-unit id="AddCity.Ok" datatype="html">
+        <source>Save</source><target state="final">Save</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.loggedin" datatype="html">
         <source>You need to set your city to add your score to the city.</source><target state="final">You need to set your city to add your score to the city.</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit><trans-unit id="Footer.addCity" datatype="html">
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.addCity" datatype="html">
         <source>Add city</source><target state="final">Add city</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>

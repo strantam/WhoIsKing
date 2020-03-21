@@ -3,12 +3,13 @@
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="hu">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source><target state="new">{VAR_SELECT, select, SETTINGS {Settings} PATIENTS {Patients} PATIENT {Patient} PATIENT_DETAILS {Patient details} PATIENT_THERAPIES {Therapies} THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</target>
+        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source><target state="new">{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Game" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Game" datatype="html">
         <source>Game</source><target state="new">Game</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -18,7 +19,8 @@
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Statistics" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Statistics" datatype="html">
         <source>Statistics</source><target state="new">Statistics</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -28,7 +30,8 @@
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
-      </trans-unit><trans-unit id="Header.Spread" datatype="html">
+      </trans-unit>
+      <trans-unit id="Header.Spread" datatype="html">
         <source>Spread</source><target state="new">Spread</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
@@ -39,13 +42,13 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      
-      
       <trans-unit id="Header.Logout" datatype="html">
         <source>Logout</source><target state="new">Logout</target>
-        
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">12</context></context-group></trans-unit>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="AreYouSure.Header" datatype="html">
         <source>Are you sure?</source><target state="new">Are you sure?</target>
         <context-group purpose="location">
@@ -81,7 +84,8 @@
       <trans-unit id="AreYouSure.Ok" datatype="html">
         <source>{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</source><target state="new">{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
       <trans-unit id="SnackBarText" datatype="html">
         <source>{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</source><target state="new">{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</target>
         <context-group purpose="location">
@@ -90,35 +94,41 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Login.MainTitle" datatype="html">
-        <source>Welcome to Who Is King?</source><target state="new">Welcome to AB App</target>
+        <source>Welcome to Who Is King?</source><target state="final">Ki a Király?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Login.SubTitle" datatype="html">
-        <source>Login to get started...</source><target state="new">Login to get started...</target>
+        <source>Login to get started...</source><target state="final">Jelentkezz be a folytatáshoz...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.notloggedin" datatype="html">
-        <source>Your score will not count to your city's score unless you log in.</source><target state="new">Your score will not help your city unless you log in.</target>
+      </trans-unit>
+      <trans-unit id="Footer.notloggedin" datatype="html">
+        <source>Your score will not count to your city's score unless you log in.</source><target state="final">Bejelentkezés nélkül nem számítanaka az eredményeid a városod eredményeibe.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
           <context context-type="linenumber">2</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.loginButton" datatype="html">
-        <source>Login</source><target state="new">Login</target>
-        
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="AddCity.Header" datatype="html">
-        <source>Select city!</source><target state="new">Select city!</target>
+      </trans-unit>
+      <trans-unit id="Footer.loginButton" datatype="html">
+        <source>Login</source><target state="final">Bejelentkezés</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="AddCity.HeaderTitle" datatype="html">
+        <source>Choose city!</source><target state="final">Hol ragadtál?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">1</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.Content" datatype="html">
+      </trans-unit>
+      <trans-unit id="AddCity.Content" datatype="html">
         <source>
     <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/>"/>
 
@@ -132,23 +142,36 @@
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.SearchCityInput" datatype="html">
-        <source>Search city</source><target state="new">Search city</target>
+      </trans-unit>
+      <trans-unit id="AddCity.SearchCityInput" datatype="html">
+        <source>Search city</source><target state="final">Város neve</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">4</context>
         </context-group>
-      </trans-unit><trans-unit id="AddCity.Cancel" datatype="html">
-        <source>Cancel</source><target state="new">Cancel</target>
+      </trans-unit>
+      <trans-unit id="AddCity.Cancel" datatype="html">
+        <source>Cancel</source><target state="final">Mégse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
-      </trans-unit><trans-unit id="Footer.loggedin" datatype="html">
-        <source>You need to set your city to add your score to the city.</source><target state="new">You are logged in.</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit><trans-unit id="Footer.addCity" datatype="html">
-        <source>Add city</source><target state="new">Add city</target>
+      </trans-unit><trans-unit id="AddCity.Ok" datatype="html">
+        <source>Save</source><target state="new">Save</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.loggedin" datatype="html">
+        <source>You need to set your city to add your score to the city.</source><target state="new">You need to set your city to add your score to the city.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.addCity" datatype="html">
+        <source>Add city</source><target state="final">Mentés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
           <context context-type="linenumber">7</context>
