@@ -140,7 +140,8 @@ router.get('/game/:gameId', async (req, res, next) => {
 router.get('/game/:gameId/result', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
-        const results = (await DB.getDb().pool.query('SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
+        const results = (await DB.getDb().pool.query(
+            'SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
             'FROM "Solution" as Sol ' +
             'INNER JOIN "City" as C ' +
             'ON C."uid"=Sol."cityId" ' +

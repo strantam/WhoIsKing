@@ -3,14 +3,14 @@
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="hu">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source><target state="new">{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</target>
+        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source><target state="final">{VAR_SELECT, select, GAME {Játék} SPREAD {Elterjedés} STATISTICS {Statisztika} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Game" datatype="html">
-        <source>Game</source><target state="new">Game</target>
+        <source>Game</source><target state="final">Játék</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">18</context>
@@ -21,7 +21,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Statistics" datatype="html">
-        <source>Statistics</source><target state="new">Statistics</target>
+        <source>Statistics</source><target state="final">Statisztika</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">21</context>
@@ -32,7 +32,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Spread" datatype="html">
-        <source>Spread</source><target state="new">Spread</target>
+        <source>Spread</source><target state="final">Elterjedés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">24</context>
@@ -43,14 +43,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Logout" datatype="html">
-        <source>Logout</source><target state="new">Logout</target>
+        <source>Logout</source><target state="final">Kijelentkezés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="AreYouSure.Header" datatype="html">
-        <source>Are you sure?</source><target state="new">Are you sure?</target>
+        <source>Are you sure?</source><target state="final">Biztos?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
           <context context-type="linenumber">1</context>
@@ -75,7 +75,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="AreYouSure.Cancel" datatype="html">
-        <source>{VAR_SELECT, select, CANCEL {Cancel} }</source><target state="new">{VAR_SELECT, select, CANCEL {Cancel} }</target>
+        <source>{VAR_SELECT, select, CANCEL {Cancel} }</source><target state="final">{VAR_SELECT, select, CANCEL {Mégse} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context>
           <context context-type="linenumber">7</context>
@@ -83,8 +83,8 @@
       </trans-unit>
       <trans-unit id="AreYouSure.Ok" datatype="html">
         <source>{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</source><target state="new">{VAR_SELECT, select, DELETE_THERAPY {Delete therapy} FINISH_THERAPY {Finish therapy} DELETE_EARLIER_THERAPY {Delete, and start a new} }</target>
-        
-        
+
+
       <context-group purpose="location"><context context-type="sourcefile">src/app/generic-modals/are-you-sure/are-you-sure.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
       <trans-unit id="SnackBarText" datatype="html">
         <source>{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</source><target state="new">{VAR_SELECT, select, ASK_COUNT_MISSING {You have to add ask count to save therapy} THERAPY_NOTE_MISSING {You have to add note to save therapy} }</target>
@@ -157,14 +157,14 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit><trans-unit id="AddCity.Ok" datatype="html">
-        <source>Save</source><target state="new">Save</target>
+        <source>Save</source><target state="final">Mentés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Footer.loggedin" datatype="html">
-        <source>You need to set your city to add your score to the city.</source><target state="new">You need to set your city to add your score to the city.</target>
+        <source>You need to set your city to add your score to the city.</source><target state="final">Add meg a városod, hogy hozzáadódjanak a pontjaid.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
           <context context-type="linenumber">6</context>

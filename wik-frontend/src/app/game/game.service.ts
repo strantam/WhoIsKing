@@ -3,6 +3,7 @@ import {HttpHandlerService} from "../http-service/http-handler.service";
 import Timer = NodeJS.Timer;
 import {BehaviorSubject} from "rxjs";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
+import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 
 const second = 1000;
 const delay = 5000;
@@ -66,6 +67,10 @@ export class GameService {
     await this.getNextGame();
     this._state.subscribe(async (state) => {
       if (state === GameState.IN_GAME_NOTSENT) {
+        this._game = await this.httpHandlerService.getQuestion(this.uid);
+        this._gameOptions = JSON.parse(this._game.options);
+      }
+      if (state === GameState.AFTE_GAME_GOT_RESULT) {
         this._game = await this.httpHandlerService.getQuestion(this.uid);
         this._gameOptions = JSON.parse(this._game.options);
       }
@@ -136,6 +141,10 @@ export class GameService {
 
   public finishRound() {
     this.getNextGame();
+  }
+
+  public async getStats(): Promise<Array<GameResult>> {
+    return this.httpHandlerService.getGameResults(this.uid);
   }
 
 }

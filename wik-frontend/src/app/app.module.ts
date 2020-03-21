@@ -52,6 +52,7 @@ import {LoggedInComponent} from './logged-in/logged-in.component';
 import { AddCityComponent } from './addcity/add-city.component';
 import { MultipleChoiceComponent } from './game/multiple-choice/multiple-choice.component';
 import { EstimationComponent } from './game/estimation/estimation.component';
+import {GameStatisticsComponent} from "./game/statistics/game-statistics.component";
 
 registerLocaleData(localeHu);
 
@@ -74,7 +75,7 @@ registerLocaleData(localeHu);
     AddCityComponent,
     MultipleChoiceComponent,
     EstimationComponent,
-
+    GameStatisticsComponent,
   ],
   imports: [
     LottieAnimationViewModule.forRoot(),

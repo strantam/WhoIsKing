@@ -4,6 +4,7 @@ import {City} from "../../../../wik-backend/src/openApi/model/city";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 
 import {environment} from "../../environments/environment";
+import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,15 @@ export class HttpHandlerService {
   public async postAnswer(answer: string, gameId: string): Promise<{ points: number }> {
     try {
       return await this.httpClient.post<{ points: number }>(environment.apiUrl + 'auth/game/' + gameId, {answer: answer}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post city", err);
+    }
+  }
+
+  public async getGameResults(gameId: string): Promise<Array<GameResult>> {
+    try {
+      return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/' + gameId + '/result').toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error post city", err);
