@@ -3,14 +3,14 @@
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, SETTINGS {Settings} PATIENTS {Patients} PATIENT {Patient} PATIENT_DETAILS {Patient details} PATIENT_THERAPIES {Therapies} THERAPY {Therapy} PATIENT_EXERCISES {Exercises} }</source>
+        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Header.PatientsMenu" datatype="html">
-        <source>Patients</source>
+      <trans-unit id="Header.Game" datatype="html">
+        <source>Game</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">18</context>
@@ -20,8 +20,8 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Header.Settings" datatype="html">
-        <source>Settings</source>
+      <trans-unit id="Header.Statistics" datatype="html">
+        <source>Statistics</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">21</context>
@@ -31,8 +31,8 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Header.Logout" datatype="html">
-        <source>Logout</source>
+      <trans-unit id="Header.Spread" datatype="html">
+        <source>Spread</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">24</context>
@@ -40,6 +40,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.Logout" datatype="html">
+        <source>Logout</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="AreYouSure.Header" datatype="html">
@@ -87,7 +94,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Login.MainTitle" datatype="html">
-        <source>Welcome to AB App</source>
+        <source>Welcome to Who Is King?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">8</context>
@@ -98,6 +105,31 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.notloggedin" datatype="html">
+        <source>Your score will not help your city unless you log in.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.loginButton" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.loggedin" datatype="html">
+        <source>You are logged in.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
     </body>
