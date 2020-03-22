@@ -200,6 +200,24 @@
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
+      </trans-unit><trans-unit id="Settings.logOut" datatype="html">
+        <source>Log out</source><target state="final">Log out</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit><trans-unit id="Settings.changeCity" datatype="html">
+        <source>Change city</source><target state="final">Change city</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="Settings.deleteUser" datatype="html">
+        <source>Delete registration</source><target state="final">Delete registration</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>

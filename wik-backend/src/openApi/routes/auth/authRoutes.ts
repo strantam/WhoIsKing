@@ -28,10 +28,9 @@ router.delete('/user/me', async (req, res, next) => {
     const dbClient = await DB.getDb().pool.connect();
     try {
         await dbClient.query('BEGIN');
-
-        const currentUser: User = (await DB.getDb().pool.query('DELETE FROM "User" WHERE "uid"=$1 RETURNING *', [res.locals.userId])).rows[0];
+        const currentUser: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
+        await DB.getDb().pool.query('UPDATE "User" SET "fireBaseId" = \'\', "cityId"= NULL WHERE "uid"=$1', [res.locals.userId])
         await admin.auth().deleteUser(currentUser.fireBaseId);
-
         await dbClient.query('COMMIT');
         res.json({});
     } catch (err) {
@@ -53,7 +52,7 @@ router.get('/user/me', async (req, res, next) => {
             'INNER JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
             'WHERE U."uid"=$1', [res.locals.userId])).rows[0];
-        res.json({cityName: currentUserCity.name});
+        res.json({cityName: currentUserCity ? currentUserCity.name : undefined});
     } catch (err) {
         logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
         next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
