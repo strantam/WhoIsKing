@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HeaderTitles} from "./EnumInternalization";
-import {LoginComponent} from "./authentication/login/login.component";
 import {AuthGuard} from "./authentication/auth.guard";
 import {GeneralLayoutComponent} from "./layout/general-layout/general-layout.component";
 import {GameComponent} from "./game/game.component";
-import {StatisticsComponent} from "./statistics/statistics.component";
+import {StatisticsPageComponent} from "./statistics-page/statistics-page.component";
 import {SpreadComponent} from "./spread/spread.component";
 import {LoggedInComponent} from "./logged-in/logged-in.component";
 import {NotLoggedInComponent} from "./not-logged-in/not-logged-in.component";
@@ -23,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'statistics',
-        component: StatisticsComponent,
+        component: StatisticsPageComponent,
         data: {title: HeaderTitles.STATISTICS, hideBack: true},
       },
       {

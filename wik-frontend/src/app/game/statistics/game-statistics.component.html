@@ -6,14 +6,6 @@
 
 <div>You got: {{gameService.points}} points</div>
 
-<div>
-  Score:
-  <div *ngFor="let city of citySuccessList">{{city.name}}: {{city.avgScore}}</div>
-</div>
-
-<div>
-  Participants:
-  <div *ngFor="let city of cityParticipantsList">{{city.name}}: {{city.participants}}</div>
-</div>
+<app-statistics [stats]="stats"></app-statistics>
 
 <button (click)="gameService.finishRound()">Nice!</button>

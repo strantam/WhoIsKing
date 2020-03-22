@@ -46,13 +46,14 @@ import {GeneralLayoutComponent} from './layout/general-layout/general-layout.com
 import {LottieAnimationViewModule} from "ng-lottie";
 import {SpreadComponent} from './spread/spread.component';
 import {GameComponent} from './game/game.component';
-import {StatisticsComponent} from './statistics/statistics.component';
+import {StatisticsPageComponent} from './statistics-page/statistics-page.component';
 import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
 import {LoggedInComponent} from './logged-in/logged-in.component';
 import {AddCityComponent} from './addcity/add-city.component';
 import {MultipleChoiceComponent} from './game/multiple-choice/multiple-choice.component';
 import {EstimationComponent} from './game/estimation/estimation.component';
 import {GameStatisticsComponent} from "./game/statistics/game-statistics.component";
+import { StatisticsComponent } from './statistics/statistics.component';
 
 registerLocaleData(localeHu);
 
@@ -69,13 +70,14 @@ registerLocaleData(localeHu);
     GeneralLayoutComponent,
     SpreadComponent,
     GameComponent,
-    StatisticsComponent,
+    StatisticsPageComponent,
     NotLoggedInComponent,
     LoggedInComponent,
     AddCityComponent,
     MultipleChoiceComponent,
     EstimationComponent,
     GameStatisticsComponent,
+    StatisticsComponent,
   ],
   imports: [
     LottieAnimationViewModule.forRoot(),

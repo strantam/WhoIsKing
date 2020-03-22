@@ -37,7 +37,7 @@ export class HttpHandlerService {
       return await this.httpClient.get<{ cityName: string }>(environment.apiUrl + 'auth/user/me').toPromise();
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error post city", err);
+      console.error("Error get personal info", err);
     }
   }
 
@@ -52,7 +52,7 @@ export class HttpHandlerService {
       }
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error post city", err);
+      console.error("Error getting next game", err);
     }
   }
 
@@ -61,7 +61,7 @@ export class HttpHandlerService {
       return await this.httpClient.get<Game>(environment.apiUrl + 'noAuth/game/' + gameId).toPromise();
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error post city", err);
+      console.error("Error get question", err);
     }
   }
 
@@ -70,7 +70,7 @@ export class HttpHandlerService {
       return await this.httpClient.post<{ points: number }>(environment.apiUrl + 'auth/game/' + gameId, {answer: answer}).toPromise();
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error post city", err);
+      console.error("Error post answer", err);
     }
   }
 
@@ -79,7 +79,19 @@ export class HttpHandlerService {
       return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/' + gameId + '/result').toPromise();
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error post city", err);
+      console.error("Error getting game results", err);
+    }
+  }
+
+  public async getStatistics(fromDate?: Date): Promise<Array<GameResult>> {
+    try {
+      const param = fromDate ? {datePicker: fromDate.toISOString()} : {};
+      return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/result', {
+        params: param
+      }).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error getting results", err);
     }
   }
 }
