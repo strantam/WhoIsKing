@@ -5,6 +5,7 @@ import {Game} from "../../../../wik-backend/src/openApi/model/game";
 
 import {environment} from "../../environments/environment";
 import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
+import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +92,26 @@ export class HttpHandlerService {
       }).toPromise();
     } catch (err) {
       // TODO handle errors on ui
-      console.error("Error getting results", err);
+      console.error("Error getting stats", err);
+    }
+  }
+
+
+  public async getRegistrations(): Promise<Array<CityWithRegs>> {
+    try {
+      return await this.httpClient.get<Array<CityWithRegs>>(environment.apiUrl + 'noAuth/city/registrations').toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error getting registrations", err);
+    }
+  }
+
+  public async removeUser(): Promise<void> {
+    try {
+      await this.httpClient.delete(environment.apiUrl + 'auth/user/me').toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error getting registrations", err);
     }
   }
 }

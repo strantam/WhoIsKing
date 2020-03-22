@@ -28,7 +28,7 @@ router.get('/city', async (req, res, next) => {
 router.get('/city/registrations', async (req, res, next) => {
     try {
         const cities: Array<any> = (await DB.getDb().pool.query(
-            'SELECT C."name", C."zip", C."uid", Count(*) as regs ' +
+            'SELECT C."name", C."zip", C."uid", C."lat", C."lng", Count(*) as regs ' +
             'FROM "City" as C ' +
             'INNER JOIN "User" as U ' +
             'ON C."uid"=U."cityId" ' +
@@ -40,6 +40,8 @@ router.get('/city/registrations', async (req, res, next) => {
                     name: city.name,
                     zip: city.zip,
                     uid: city.uid,
+                    lat: city.lat,
+                    lng: city.lng
                 }
             }
         });

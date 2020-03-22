@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
-import Timer = NodeJS.Timer;
 import {BehaviorSubject} from "rxjs";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
@@ -49,7 +48,7 @@ export class GameService {
   }
 
   private _uid: string;
-  private countBack: Timer;
+  private countBack;
 
   private _remainingTimeToOpen: number;
   private _remainingTimeToClose: number;

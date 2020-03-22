@@ -3,7 +3,7 @@
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="hu">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</source><target state="final">{VAR_SELECT, select, GAME {Játék} SPREAD {Elterjedés} STATISTICS {Statisztika} }</target>
+        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} SETTINGS {Settings} }</source><target state="translated">{VAR_SELECT, select, GAME {Játék} SPREAD {Elterjedés} STATISTICS {Statisztika} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
           <context context-type="linenumber">6</context>
@@ -43,7 +43,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Logout" datatype="html">
-        <source>Logout</source><target state="final">Kijelentkezés</target>
+        <source>Settings</source><target state="translated">Kijelentkezés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
           <context context-type="linenumber">12</context>

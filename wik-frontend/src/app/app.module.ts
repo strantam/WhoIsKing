@@ -54,6 +54,8 @@ import {MultipleChoiceComponent} from './game/multiple-choice/multiple-choice.co
 import {EstimationComponent} from './game/estimation/estimation.component';
 import {GameStatisticsComponent} from "./game/statistics/game-statistics.component";
 import { StatisticsComponent } from './statistics/statistics.component';
+import {AgmCoreModule} from "@agm/core";
+import { SettingsComponent } from './settings/settings.component';
 
 registerLocaleData(localeHu);
 
@@ -78,11 +80,16 @@ registerLocaleData(localeHu);
     EstimationComponent,
     GameStatisticsComponent,
     StatisticsComponent,
+    SettingsComponent,
   ],
   imports: [
     LottieAnimationViewModule.forRoot(),
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsAPIKey,
+      libraries: ['visualization'],
+    }),
     AngularFireAuthModule,
     BrowserAnimationsModule,
     FlexLayoutModule,

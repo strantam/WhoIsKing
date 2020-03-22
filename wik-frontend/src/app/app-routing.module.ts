@@ -8,6 +8,7 @@ import {StatisticsPageComponent} from "./statistics-page/statistics-page.compone
 import {SpreadComponent} from "./spread/spread.component";
 import {LoggedInComponent} from "./logged-in/logged-in.component";
 import {NotLoggedInComponent} from "./not-logged-in/not-logged-in.component";
+import {SettingsComponent} from "./settings/settings.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,12 @@ const routes: Routes = [
         path: 'spread',
         component: SpreadComponent,
         data: {title: HeaderTitles.SPREAD, hideBack: true},
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        data: {title: HeaderTitles.SETTINGS, hideBack: true},
+        canActivate: [AuthGuard]
       },
       {path: '', redirectTo: '/game', pathMatch: 'full'}
     ]

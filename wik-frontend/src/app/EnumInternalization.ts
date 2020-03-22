@@ -10,7 +10,8 @@ export enum AreYouSureOk {
 export enum HeaderTitles {
   "GAME" = "GAME",
   "STATISTICS" = "STATISTICS",
-  "SPREAD" = "SPREAD"
+  "SPREAD" = "SPREAD",
+  "SETTINGS" = "SETTINGS"
 }
 
 export enum SnackbarTexts {

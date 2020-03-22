@@ -48,6 +48,7 @@ export class AuthService {
   async signOut() {
     await this.afAuth.auth.signOut();
     localStorage.removeItem("auth_token");
-    this.router.navigate([{ outlets: { 'footerinfo': ['loggedout'] }}]);
+    await this.router.navigate(['/game']);
+    await this.router.navigate([{outlets: {'footerinfo': ['loggedout']}}])
   }
 }

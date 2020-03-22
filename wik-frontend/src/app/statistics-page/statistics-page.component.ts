@@ -21,7 +21,7 @@ export class StatisticsPageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.stats = await this.httpHandlerService.getStatistics();
+    this.stats = await this.httpHandlerService.getStatistics("1D");
   }
 
   public async changeTab(event) {

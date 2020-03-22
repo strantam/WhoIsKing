@@ -3,7 +3,7 @@
   </mat-icon>
   <div fxFlexAlign="column">
     <div class="title"
-       i18n="@@Header.Title">{headerTitleService.title, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} }</div>
+       i18n="@@Header.Title">{headerTitleService.title, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} SETTINGS {Settings} }</div>
     <div class="subTitle">{{headerTitleService.subtitle}}</div>
 
   </div>
@@ -24,7 +24,7 @@
         <a routerLink="/spread" i18n="@@Header.Spread">Spread</a>
       </li>
       <li>
-        <a (click)="authService.signOut()"><mat-icon>exit_to_app</mat-icon></a>
+        <a routerLink="/settings"><mat-icon>settings</mat-icon></a>
       </li>
     </ul>
   </div>
