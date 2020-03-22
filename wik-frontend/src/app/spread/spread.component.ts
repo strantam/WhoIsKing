@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
 import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
 import WeightedLocation = google.maps.visualization.WeightedLocation;
+import { google } from '@google/maps';
 
 @Component({
   selector: 'app-spread',
