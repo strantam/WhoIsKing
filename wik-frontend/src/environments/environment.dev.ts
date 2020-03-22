@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  dev: true,
   apiUrl: "https://wik-dev.herokuapp.com/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
