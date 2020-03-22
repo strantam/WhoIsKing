@@ -1,1 +1,14 @@
-<app-statistics [stats]="stats"></app-statistics>
+<mat-tab-group (selectedTabChange)="changeTab($event)">
+  <mat-tab label="1 day" i18n-label="@@StaticticsPage.1D">
+    <app-statistics [stats]="stats"></app-statistics>
+  </mat-tab>
+  <mat-tab label="1 week" i18n-label="@@StaticticsPage.1W">
+    <app-statistics [stats]="stats"></app-statistics>
+  </mat-tab>
+  <mat-tab label="1 month" i18n-label="@@StaticticsPage.1M">
+    <app-statistics [stats]="stats"></app-statistics>
+  </mat-tab>
+  <mat-tab label="All" i18n-label="@@StaticticsPage.All">
+    <app-statistics [stats]="stats"></app-statistics>
+  </mat-tab>
+</mat-tab-group>

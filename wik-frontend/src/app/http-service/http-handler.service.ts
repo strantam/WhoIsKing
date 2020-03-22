@@ -83,9 +83,9 @@ export class HttpHandlerService {
     }
   }
 
-  public async getStatistics(fromDate?: Date): Promise<Array<GameResult>> {
+  public async getStatistics(fromDate?: string): Promise<Array<GameResult>> {
     try {
-      const param = fromDate ? {datePicker: fromDate.toISOString()} : {};
+      const param = fromDate ? {datePicker: fromDate} : {};
       return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/result', {
         params: param
       }).toPromise();

@@ -244,7 +244,11 @@ components:
       name: datePicker
       schema:
         type: string
-        format: date-time
+        enum:
+          - 1D
+          - 1W
+          - 1M
+          - ALL
       required: false
 
   schemas:

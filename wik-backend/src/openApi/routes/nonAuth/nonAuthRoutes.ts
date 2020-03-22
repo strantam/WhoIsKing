@@ -71,10 +71,25 @@ router.get('/nextGame', async (req, res, next) => {
 });
 
 
-
 router.get('/game/result', async (req, res, next) => {
     try {
-        let fromDate = req.query.datePicker ? new Date(req.query.datePicker) : new Date(1970);
+        const datePicker: string = req.query.datePicker ? req.query.datePicker : 'ALL';
+        let fromDate = new Date();
+        console.log(datePicker);
+        switch (datePicker) {
+            case "1D":
+                fromDate.setDate(fromDate.getDate() - 1);
+                break;
+            case "1W":
+                fromDate.setDate(fromDate.getDate() - 7);
+                break;
+            case "1M":
+                fromDate.setMonth(fromDate.getMonth() - 1);
+                break;
+            default:
+                fromDate = new Date(0, 0, 0);
+        }
+        console.log(fromDate);
         const results = (await DB.getDb().pool.query('SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
             'FROM "Solution" as Sol ' +
             'INNER JOIN "City" as C ' +

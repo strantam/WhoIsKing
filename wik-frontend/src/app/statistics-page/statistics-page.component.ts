@@ -10,12 +10,22 @@ import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 export class StatisticsPageComponent implements OnInit {
 
   public stats: Array<GameResult> = [];
+  private static tabDate: Map<number, string> = new Map([
+    [0, "1D"],
+    [1, "1W"],
+    [2, "1M"],
+    [3, "ALL"],
+  ]);
 
   constructor(private httpHandlerService: HttpHandlerService) {
   }
 
   async ngOnInit() {
     this.stats = await this.httpHandlerService.getStatistics();
+  }
+
+  public async changeTab(event) {
+    this.stats = await this.httpHandlerService.getStatistics(StatisticsPageComponent.tabDate.get(event.index));
   }
 
 }

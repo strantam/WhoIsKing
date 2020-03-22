@@ -106,6 +106,30 @@
           <context context-type="sourcefile">src/app/authentication/login/login.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
+      </trans-unit><trans-unit id="StaticticsPage.1D" datatype="html">
+        <source>1 day</source><target state="final">Napi</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="StaticticsPage.1W" datatype="html">
+        <source>1 week</source><target state="final">Heti</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit><trans-unit id="StaticticsPage.1M" datatype="html">
+        <source>1 month</source><target state="final">Havi</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit><trans-unit id="StaticticsPage.All" datatype="html">
+        <source>All</source><target state="final">Összes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="Footer.notloggedin" datatype="html">
         <source>Your score will not count to your city's score unless you log in.</source><target state="final">Bejelentkezés nélkül nem számítanaka az eredményeid a városod eredményeibe.</target>
