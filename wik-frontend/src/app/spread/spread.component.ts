@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
 import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
+import WeightedLocation = google.maps.visualization.WeightedLocation;
+declare var google: any;
 
 @Component({
   selector: 'app-spread',
@@ -10,8 +12,8 @@ import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRe
 export class SpreadComponent implements OnInit {
   public allRegs: number;
   public registrations: Array<CityWithRegs> = [];
-  private map = null;
-  private heatmap = null;
+  private map: google.maps.Map = null;
+  private heatmap: google.maps.visualization.HeatmapLayer = null;
 
   constructor(private httpHandlerService: HttpHandlerService) {
   }
@@ -26,19 +28,19 @@ export class SpreadComponent implements OnInit {
     }, 0)
   }
 
-  public async onMapLoad(mapInstance) {
+  public async onMapLoad(mapInstance: google.maps.Map) {
     this.map = mapInstance;
     await this.getRegistrations();
 
-    const coords: Array<any> = this.getLatLng();
+    const coords: Array<WeightedLocation> = this.getLatLng();
     this.heatmap = new google.maps.visualization.HeatmapLayer({
       map: this.map,
       data: coords
     });
   }
 
-  public getLatLng() {
-    const resLatLng = [];
+  public getLatLng(): Array<WeightedLocation> {
+    const resLatLng: Array<WeightedLocation> = [];
     for (const registration of this.registrations) {
       resLatLng.push({
         location: new google.maps.LatLng(registration.city.lat, registration.city.lng),
