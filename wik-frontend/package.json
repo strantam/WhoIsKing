@@ -35,7 +35,6 @@
     "@angular/pwa": "^0.803.21",
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
-    "@google/maps": "^1.1.0",
     "angular2-uuid": "^1.1.1",
     "chart.js": "^2.9.3",
     "dexie": "^2.0.4",
