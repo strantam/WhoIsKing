@@ -11,22 +11,27 @@
  */
 
 import { RequestFile } from '../api';
-import { GameResultAnswers } from './gameResultAnswers';
 
-export class GameResult {
-    'answers'?: Array<GameResultAnswers>;
+export class UserResult {
+    'nickName': string;
+    'points': number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "answers",
-            "baseName": "answers",
-            "type": "Array<GameResultAnswers>"
+            "name": "nickName",
+            "baseName": "nickName",
+            "type": "string"
+        },
+        {
+            "name": "points",
+            "baseName": "points",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return GameResult.attributeTypeMap;
+        return UserResult.attributeTypeMap;
     }
 }
 

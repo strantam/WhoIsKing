@@ -2,10 +2,11 @@ import {getLogger} from "../../../log/logger";
 import {DB} from "../../../db";
 import {Answer, City, Question} from "../../../db/DatabaseMapping";
 import {City as ApiCity} from "../../../openApi/model/city";
-import {Game} from "../../../openApi/model/game"
+import {Game} from "../../model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
-import {GameResult} from "../../model/gameResult";
+import {InlineResponse2001} from "../../model/inlineResponse2001";
+import {InlineResponse2002} from "../../model/inlineResponse2002";
 
 
 const logger = getLogger(module.filename);
@@ -53,10 +54,6 @@ router.get('/city/registrations', async (req, res, next) => {
     }
 });
 
-/* INSERT INTO public."Question"(
-    uid, type, params, question, points, "openTime", "closeTime")
-VALUES ('ee0999dc-4c6f-4d1e-a29a-0247acb6606d', 'MULTIPLE_CHOICE', '{}', 'Where are you?', 1, '2020-05-19 10:30:00', '2020-05-19 10:35:00'); */
-
 router.get('/nextGame', async (req, res, next) => {
     try {
         const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime" FROM "Question" WHERE "closeTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
@@ -91,24 +88,43 @@ router.get('/game/result', async (req, res, next) => {
             default:
                 fromDate = new Date(0, 0, 0);
         }
-        console.log(fromDate);
-        const results = (await DB.getDb().pool.query('SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
+
+        const cityResults = (await DB.getDb().pool.query(
+            'SELECT  "cityId", AVG(A."votes") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
             'FROM "Solution" as Sol ' +
             'INNER JOIN "City" as C ' +
             'ON C."uid"=Sol."cityId" ' +
+            'INNER JOIN "Answer" as A ' +
+            'ON Sol."answerId" = A."uid" ' +
             'WHERE Sol."createdAt" > $1 ' +
-            'GROUP BY "cityId", "name", "zip"', [fromDate])).rows;
-        const apiResult: Array<GameResult> = results.map((result): GameResult => {
-            return {
-                allResponders: result.allresponders,
-                avgPoint: result.avgpoint,
-                city: {
-                    uid: result.cityId,
-                    name: result.name,
-                    zip: result.zip,
+            'GROUP BY "cityId", "name", "zip", "lng", "lat"', [fromDate])).rows;
+
+        const userResults = (await DB.getDb().pool.query(
+            'SELECT  SUM(A."votes") as sumpoint, "nickName" ' +
+            'FROM "Solution" as Sol ' +
+            'INNER JOIN "Answer" as A ' +
+            'ON Sol."answerId" = A."uid" ' +
+            'INNER JOIN "User" as U ' +
+            'ON Sol."userId" = U."uid" ' +
+            'WHERE Sol."createdAt" > $1 ' +
+            'GROUP BY "userId", "nickName"', [fromDate])).rows;
+
+        const apiResult: InlineResponse2002 = {
+            cityResult: cityResults.map(cityResult => {
+                return {
+                    allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {
+                        uid: cityResult.cityId,
+                        name: cityResult.name,
+                        zip: cityResult.zip,
+                        lng: cityResult.lng,
+                        lat: cityResult.lat
+                    }
                 }
-            }
-        });
+            }),
+            userResult: userResults.map(userResult => {
+                return {nickName: userResult.nickName, points: userResult.sumpoint}
+            })
+        };
         res.json(apiResult);
     } catch (err) {
         logger.error("Cannot get aggregated results " + JSON.stringify(err.message));
@@ -158,24 +174,36 @@ router.get('/game/:gameId', async (req, res, next) => {
 router.get('/game/:gameId/result', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
-        const results = (await DB.getDb().pool.query(
-            'SELECT  "cityId", AVG("points") as avgpoint, COUNT(*) as allresponders, "name", "zip" ' +
+        const cityResults = (await DB.getDb().pool.query(
+            'SELECT  "cityId", AVG(A."votes") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
             'FROM "Solution" as Sol ' +
             'INNER JOIN "City" as C ' +
             'ON C."uid"=Sol."cityId" ' +
+            'INNER JOIN "Answer" as A ' +
+            'ON Sol."answerId" = A."uid" ' +
             'WHERE Sol."questionId" = $1 ' +
-            'GROUP BY "cityId", "name", "zip"', [gameId])).rows;
-        const apiResult: Array<GameResult> = results.map((result): GameResult => {
-            return {
-                allResponders: result.allresponders,
-                avgPoint: result.avgpoint,
-                city: {
-                    uid: result.cityId,
-                    name: result.name,
-                    zip: result.zip,
+            'GROUP BY "cityId", "name", "zip", "lng", "lat"', [gameId])).rows;
+
+        const answerResults: Array<Answer> = (await DB.getDb().pool.query('SELECT * FROM "Answer" WHERE "questionId" = $1', [gameId])).rows;
+
+        const apiResult: InlineResponse2001 = {
+            cityResult: cityResults.map(cityResult => {
+                return {
+                    allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {
+                        uid: cityResult.cityId,
+                        name: cityResult.name,
+                        zip: cityResult.zip,
+                        lng: cityResult.lng,
+                        lat: cityResult.lat
+                    }
                 }
+            }),
+            gameResult: {
+                answers: answerResults.map(answer => {
+                    return {uid: answer.uid, ratio: answer.votes}
+                })
             }
-        });
+        };
         res.json(apiResult);
     } catch (err) {
         logger.error("Cannot get result for question " + JSON.stringify(err.message));

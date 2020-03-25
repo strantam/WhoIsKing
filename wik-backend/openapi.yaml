@@ -159,9 +159,17 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GameResult'
+                type: object
+                properties:
+                  cityResult:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CityResult'
+                  gameResult:
+                    $ref: '#/components/schemas/GameResult'
+                required:
+                  - cityResult
+                  - gameResult
         'default':
           $ref: '#/components/responses/GeneralError'
   "/noAuth/game/result":
@@ -177,9 +185,19 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/GameResult'
+                type: object
+                properties:
+                  cityResult:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CityResult'
+                  userResult:
+                    type: array
+                    items:
+                      $ref:  '#/components/schemas/UserResult'
+                required:
+                  - cityResult
+                  - userResult
         'default':
           $ref: '#/components/responses/GeneralError'
 
@@ -269,6 +287,7 @@ components:
       required:
         - votes
         - questions
+
     City:
       type: object
       properties:
@@ -290,6 +309,7 @@ components:
       required:
         - name
         - zip
+
     CityWithRegs:
       type: object
       properties:
@@ -300,6 +320,37 @@ components:
           minimum: 0
 
     GameResult:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              ratio:
+                type: number
+                minimum: 0
+              uid:
+                type: string
+                format: uuid
+            required:
+              - ratio
+              - uid
+
+    UserResult:
+      type: object
+      properties:
+        nickName:
+          type:
+            string
+        points:
+          type: number
+          minimum: 0
+      required:
+        - nickName
+        - points
+
+    CityResult:
       type: object
       properties:
         city:
@@ -314,6 +365,7 @@ components:
         - city
         - avgPoint
         - allResponders
+
     Game:
       type: object
       properties:

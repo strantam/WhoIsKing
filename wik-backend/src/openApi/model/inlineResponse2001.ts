@@ -11,22 +11,29 @@
  */
 
 import { RequestFile } from '../api';
-import { GameResultAnswers } from './gameResultAnswers';
+import { CityResult } from './cityResult';
+import { GameResult } from './gameResult';
 
-export class GameResult {
-    'answers'?: Array<GameResultAnswers>;
+export class InlineResponse2001 {
+    'cityResult': Array<CityResult>;
+    'gameResult': GameResult;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "answers",
-            "baseName": "answers",
-            "type": "Array<GameResultAnswers>"
+            "name": "cityResult",
+            "baseName": "cityResult",
+            "type": "Array<CityResult>"
+        },
+        {
+            "name": "gameResult",
+            "baseName": "gameResult",
+            "type": "GameResult"
         }    ];
 
     static getAttributeTypeMap() {
-        return GameResult.attributeTypeMap;
+        return InlineResponse2001.attributeTypeMap;
     }
 }
 
