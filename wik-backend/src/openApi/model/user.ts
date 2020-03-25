@@ -12,9 +12,11 @@
 
 import { RequestFile } from '../api';
 
-export class InlineResponse2001 {
+export class User {
     'cityName'?: string;
     'nickName'?: string;
+    'votes': number;
+    'questions': number;
 
     static discriminator: string | undefined = undefined;
 
@@ -28,10 +30,20 @@ export class InlineResponse2001 {
             "name": "nickName",
             "baseName": "nickName",
             "type": "string"
+        },
+        {
+            "name": "votes",
+            "baseName": "votes",
+            "type": "number"
+        },
+        {
+            "name": "questions",
+            "baseName": "questions",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse2001.attributeTypeMap;
+        return User.attributeTypeMap;
     }
 }
 

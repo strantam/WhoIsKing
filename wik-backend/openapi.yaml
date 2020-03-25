@@ -196,12 +196,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cityName:
-                    type: string
-                  nickName:
-                    type: string
+                $ref: '#/components/schemas/User'
         'default':
           $ref: '#/components/responses/GeneralError'
 
@@ -259,6 +254,21 @@ components:
       required:
         - errorCode
         - message
+
+    User:
+      type: object
+      properties:
+        cityName:
+          type: string
+        nickName:
+          type: string
+        votes:
+          type: number
+        questions:
+          type: number
+      required:
+        - votes
+        - questions
     City:
       type: object
       properties:

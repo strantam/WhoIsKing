@@ -4,6 +4,7 @@ import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {Question, User} from "../../../db/DatabaseMapping";
 import admin from "firebase-admin";
 import * as uuid from 'uuid';
+import {User as ApiUser} from "../../../openApi/model/user"
 
 
 const logger = getLogger(module.filename);
@@ -45,17 +46,13 @@ router.delete('/user/me', async (req, res, next) => {
 
 router.get('/user/me', async (req, res, next) => {
     try {
-        console.log("HAJDI", res.locals.userId);
-        const currentUserCityName = (await DB.getDb().pool.query(
-            'SELECT C."name", U."nickName" ' +
+        const currentUserCityName: ApiUser = (await DB.getDb().pool.query(
+            'SELECT C."name" as cityName, U."nickName", U."votes", U."questions" ' +
             'FROM "User" as U ' +
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
             'WHERE U."uid"=$1', [res.locals.userId])).rows[0];
-        res.json({
-            cityName: currentUserCityName ? currentUserCityName.name : undefined,
-            nickName: currentUserCityName.nickName
-        });
+        res.json(currentUserCityName);
     } catch (err) {
         logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
         next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
