@@ -13,15 +13,21 @@
 import { RequestFile } from '../api';
 
 export class InlineResponse2001 {
-    'points'?: number;
+    'cityName'?: string;
+    'nickName'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "points",
-            "baseName": "points",
-            "type": "number"
+            "name": "cityName",
+            "baseName": "cityName",
+            "type": "string"
+        },
+        {
+            "name": "nickName",
+            "baseName": "nickName",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

@@ -11,17 +11,14 @@
  */
 
 import { RequestFile } from '../api';
+import { GameAnswers } from './gameAnswers';
 
 export class Game {
     'uid': string;
     'question': string;
-    'questionType': string;
-    'options': string;
-    'points': number;
+    'answers': Array<GameAnswers>;
     'openTime': Date;
     'closeTime': Date;
-    'response'?: string;
-    'responseDetails'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -37,19 +34,9 @@ export class Game {
             "type": "string"
         },
         {
-            "name": "questionType",
-            "baseName": "questionType",
-            "type": "string"
-        },
-        {
-            "name": "options",
-            "baseName": "options",
-            "type": "string"
-        },
-        {
-            "name": "points",
-            "baseName": "points",
-            "type": "number"
+            "name": "answers",
+            "baseName": "answers",
+            "type": "Array<GameAnswers>"
         },
         {
             "name": "openTime",
@@ -60,16 +47,6 @@ export class Game {
             "name": "closeTime",
             "baseName": "closeTime",
             "type": "Date"
-        },
-        {
-            "name": "response",
-            "baseName": "response",
-            "type": "string"
-        },
-        {
-            "name": "responseDetails",
-            "baseName": "responseDetails",
-            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

@@ -12,20 +12,26 @@
 
 import { RequestFile } from '../api';
 
-export class InlineResponse2002 {
-    'cityName'?: string;
+export class GameAnswers {
+    'answer'?: string;
+    'uid'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "cityName",
-            "baseName": "cityName",
+            "name": "answer",
+            "baseName": "answer",
+            "type": "string"
+        },
+        {
+            "name": "uid",
+            "baseName": "uid",
             "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse2002.attributeTypeMap;
+        return GameAnswers.attributeTypeMap;
     }
 }
 

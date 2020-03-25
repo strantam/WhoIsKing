@@ -139,17 +139,10 @@ paths:
               properties:
                 answer:
                   type: string
+                  format: uuid
       responses:
         '200':
-          description: Returns points on successful post.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  points:
-                    type: number
-                    minimum: 0
+          description: Empty response on success.
         'default':
           $ref: '#/components/responses/GeneralError'
 
@@ -206,6 +199,8 @@ paths:
                 type: object
                 properties:
                   cityName:
+                    type: string
+                  nickName:
                     type: string
         'default':
           $ref: '#/components/responses/GeneralError'
@@ -317,31 +312,27 @@ components:
           format: uuid
         question:
           type: string
-        questionType:
-          type: string
-        options:
-          type: string
-          format: json
-        points:
-          type: number
-          minimum: 0
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              answer:
+                type: string
+              uid:
+                type: string
+                format: uuid
         openTime:
           type: string
           format: date-time
         closeTime:
           type: string
           format: date-time
-        response:
-          type: string
-        responseDetails:
-          type: string
       additionalProperties: false
       required:
         - uid
         - question
-        - questionType
-        - options
-        - points
+        - answers
         - openTime
         - closeTime
 

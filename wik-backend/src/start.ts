@@ -75,7 +75,7 @@ class Server {
                 logger.info(firebaseUser.uid);
                 let user = await DB.getDb().pool.query('SELECT * FROM "User" WHERE "fireBaseId"=$1', [firebaseUser.uid]);
                 if (user.rows && user.rows.length === 0) {
-                    user = await DB.getDb().pool.query('INSERT INTO "User" ("uid", "fireBaseId", "createdAt") VALUES ($1, $2, $3) RETURNING *', [uuid.v4(), firebaseUser.uid, new Date()]);
+                    user = await DB.getDb().pool.query('INSERT INTO "User" ("uid", "fireBaseId", "createdAt", "highestLevel", "nickName") VALUES ($1, $2, $3, $4, $5) RETURNING *', [uuid.v4(), firebaseUser.uid, new Date(), 1, "user"+new Date().toISOString()]);
                 }
                 if (!user || !user.rows || user.rows.length !== 1) {
                     throw new ErrorObject(ErrorCode.DB_QUERY_ERROR, "DB user id cannot be resolved", HttpStatus.INTERNAL_SERVER);

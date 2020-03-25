@@ -1,6 +1,6 @@
 import {getLogger} from "../../../log/logger";
 import {DB} from "../../../db";
-import {City, Question} from "../../../db/DatabaseMapping";
+import {Answer, City, Question} from "../../../db/DatabaseMapping";
 import {City as ApiCity} from "../../../openApi/model/city";
 import {Game} from "../../../openApi/model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
@@ -124,25 +124,26 @@ router.get('/game/:gameId', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
         const currentTime = new Date();
-        const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2', [gameId, currentTime])).rows[0];
-        if (!question) {
+        const questions: Array<Question & Answer> = (await DB.getDb().pool.query(
+            'SELECT * ' +
+            'FROM "Question" as Q ' +
+            'INNER JOIN "Answer" as A ' +
+            'ON Q."uid" = A."questionId" ' +
+            'WHERE Q."uid" = $1 AND Q."openTime" < $2', [gameId, currentTime])).rows;
+        if (!questions || !questions.length) {
             throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
         }
         const resQuestion: Game = {
+            uid: questions[0].questionId,
+            question: questions[0].question,
             // @ts-ignore
-            closeTime: question.closeTime.toISOString(),
+            openTime: questions[0].openTime.toISOString(),
             // @ts-ignore
-            openTime: question.openTime.toISOString(),
-            options: JSON.stringify(question.options),
-            points: question.points,
-            question: question.question,
-            questionType: question.questionType,
-            uid: question.uid
+            closeTime: questions[0].closeTime.toISOString(),
+            answers: questions.map(question => {
+                return {answer: question.answer, uid: question.uid}
+            })
         };
-        if (question.closeTime < currentTime) {
-            resQuestion.response = question.response;
-            resQuestion.responseDetails = question.responseDetails;
-        }
         res.json(resQuestion);
     } catch (err) {
         logger.error("Cannot get question " + JSON.stringify(err.message));
