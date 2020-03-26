@@ -15,6 +15,7 @@ import { RequestFile } from '../api';
 export class InlineResponse200 {
     'uid': string;
     'openTime': Date;
+    'changeToGuessTime'?: Date;
     'closeTime': Date;
     'currentTime': Date;
 
@@ -29,6 +30,11 @@ export class InlineResponse200 {
         {
             "name": "openTime",
             "baseName": "openTime",
+            "type": "Date"
+        },
+        {
+            "name": "changeToGuessTime",
+            "baseName": "changeToGuessTime",
             "type": "Date"
         },
         {

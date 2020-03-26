@@ -19,6 +19,7 @@ export class Game {
     'answers': Array<GameAnswers>;
     'openTime': Date;
     'closeTime': Date;
+    'changeToGuessTime': Date;
 
     static discriminator: string | undefined = undefined;
 
@@ -46,6 +47,11 @@ export class Game {
         {
             "name": "closeTime",
             "baseName": "closeTime",
+            "type": "Date"
+        },
+        {
+            "name": "changeToGuessTime",
+            "baseName": "changeToGuessTime",
             "type": "Date"
         }    ];
 

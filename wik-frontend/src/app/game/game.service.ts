@@ -67,11 +67,11 @@ export class GameService {
     this._state.subscribe(async (state) => {
       if (state === GameState.IN_GAME_NOTSENT) {
         this._game = await this.httpHandlerService.getQuestion(this.uid);
-        this._gameOptions = JSON.parse(this._game.options);
+   //     this._gameOptions = JSON.parse(this._game.options);
       }
       if (state === GameState.AFTE_GAME_GOT_RESULT) {
         this._game = await this.httpHandlerService.getQuestion(this.uid);
-        this._gameOptions = JSON.parse(this._game.options);
+  //      this._gameOptions = JSON.parse(this._game.options);
       }
     })
   }

@@ -56,11 +56,12 @@ router.get('/city/registrations', async (req, res, next) => {
 
 router.get('/nextGame', async (req, res, next) => {
     try {
-        const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime" FROM "Question" WHERE "closeTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
+        const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime", "changeToGuessTime" FROM "Question" WHERE "closeTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
         res.json({
             uid: nextQuestion.uid,
             openTime: nextQuestion.openTime.toISOString(),
             closeTime: nextQuestion.closeTime.toISOString(),
+            changeToGuessTime: nextQuestion.changeToGuessTime.toISOString(),
             currentTime: new Date().toISOString()
         });
     } catch (err) {
@@ -156,6 +157,8 @@ router.get('/game/:gameId', async (req, res, next) => {
             openTime: questions[0].openTime.toISOString(),
             // @ts-ignore
             closeTime: questions[0].closeTime.toISOString(),
+            // @ts-ignore
+            changeToGuessTime: questions[0].changeToGuessTime.toISOString(),
             answers: questions.map(question => {
                 return {answer: question.answer, uid: question.uid}
             })

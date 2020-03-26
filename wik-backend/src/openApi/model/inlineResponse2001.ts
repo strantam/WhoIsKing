@@ -11,25 +11,17 @@
  */
 
 import { RequestFile } from '../api';
-import { CityResult } from './cityResult';
-import { GameResult } from './gameResult';
 
 export class InlineResponse2001 {
-    'cityResult': Array<CityResult>;
-    'gameResult': GameResult;
+    'points'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "cityResult",
-            "baseName": "cityResult",
-            "type": "Array<CityResult>"
-        },
-        {
-            "name": "gameResult",
-            "baseName": "gameResult",
-            "type": "GameResult"
+            "name": "points",
+            "baseName": "points",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {

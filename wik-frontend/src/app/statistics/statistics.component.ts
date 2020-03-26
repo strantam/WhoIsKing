@@ -27,12 +27,12 @@ export class StatisticsComponent implements OnInit {
   }
 
   sortStats() {
-    this.citySuccessList = this._stats.sort((a, b) => b.avgPoint - a.avgPoint).map(city => {
+   /* this.citySuccessList = this._stats.sort((a, b) => b.avgPoint - a.avgPoint).map(city => {
       return {avgScore: city.avgPoint, name: city.city.name}
     });
     this.cityParticipantsList = this._stats.sort((a, b) => b.allResponders - a.allResponders).map(city => {
       return {participants: city.allResponders, name: city.city.name}
-    });
+    });*/
   }
 
 }

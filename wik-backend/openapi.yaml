@@ -91,6 +91,9 @@ paths:
                   openTime:
                     type: string
                     format: date-time
+                  changeToGuessTime:
+                    type: string
+                    format: date-time
                   closeTime:
                     type: string
                     format: date-time
@@ -122,7 +125,7 @@ paths:
                 $ref: '#/components/schemas/Game'
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/auth/game/{gameId}":
+  "/auth/game/{gameId}/solution":
     post:
       parameters:
         - $ref: '#/components/parameters/GameId'
@@ -130,7 +133,7 @@ paths:
         - Auth
       security:
         - bearerAuth: []
-      description: Sends the answer to the given question. Only accepted if sent before closeTime.
+      description: Sends the answer to the given question. Only accepted if sent before changeToGuessTime.
       requestBody:
         content:
           application/json:
@@ -143,6 +146,38 @@ paths:
       responses:
         '200':
           description: Empty response on success.
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
+  "/auth/game/{gameId}/guess":
+    post:
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      description: Sends the answer to the given question. Only accepted if sent after changeToGuessTime and closeTime.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answer:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Empty response on success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  points:
+                    type: number
+                    minimum: 0
         'default':
           $ref: '#/components/responses/GeneralError'
 
@@ -390,6 +425,9 @@ components:
         closeTime:
           type: string
           format: date-time
+        changeToGuessTime:
+          type: string
+          format: date-time
       additionalProperties: false
       required:
         - uid
@@ -397,6 +435,7 @@ components:
         - answers
         - openTime
         - closeTime
+        - changeToGuessTime
 
   securitySchemes:
     bearerAuth:
