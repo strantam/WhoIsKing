@@ -5,8 +5,8 @@ import {City as ApiCity} from "../../../openApi/model/city";
 import {Game} from "../../model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
-import {InlineResponse2001} from "../../model/inlineResponse2001";
 import {InlineResponse2002} from "../../model/inlineResponse2002";
+import {InlineResponse2003} from "../../model/inlineResponse2003";
 
 
 const logger = getLogger(module.filename);
@@ -91,26 +91,23 @@ router.get('/game/result', async (req, res, next) => {
         }
 
         const cityResults = (await DB.getDb().pool.query(
-            'SELECT  "cityId", AVG(A."votes") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
-            'FROM "Solution" as Sol ' +
+            'SELECT  "cityId", AVG(G."points") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
+            'FROM "Guess" as G ' +
             'INNER JOIN "City" as C ' +
-            'ON C."uid"=Sol."cityId" ' +
-            'INNER JOIN "Answer" as A ' +
-            'ON Sol."answerId" = A."uid" ' +
-            'WHERE Sol."createdAt" > $1 ' +
+            'ON C."uid"=G."cityId" ' +
+            'WHERE G."createdAt" > $1 ' +
             'GROUP BY "cityId", "name", "zip", "lng", "lat"', [fromDate])).rows;
 
+
         const userResults = (await DB.getDb().pool.query(
-            'SELECT  SUM(A."votes") as sumpoint, "nickName" ' +
-            'FROM "Solution" as Sol ' +
-            'INNER JOIN "Answer" as A ' +
-            'ON Sol."answerId" = A."uid" ' +
+            'SELECT  SUM(G."points") as sumpoint, "nickName" ' +
+            'FROM "Guess" as G ' +
             'INNER JOIN "User" as U ' +
-            'ON Sol."userId" = U."uid" ' +
-            'WHERE Sol."createdAt" > $1 ' +
+            'ON G."userId" = U."uid" ' +
+            'WHERE G."createdAt" > $1 ' +
             'GROUP BY "userId", "nickName"', [fromDate])).rows;
 
-        const apiResult: InlineResponse2002 = {
+        const apiResult: InlineResponse2003 = {
             cityResult: cityResults.map(cityResult => {
                 return {
                     allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {
@@ -178,18 +175,19 @@ router.get('/game/:gameId/result', async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
         const cityResults = (await DB.getDb().pool.query(
-            'SELECT  "cityId", AVG(A."votes") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
-            'FROM "Solution" as Sol ' +
+            'SELECT  "cityId", AVG(G."points") as avgpoint, COUNT(*) as allresponders, "name", "zip", "lng", "lat" ' +
+            'FROM "Guess" as G ' +
             'INNER JOIN "City" as C ' +
-            'ON C."uid"=Sol."cityId" ' +
-            'INNER JOIN "Answer" as A ' +
-            'ON Sol."answerId" = A."uid" ' +
-            'WHERE Sol."questionId" = $1 ' +
+            'ON C."uid"=G."cityId" ' +
+            'WHERE G."questionId" = $1 ' +
             'GROUP BY "cityId", "name", "zip", "lng", "lat"', [gameId])).rows;
 
         const answerResults: Array<Answer> = (await DB.getDb().pool.query('SELECT * FROM "Answer" WHERE "questionId" = $1', [gameId])).rows;
 
-        const apiResult: InlineResponse2001 = {
+        // @ts-ignore
+        const allVotes = answerResults.reduce<number>((previousValue, currentValue) => previousValue + parseInt(currentValue.votes), 0);
+
+        const apiResult: InlineResponse2002 = {
             cityResult: cityResults.map(cityResult => {
                 return {
                     allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {
@@ -201,9 +199,10 @@ router.get('/game/:gameId/result', async (req, res, next) => {
                     }
                 }
             }),
+
             gameResult: {
                 answers: answerResults.map(answer => {
-                    return {uid: answer.uid, ratio: answer.votes}
+                    return {uid: answer.uid, ratio: Math.round(answer.votes / allVotes * 10000) / 100}
                 })
             }
         };
