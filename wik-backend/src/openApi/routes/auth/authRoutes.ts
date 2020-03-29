@@ -30,7 +30,7 @@ router.delete('/user/me', async (req, res, next) => {
     try {
         await dbClient.query('BEGIN');
         const currentUser: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
-        await DB.getDb().pool.query('UPDATE "User" SET "fireBaseId" = \'\', "cityId"= NULL, "nickName" = NULL WHERE "uid"=$1', [res.locals.userId])
+        await DB.getDb().pool.query('UPDATE "User" SET "fireBaseId" = \'\', "cityId"= NULL, "nickName" = NULL WHERE "uid"=$1', [res.locals.userId]);
         await admin.auth().deleteUser(currentUser.fireBaseId);
         await dbClient.query('COMMIT');
         res.json({});
@@ -47,7 +47,7 @@ router.delete('/user/me', async (req, res, next) => {
 router.get('/user/me', async (req, res, next) => {
     try {
         const currentUserCityName: ApiUser = (await DB.getDb().pool.query(
-            'SELECT C."name" as cityName, U."nickName", U."votes", U."questions" ' +
+            'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions" ' +
             'FROM "User" as U ' +
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +

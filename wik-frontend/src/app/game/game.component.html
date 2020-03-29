@@ -1,20 +1,29 @@
 <div *ngIf="gameService.state.getValue() === GameState.BEFORE_GAME">
-  Next game in: {{gameService.remainingTimeToOpen | minute}}
+  Next game in: {{gameService.remainingTimeToOpenSolution | minute}}
 </div>
-<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_NOTSENT">
-  <div>Game until: {{gameService.remainingTimeToClose | minute}}</div>
-  <div>Points: {{gameService.game?.points}}</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_SOLUTION_NOTSENT">
+  <div>Solution until: {{gameService.remainingTimeToCloseSolution | minute}}</div>
   <div>Question: {{gameService.game?.question}}</div>
-  <div [ngSwitch]="gameService.game?.questionType">
-    <app-estimation *ngSwitchCase="'ESTIMATION'"></app-estimation>
-    <app-multiple-choice *ngSwitchCase="'MULTIPLE_CHOICE'"></app-multiple-choice>
-  </div>
+  <div *ngFor="let answer of gameService.game?.answers"
+       (click)="gameService.sendAnswer(answer.uid)">{{answer.answer}}</div>
 </div>
-<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_SENT">
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_SOLUTION_SENT">
+  Waiting for solutions...
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_WAITING_FOR_GUESS">
+  Waiting for solutions... Just 2 more sec...
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_GUESS_NOTSENT">
+  <div>Guess until: {{gameService.remainingTimeToClose | minute}}</div>
+  <div>Question: {{gameService.game?.question}}</div>
+  <div *ngFor="let answer of gameService.game.answers"
+       (click)="gameService.sendGuess(answer.uid)">{{answer.answer}}</div>
+</div>
+<div *ngIf="gameService.state.getValue() === GameState.IN_GAME_GUESS_SENT">
   Waiting for results...
 </div>
 <div *ngIf="gameService.state.getValue() === GameState.AFTER_GAME_WAITING_FOR_RESULT">
-  Waiting for results... Just 5 more sec...
+  Waiting for results... Just 2 more sec...
 </div>
 <div *ngIf="gameService.state.getValue() === GameState.AFTE_GAME_GOT_RESULT">
   <app-game-statistics></app-game-statistics>

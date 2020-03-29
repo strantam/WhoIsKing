@@ -194,17 +194,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cityResult:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CityResult'
-                  gameResult:
-                    $ref: '#/components/schemas/GameResult'
-                required:
-                  - cityResult
-                  - gameResult
+                $ref: '#/components/schemas/ResultAfterGame'
         'default':
           $ref: '#/components/responses/GeneralError'
   "/noAuth/game/result":
@@ -220,19 +210,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  cityResult:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CityResult'
-                  userResult:
-                    type: array
-                    items:
-                      $ref:  '#/components/schemas/UserResult'
-                required:
-                  - cityResult
-                  - userResult
+                $ref: '#/components/schemas/Statistics'
         'default':
           $ref: '#/components/responses/GeneralError'
 
@@ -353,6 +331,34 @@ components:
         registrations:
           type: number
           minimum: 0
+
+    ResultAfterGame:
+      type: object
+      properties:
+        gameResult:
+          $ref: '#/components/schemas/GameResult'
+        cityResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/CityResult'
+      required:
+        - gameResult
+        - cityResult
+
+    Statistics:
+      type: object
+      properties:
+        cityResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/CityResult'
+        userResult:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserResult'
+      required:
+        - cityResult
+        - userResult
 
     GameResult:
       type: object

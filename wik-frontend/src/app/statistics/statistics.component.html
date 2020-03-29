@@ -1,9 +1,4 @@
-<div>
-  Score:
-  <div *ngFor="let city of citySuccessList">{{city.name}}: {{city.avgScore}}</div>
-</div>
-
-<div>
-  Participants:
-  <div *ngFor="let city of cityParticipantsList">{{city.name}}: {{city.participants}}</div>
-</div>
+<h1>City stats</h1>
+<app-city-statistics [stats]="stats.cityResult"></app-city-statistics>
+<h1>User stats</h1>
+<div *ngFor="let userResult of stats.userResult">{{userResult.nickName}}: {{userResult.points}}</div>

@@ -1,11 +1,9 @@
 <div>Results</div>
 
-<div>Correct answer: {{gameService.game?.response}}</div>
-
-<div>Details: {{gameService.game?.responseDetails}}</div>
-
 <div>You got: {{gameService.points}} points</div>
 
-<app-statistics [stats]="stats"></app-statistics>
+<app-game-result [gameResult]="stats.gameResult"></app-game-result>
+<app-city-statistics [stats]="stats.cityResult"></app-city-statistics>
+
 
 <button (click)="gameService.finishRound()">Nice!</button>

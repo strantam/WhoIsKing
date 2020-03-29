@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from "../game.service";
-import {GameResult} from "../../../../../wik-backend/src/openApi/model/gameResult";
+import {ResultAfterGame} from "../../../../../wik-backend/src/openApi/model/resultAfterGame";
 
 @Component({
   selector: 'app-game-statistics',
@@ -9,10 +9,7 @@ import {GameResult} from "../../../../../wik-backend/src/openApi/model/gameResul
 })
 export class GameStatisticsComponent implements OnInit {
 
-  public citySuccessList: Array<{ name: string, avgScore: number }> = [];
-  public cityParticipantsList: Array<{ name: string, participants: number }> = [];
-
-  public stats: Array<GameResult> = [];
+  public stats: ResultAfterGame;
 
   constructor(public gameService: GameService) {
   }

@@ -2,15 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
 import {BehaviorSubject} from "rxjs";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
-import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
+import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
 
 const second = 1000;
-const delay = 5000;
+const delay = 1000;
 
 export enum GameState {
   BEFORE_GAME,
-  IN_GAME_NOTSENT,
-  IN_GAME_SENT,
+  IN_GAME_SOLUTION_NOTSENT,
+  IN_GAME_SOLUTION_SENT,
+  IN_GAME_WAITING_FOR_GUESS,
+  IN_GAME_GUESS_NOTSENT,
+  IN_GAME_GUESS_SENT,
   AFTER_GAME_WAITING_FOR_RESULT,
   AFTE_GAME_GOT_RESULT
 }
@@ -19,6 +22,10 @@ export enum GameState {
   providedIn: 'root'
 })
 export class GameService {
+  get remainingTimeToCloseSolution(): number {
+    return this._remainingTimeToCloseSolution;
+  }
+
   get gameOptions(): any {
     return this._gameOptions;
   }
@@ -35,8 +42,8 @@ export class GameService {
     return this._uid;
   }
 
-  get remainingTimeToOpen(): number {
-    return this._remainingTimeToOpen;
+  get remainingTimeToOpenSolution(): number {
+    return this._remainingTimeToOpenSolution;
   }
 
   get remainingTimeToClose(): number {
@@ -50,7 +57,9 @@ export class GameService {
   private _uid: string;
   private countBack;
 
-  private _remainingTimeToOpen: number;
+  private _remainingTimeToOpenSolution: number;
+  private _remainingTimeToCloseSolution: number;
+  private _remainingTimeToGuess: number;
   private _remainingTimeToClose: number;
   private _remainingTimeToSum: number;
   private _state: BehaviorSubject<GameState> = new BehaviorSubject<GameState>(GameState.BEFORE_GAME);
@@ -65,13 +74,9 @@ export class GameService {
   async init() {
     await this.getNextGame();
     this._state.subscribe(async (state) => {
-      if (state === GameState.IN_GAME_NOTSENT) {
+      if (state === GameState.IN_GAME_SOLUTION_NOTSENT) {
         this._game = await this.httpHandlerService.getQuestion(this.uid);
-   //     this._gameOptions = JSON.parse(this._game.options);
-      }
-      if (state === GameState.AFTE_GAME_GOT_RESULT) {
-        this._game = await this.httpHandlerService.getQuestion(this.uid);
-  //      this._gameOptions = JSON.parse(this._game.options);
+        //     this._gameOptions = JSON.parse(this._game.options);
       }
     })
   }
@@ -90,7 +95,9 @@ export class GameService {
     this.reset();
     const nextGame = await this.httpHandlerService.getNextGame();
     this._uid = nextGame.uid;
-    this._remainingTimeToOpen = (nextGame.openTime.getTime() - nextGame.currentTime.getTime()) + delay;
+    this._remainingTimeToOpenSolution = (nextGame.openTime.getTime() - nextGame.currentTime.getTime()) + delay;
+    this._remainingTimeToCloseSolution = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) - delay;
+    this._remainingTimeToGuess = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) + delay;
     this._remainingTimeToClose = (nextGame.closeTime.getTime() - nextGame.currentTime.getTime()) - delay;
     this._remainingTimeToSum = (nextGame.closeTime.getTime() - nextGame.currentTime.getTime()) + delay;
     this.calculateState();
@@ -101,12 +108,15 @@ export class GameService {
 
   private handleTick() {
     this._remainingTimeToClose -= second;
-    this._remainingTimeToOpen -= second;
+    this._remainingTimeToOpenSolution -= second;
+    this._remainingTimeToCloseSolution -= second;
+    this._remainingTimeToGuess -= second;
     this._remainingTimeToSum -= second;
     this.calculateState();
   }
 
   private calculateState() {
+    console.log(this.remainingTimeToOpenSolution);
     if (this._remainingTimeToSum < 0) {
       if (this._state.getValue() !== GameState.AFTE_GAME_GOT_RESULT) {
         this._state.next(GameState.AFTE_GAME_GOT_RESULT);
@@ -119,9 +129,21 @@ export class GameService {
       }
       return;
     }
-    if (this._remainingTimeToOpen < 0) {
-      if (this._state.getValue() !== GameState.IN_GAME_NOTSENT && this._state.getValue() !== GameState.IN_GAME_SENT) {
-        this._state.next(GameState.IN_GAME_NOTSENT);
+    if (this._remainingTimeToGuess < 0) {
+      if (this._state.getValue() !== GameState.IN_GAME_GUESS_NOTSENT && this._state.getValue() !== GameState.IN_GAME_GUESS_SENT) {
+        this._state.next(GameState.IN_GAME_GUESS_NOTSENT);
+      }
+      return;
+    }
+    if (this._remainingTimeToCloseSolution < 0) {
+      if (this._state.getValue() !== GameState.IN_GAME_WAITING_FOR_GUESS) {
+        this._state.next(GameState.IN_GAME_WAITING_FOR_GUESS);
+      }
+      return;
+    }
+    if (this._remainingTimeToOpenSolution < 0) {
+      if (this._state.getValue() !== GameState.IN_GAME_SOLUTION_NOTSENT && this._state.getValue() !== GameState.IN_GAME_SOLUTION_SENT) {
+        this._state.next(GameState.IN_GAME_SOLUTION_NOTSENT);
       }
       return;
     }
@@ -130,10 +152,17 @@ export class GameService {
     }
   }
 
-  public async sendAnswer(answer: string): Promise<void> {
-    if (this._state.getValue() === GameState.IN_GAME_NOTSENT) {
-      this._state.next(GameState.IN_GAME_SENT);
-      const result = await this.httpHandlerService.postAnswer(answer, this.uid);
+  public async sendAnswer(answerId: string): Promise<void> {
+    if (this._state.getValue() === GameState.IN_GAME_SOLUTION_NOTSENT) {
+      this._state.next(GameState.IN_GAME_SOLUTION_SENT);
+      await this.httpHandlerService.postAnswer(answerId, this.uid);
+    }
+  }
+
+  public async sendGuess(answerId: string): Promise<void> {
+    if (this._state.getValue() === GameState.IN_GAME_GUESS_NOTSENT) {
+      this._state.next(GameState.IN_GAME_GUESS_SENT);
+      const result = await this.httpHandlerService.postGuess(answerId, this.uid);
       this._points = result.points;
     }
   }
@@ -142,7 +171,7 @@ export class GameService {
     this.getNextGame();
   }
 
-  public async getStats(): Promise<Array<GameResult>> {
+  public async getStats(): Promise<ResultAfterGame> {
     return this.httpHandlerService.getGameResults(this.uid);
   }
 

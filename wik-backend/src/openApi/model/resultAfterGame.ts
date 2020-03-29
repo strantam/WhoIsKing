@@ -14,26 +14,26 @@ import { RequestFile } from '../api';
 import { CityResult } from './cityResult';
 import { GameResult } from './gameResult';
 
-export class InlineResponse2002 {
-    'cityResult': Array<CityResult>;
+export class ResultAfterGame {
     'gameResult': GameResult;
+    'cityResult': Array<CityResult>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "cityResult",
-            "baseName": "cityResult",
-            "type": "Array<CityResult>"
-        },
-        {
             "name": "gameResult",
             "baseName": "gameResult",
             "type": "GameResult"
+        },
+        {
+            "name": "cityResult",
+            "baseName": "cityResult",
+            "type": "Array<CityResult>"
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse2002.attributeTypeMap;
+        return ResultAfterGame.attributeTypeMap;
     }
 }
 

@@ -5,8 +5,8 @@ import {City as ApiCity} from "../../../openApi/model/city";
 import {Game} from "../../model/game"
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
-import {InlineResponse2002} from "../../model/inlineResponse2002";
-import {InlineResponse2003} from "../../model/inlineResponse2003";
+import {Statistics} from "../../model/statistics";
+import {ResultAfterGame} from "../../model/resultAfterGame";
 
 
 const logger = getLogger(module.filename);
@@ -107,7 +107,7 @@ router.get('/game/result', async (req, res, next) => {
             'WHERE G."createdAt" > $1 ' +
             'GROUP BY "userId", "nickName"', [fromDate])).rows;
 
-        const apiResult: InlineResponse2003 = {
+        const apiResult: Statistics = {
             cityResult: cityResults.map(cityResult => {
                 return {
                     allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {
@@ -187,7 +187,7 @@ router.get('/game/:gameId/result', async (req, res, next) => {
         // @ts-ignore
         const allVotes = answerResults.reduce<number>((previousValue, currentValue) => previousValue + parseInt(currentValue.votes), 0);
 
-        const apiResult: InlineResponse2002 = {
+        const apiResult: ResultAfterGame = {
             cityResult: cityResults.map(cityResult => {
                 return {
                     allResponders: cityResult.allresponders, avgPoint: cityResult.avgpoint, city: {

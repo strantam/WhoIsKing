@@ -6,6 +6,8 @@ import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {environment} from "../../environments/environment";
 import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
+import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
+import {User} from "../../../../wik-backend/src/openApi/model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -33,23 +35,24 @@ export class HttpHandlerService {
     }
   }
 
-  public async getPersonalInfo(): Promise<{ cityName: string }> {
+  public async getPersonalInfo(): Promise<User> {
     try {
-      return await this.httpClient.get<{ cityName: string }>(environment.apiUrl + 'auth/user/me').toPromise();
+      return await this.httpClient.get<User>(environment.apiUrl + 'auth/user/me').toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error get personal info", err);
     }
   }
 
-  public async getNextGame(): Promise<{ uid: string, openTime: Date, closeTime: Date, currentTime: Date }> {
+  public async getNextGame(): Promise<{ uid: string, openTime: Date, closeTime: Date, currentTime: Date, changeToGuessTime: Date }> {
     try {
-      const nextGame = await this.httpClient.get<{ uid: string, openTime: string, closeTime: string, currentTime: string }>(environment.apiUrl + 'noAuth/nextGame').toPromise();
+      const nextGame = await this.httpClient.get<{ uid: string, openTime: string, closeTime: string, currentTime: string, changeToGuessTime: string }>(environment.apiUrl + 'noAuth/nextGame').toPromise();
       return {
         uid: nextGame.uid,
         openTime: new Date(nextGame.openTime),
         closeTime: new Date(nextGame.closeTime),
-        currentTime: new Date(nextGame.currentTime)
+        currentTime: new Date(nextGame.currentTime),
+        changeToGuessTime: new Date(nextGame.changeToGuessTime)
       }
     } catch (err) {
       // TODO handle errors on ui
@@ -66,18 +69,28 @@ export class HttpHandlerService {
     }
   }
 
-  public async postAnswer(answer: string, gameId: string): Promise<{ points: number }> {
+  public async postAnswer(answerId: string, gameId: string): Promise<void> {
     try {
-      return await this.httpClient.post<{ points: number }>(environment.apiUrl + 'auth/game/' + gameId, {answer: answer}).toPromise();
+      await this.httpClient.post(environment.apiUrl + 'auth/game/' + gameId + '/solution', {answer: answerId}).toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error post answer", err);
     }
   }
 
-  public async getGameResults(gameId: string): Promise<Array<GameResult>> {
+  public async postGuess(answerId: string, gameId: string): Promise<{ points: number }> {
     try {
-      return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/' + gameId + '/result').toPromise();
+      return await this.httpClient.post<{ points: number }>(environment.apiUrl + 'auth/game/' + gameId + '/guess', {answer: answerId}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post answer", err);
+    }
+  }
+
+
+  public async getGameResults(gameId: string): Promise<ResultAfterGame> {
+    try {
+      return await this.httpClient.get<ResultAfterGame>(environment.apiUrl + 'noAuth/game/' + gameId + '/result').toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error getting game results", err);

@@ -14,7 +14,7 @@ import { RequestFile } from '../api';
 import { CityResult } from './cityResult';
 import { UserResult } from './userResult';
 
-export class InlineResponse2003 {
+export class Statistics {
     'cityResult': Array<CityResult>;
     'userResult': Array<UserResult>;
 
@@ -33,7 +33,7 @@ export class InlineResponse2003 {
         }    ];
 
     static getAttributeTypeMap() {
-        return InlineResponse2003.attributeTypeMap;
+        return Statistics.attributeTypeMap;
     }
 }
 
