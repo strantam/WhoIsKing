@@ -14,12 +14,13 @@ import { RequestFile } from '../api';
 import { GameAnswers } from './gameAnswers';
 
 export class Game {
-    'uid': string;
+    'uid'?: string;
     'question': string;
     'answers': Array<GameAnswers>;
-    'openTime': Date;
-    'closeTime': Date;
-    'changeToGuessTime': Date;
+    'openTime'?: Date;
+    'closeTime'?: Date;
+    'changeToGuessTime'?: Date;
+    'category'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -53,6 +54,11 @@ export class Game {
             "name": "changeToGuessTime",
             "baseName": "changeToGuessTime",
             "type": "Date"
+        },
+        {
+            "name": "category",
+            "baseName": "category",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

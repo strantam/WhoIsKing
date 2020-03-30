@@ -4,7 +4,9 @@ export enum ErrorCode {
     UNAUTHORIZED = "UNAUTHORIZED",
     NO_OPEN_QUESTION = "NO_OPEN_QUESTION",
     UNKNOWN_QUESTION_TYPE = "UNKNOWN_QUESTION_TYPE",
-    NO_CITY = "NO_CITY"
+    NO_CITY = "NO_CITY",
+    NO_VOTES = "NO_VOTES",
+    NO_QUESTIONS = "NO_QUESTIONS"
 }
 
 export enum HttpStatus {

@@ -125,6 +125,39 @@ paths:
                 $ref: '#/components/schemas/Game'
         'default':
           $ref: '#/components/responses/GeneralError'
+  "/auth/game":
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      description: Adds a new question in the name of the user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: Empty response on succesful creation
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
+  "/auth/game/{gameId}/vote":
+    post:
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      description: Adds a new question in the name of the user.
+      responses:
+        '200':
+          description: Empty response on succesful vote;
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
   "/auth/game/{gameId}/solution":
     post:
       parameters:
@@ -477,14 +510,12 @@ components:
         changeToGuessTime:
           type: string
           format: date-time
+        category:
+          type: string
       additionalProperties: false
       required:
-        - uid
         - question
         - answers
-        - openTime
-        - closeTime
-        - changeToGuessTime
 
   securitySchemes:
     bearerAuth:

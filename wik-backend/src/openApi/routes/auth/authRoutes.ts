@@ -5,6 +5,7 @@ import {Answer, Question, User} from "../../../db/DatabaseMapping";
 import admin from "firebase-admin";
 import * as uuid from 'uuid';
 import {User as ApiUser} from "../../../openApi/model/user"
+import {Game} from "../../model/game";
 
 
 const logger = getLogger(module.filename);
@@ -129,6 +130,61 @@ router.post('/game/:gameId/guess', async (req, res, next) => {
         } else {
             next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting answer.", HttpStatus.INTERNAL_SERVER));
         }
+    }
+});
+
+
+router.post('/game/:gameId/vote', async (req, res, next) => {
+    const gameId = req.params.gameId;
+    const dbClient = await DB.getDb().pool.connect();
+    try {
+        await dbClient.query('BEGIN');
+        const user = (await dbClient.query('UPDATE "User" SET "votes" = "votes" - 1 WHERE "uid"= $1 AND "votes" > 0 RETURNING *', [res.locals.userId])).rows[0];
+        if (!user) {
+            throw new ErrorObject(ErrorCode.NO_VOTES, "No votes remaining", HttpStatus.INTERNAL_SERVER);
+        }
+        const question = (await dbClient.query('UPDATE "Question" SET "votes" = "votes" + 1 WHERE "uid"= $1 RETURNING *', [gameId])).rows[0];
+        if (!question) {
+            throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "No question matches", HttpStatus.INTERNAL_SERVER);
+        }
+        await dbClient.query('COMMIT');
+        res.json({});
+    } catch (err) {
+        logger.error("Error on adding vote" + JSON.stringify(err.message));
+        await dbClient.query('ROLLBACK');
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
+        }    } finally {
+        dbClient.release();
+    }
+});
+
+router.post('/game', async (req, res, next) => {
+    const game: Game = req.body;
+    const dbClient = await DB.getDb().pool.connect();
+    try {
+        await dbClient.query('BEGIN');
+        const user = (await dbClient.query('UPDATE "User" SET "questions" = "questions" - 1 WHERE "uid"= $1 AND "questions" > 0 RETURNING *', [res.locals.userId])).rows[0];
+        if (!user) {
+            throw new ErrorObject(ErrorCode.NO_QUESTIONS, "No questions remaining", HttpStatus.INTERNAL_SERVER);
+        }
+        const questionId = (await dbClient.query('INSERT INTO "Question" ("uid", "question", "userId", "votes", "category") VALUES ($1, $2, $3, 0, $4) RETURNING uid', [uuid.v4(), game.question, res.locals.userId, game.category])).rows[0].uid;
+        for (const answer of game.answers){
+            await dbClient.query('INSERT INTO "Answer" ("uid", "questionId", "answer", "votes") VALUES ($1, $2, $3, 0)', [uuid.v4(), questionId, answer.answer]);
+        }
+        await dbClient.query('COMMIT');
+        res.json({});
+    } catch (err) {
+        logger.error("Error on adding vote" + JSON.stringify(err.message));
+        await dbClient.query('ROLLBACK');
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
+        }    } finally {
+        dbClient.release();
     }
 });
 
