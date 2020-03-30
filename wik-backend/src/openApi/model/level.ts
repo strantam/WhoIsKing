@@ -12,44 +12,44 @@
 
 import { RequestFile } from '../api';
 
-export class User {
-    'cityName'?: string;
-    'nickName'?: string;
-    'votes': number;
-    'questions': number;
+export class Level {
+    'index': number;
     'points': number;
+    'plusVotes': number;
+    'plusQuestions': number;
+    'other'?: Array<string>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "cityName",
-            "baseName": "cityName",
-            "type": "string"
-        },
-        {
-            "name": "nickName",
-            "baseName": "nickName",
-            "type": "string"
-        },
-        {
-            "name": "votes",
-            "baseName": "votes",
-            "type": "number"
-        },
-        {
-            "name": "questions",
-            "baseName": "questions",
+            "name": "index",
+            "baseName": "index",
             "type": "number"
         },
         {
             "name": "points",
             "baseName": "points",
             "type": "number"
+        },
+        {
+            "name": "plusVotes",
+            "baseName": "plusVotes",
+            "type": "number"
+        },
+        {
+            "name": "plusQuestions",
+            "baseName": "plusQuestions",
+            "type": "number"
+        },
+        {
+            "name": "other",
+            "baseName": "other",
+            "type": "Array<string>"
         }    ];
 
     static getAttributeTypeMap() {
-        return User.attributeTypeMap;
+        return Level.attributeTypeMap;
     }
 }
 

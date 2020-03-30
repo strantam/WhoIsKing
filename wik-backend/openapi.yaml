@@ -242,6 +242,22 @@ paths:
           description: Empty response on successful post.
         'default':
           $ref: '#/components/responses/GeneralError'
+  "/noAuth/level":
+    get:
+      tags:
+        - No auth
+      description: Gets available levels.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Level'
+        'default':
+          $ref: '#/components/responses/GeneralError'
 
 components:
   responses:
@@ -286,6 +302,27 @@ components:
         - errorCode
         - message
 
+    Level:
+      type: object
+      properties:
+        index:
+          type: number
+        points:
+          type: number
+        plusVotes:
+          type: number
+        plusQuestions:
+          type: number
+        other:
+          type: array
+          items:
+            type: string
+      required:
+        - index
+        - points
+        - plusVotes
+        - plusQuestions
+
     User:
       type: object
       properties:
@@ -295,11 +332,17 @@ components:
           type: string
         votes:
           type: number
+          minimum: 0
         questions:
           type: number
+          minimum: 0
+        points:
+          type: number
+          minimum: 0
       required:
         - votes
         - questions
+        - points
 
     City:
       type: object

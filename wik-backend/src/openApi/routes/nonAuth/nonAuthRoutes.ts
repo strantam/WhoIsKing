@@ -217,4 +217,19 @@ router.get('/game/:gameId/result', async (req, res, next) => {
     }
 });
 
+router.get('/level', async (req, res, next) => {
+    try {
+        const levels = (await DB.getDb().pool.query('SELECT * FROM "Level" ORDER BY "index"')).rows;
+        console.log(levels);
+        res.json(levels);
+    } catch (err) {
+        logger.error("Cannot get levels " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get levels", HttpStatus.INTERNAL_SERVER));
+        }
+    }
+});
+
 export const nonAuthRouter = router;

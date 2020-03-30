@@ -13,6 +13,14 @@ const express = require('express');
 
 const router = express.Router();
 
+async function getUserPoints(userId: string): Promise<number> {
+    const oneMonthBefore = new Date();
+    oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
+    oneMonthBefore.setHours(0, 0, 0, 0);
+    const point = (await DB.getDb().pool.query('SELECT SUM("points") as points FROM "Guess" WHERE "userId"= $1 AND "createdAt" > $2 GROUP BY "userId"', [userId, oneMonthBefore])).rows[0];
+    return point ? point.points : 0;
+}
+
 router.post('/city', async (req, res, next) => {
     const cityId = req.body.cityId;
     const userId = res.locals.userId;
@@ -46,13 +54,15 @@ router.delete('/user/me', async (req, res, next) => {
 
 router.get('/user/me', async (req, res, next) => {
     try {
-        const currentUserCityName: ApiUser = (await DB.getDb().pool.query(
+        const currentUserCityName: { cityName, nickName, votes, questions } = (await DB.getDb().pool.query(
             'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions" ' +
             'FROM "User" as U ' +
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
             'WHERE U."uid"=$1', [res.locals.userId])).rows[0];
-        res.json(currentUserCityName);
+        const points = await getUserPoints(res.locals.userId);
+        const resultUser: ApiUser = {...currentUserCityName, points};
+        res.json(resultUser);
     } catch (err) {
         logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
         next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
