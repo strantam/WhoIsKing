@@ -143,7 +143,7 @@ router.post('/game/:gameId/vote', async (req, res, next) => {
         if (!user) {
             throw new ErrorObject(ErrorCode.NO_VOTES, "No votes remaining", HttpStatus.INTERNAL_SERVER);
         }
-        const question = (await dbClient.query('UPDATE "Question" SET "votes" = "votes" + 1 WHERE "uid"= $1 RETURNING *', [gameId])).rows[0];
+        const question = (await dbClient.query('UPDATE "Question" SET "votes" = "votes" + 1 WHERE "uid"= $1 AND "openTime" IS NULL RETURNING *', [gameId])).rows[0];
         if (!question) {
             throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "No question matches", HttpStatus.INTERNAL_SERVER);
         }
