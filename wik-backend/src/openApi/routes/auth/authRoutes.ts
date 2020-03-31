@@ -6,7 +6,7 @@ import admin from "firebase-admin";
 import * as uuid from 'uuid';
 import {User as ApiUser} from "../../../openApi/model/user"
 import {Game} from "../../model/game";
-import {getLevels, getUser} from "../../../util/dbQuery";
+import {getLevels, getUser, getUserPoints} from "../../../util/dbQuery";
 
 
 const logger = getLogger(module.filename);
@@ -15,13 +15,6 @@ const express = require('express');
 
 const router = express.Router();
 
-async function getUserPoints(userId: string): Promise<number> {
-    const oneMonthBefore = new Date();
-    oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
-    oneMonthBefore.setHours(0, 0, 0, 0);
-    const point = (await DB.getDb().pool.query('SELECT SUM("points") as points FROM "Guess" WHERE "userId"= $1 AND "createdAt" > $2 GROUP BY "userId"', [userId, oneMonthBefore])).rows[0];
-    return point ? point.points : 0;
-}
 
 async function userLevelChange(userId: string): Promise<void> {
     let levels: Array<Level>;
