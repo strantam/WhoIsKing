@@ -42,7 +42,8 @@ router.post('/city', async (req, res, next) => {
     const cityId = req.body.cityId;
     const userId = res.locals.userId;
     try {
-        await DB.getDb().pool.query('UPDATE "User" SET "cityId" = $1 WHERE "uid"= $2', [cityId, userId]);
+        // TODO modify this if there are more other type of perks to a generic solution
+        await DB.getDb().pool.query('UPDATE "User" SET "cityId" = $1 WHERE "uid"= $2 AND "highestLevel" > 1', [cityId, userId]);
         res.json({});
     } catch (err) {
         logger.error("Cannot set city for user", JSON.stringify(err));
