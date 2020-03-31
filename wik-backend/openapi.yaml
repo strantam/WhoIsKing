@@ -372,6 +372,9 @@ components:
         points:
           type: number
           minimum: 0
+        currentLevel:
+          type: number
+          minimum: 0
         highestLevel:
           type: number
           minimum: 0

@@ -11,7 +11,6 @@ import {AuthService} from "../../authentication/auth.service";
 export class HeaderComponent implements OnInit {
 
 
-
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(private router: Router, public headerTitleService: HeaderTitleService, public authService: AuthService) {

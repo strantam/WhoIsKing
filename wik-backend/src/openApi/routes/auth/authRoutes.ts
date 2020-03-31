@@ -78,8 +78,16 @@ router.get('/user/me', async (req, res, next) => {
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
             'WHERE U."uid"=$1', [res.locals.userId])).rows[0];
-        const points = await getUserPoints(res.locals.userId);
-        const resultUser: ApiUser = {...currentUserCityName, points};
+        const userPoints = await getUserPoints(res.locals.userId);
+        const levels = await getLevels();
+        let userLevel: Level;
+        if (userPoints >= levels[levels.length - 1].points) {
+            userLevel = levels[levels.length - 1]
+        } else {
+            userLevel = levels[levels.findIndex(level => level.points > userPoints) - 1];
+        }
+
+        const resultUser: ApiUser = {...currentUserCityName, points: userPoints, currentLevel: userLevel.index};
         res.json(resultUser);
     } catch (err) {
         logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));

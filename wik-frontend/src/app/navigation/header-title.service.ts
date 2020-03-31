@@ -11,7 +11,6 @@ export class HeaderTitleService {
 
   private _navigationOff: boolean;
   private _hideBack: boolean;
-  private _subtitle: string;
 
   constructor(private router: Router, public titleService: Title, private activatedRoute: ActivatedRoute) {
     this.router.events.pipe(
@@ -32,14 +31,6 @@ export class HeaderTitleService {
 
   get title() {
     return this.titleService.getTitle()
-  }
-
-  set subtitle(newSubtitle: string) {
-    this._subtitle = newSubtitle;
-  }
-
-  get subtitle() {
-    return this._subtitle;
   }
 
   get navigationOff(): boolean {

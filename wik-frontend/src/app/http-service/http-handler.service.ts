@@ -8,6 +8,7 @@ import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
 import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
 import {User} from "../../../../wik-backend/src/openApi/model/user";
+import {Level} from "../../../../wik-backend/src/openApi/model/level";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,15 @@ export class HttpHandlerService {
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error getting cities", err);
+    }
+  }
+
+  public async getLevels(): Promise<Array<Level>> {
+    try {
+      return await this.httpClient.get<Array<Level>>(environment.apiUrl + 'noAuth/level').toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error getting levels", err);
     }
   }
 
