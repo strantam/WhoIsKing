@@ -18,6 +18,7 @@ export class User {
     'votes': number;
     'questions': number;
     'points': number;
+    'highestLevel': number;
 
     static discriminator: string | undefined = undefined;
 
@@ -45,6 +46,11 @@ export class User {
         {
             "name": "points",
             "baseName": "points",
+            "type": "number"
+        },
+        {
+            "name": "highestLevel",
+            "baseName": "highestLevel",
             "type": "number"
         }    ];
 

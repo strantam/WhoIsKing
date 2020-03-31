@@ -7,6 +7,8 @@ import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
 import {CityWithRegs} from "../../model/cityWithRegs";
 import {Statistics} from "../../model/statistics";
 import {ResultAfterGame} from "../../model/resultAfterGame";
+import {getLevels} from "../../../util/dbQuery";
+import {Level} from "../../model/level";
 
 
 const logger = getLogger(module.filename);
@@ -219,8 +221,7 @@ router.get('/game/:gameId/result', async (req, res, next) => {
 
 router.get('/level', async (req, res, next) => {
     try {
-        const levels = (await DB.getDb().pool.query('SELECT * FROM "Level" ORDER BY "index"')).rows;
-        console.log(levels);
+        const levels: Array<Level> = await getLevels();
         res.json(levels);
     } catch (err) {
         logger.error("Cannot get levels " + JSON.stringify(err.message));

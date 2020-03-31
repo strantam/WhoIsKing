@@ -372,10 +372,14 @@ components:
         points:
           type: number
           minimum: 0
+        highestLevel:
+          type: number
+          minimum: 0
       required:
         - votes
         - questions
         - points
+        - highestLevel
 
     City:
       type: object

@@ -1,11 +1,12 @@
 import {getLogger} from "../../../log/logger";
 import {DB} from "../../../db";
 import {ErrorCode, ErrorObject, HttpStatus} from "../../../error/ErrorObject";
-import {Answer, Question, User} from "../../../db/DatabaseMapping";
+import {Answer, Level, Question, User} from "../../../db/DatabaseMapping";
 import admin from "firebase-admin";
 import * as uuid from 'uuid';
 import {User as ApiUser} from "../../../openApi/model/user"
 import {Game} from "../../model/game";
+import {getLevels, getUser} from "../../../util/dbQuery";
 
 
 const logger = getLogger(module.filename);
@@ -20,6 +21,28 @@ async function getUserPoints(userId: string): Promise<number> {
     oneMonthBefore.setHours(0, 0, 0, 0);
     const point = (await DB.getDb().pool.query('SELECT SUM("points") as points FROM "Guess" WHERE "userId"= $1 AND "createdAt" > $2 GROUP BY "userId"', [userId, oneMonthBefore])).rows[0];
     return point ? point.points : 0;
+}
+
+async function userLevelChange(userId: string): Promise<void> {
+    let levels: Array<Level>;
+    let userPoints: number;
+    let user: User;
+    [levels, userPoints, user] = await Promise.all([getLevels(), getUserPoints(userId), getUser(userId)]);
+    const userLevelIndex = levels.findIndex(level => level.points > userPoints) - 1;
+    logger.debug("Level change check: " + userPoints + " " + userLevelIndex + " " + levels[userLevelIndex].points + " " + user.uid);
+
+    if (levels[userLevelIndex].index > user.highestLevel) {
+        try {
+            logger.info("Level change for user " + userId + " to level " + userLevelIndex);
+            await DB.getDb().pool.query(
+                'UPDATE "User" SET "highestLevel" = $1, "votes" = "votes" + $2, "questions" = "questions" + $3 WHERE "uid"= $4',
+                [levels[userLevelIndex].index, levels[userLevelIndex].plusVotes, levels[userLevelIndex].plusQuestions, userId]
+            );
+        } catch (err) {
+            logger.error("Cannot do level change" + err.message);
+            throw new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot do level change", HttpStatus.INTERNAL_SERVER);
+        }
+    }
 }
 
 router.post('/city', async (req, res, next) => {
@@ -55,8 +78,8 @@ router.delete('/user/me', async (req, res, next) => {
 
 router.get('/user/me', async (req, res, next) => {
     try {
-        const currentUserCityName: { cityName, nickName, votes, questions } = (await DB.getDb().pool.query(
-            'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions" ' +
+        const currentUserCityName: { cityName, nickName, votes, questions, highestLevel } = (await DB.getDb().pool.query(
+            'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions", U."highestLevel" ' +
             'FROM "User" as U ' +
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
@@ -110,7 +133,7 @@ router.post('/game/:gameId/guess', async (req, res, next) => {
     try {
         const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "changeToGuessTime" < $2 AND "closeTime" > $2', [gameId, new Date()])).rows[0];
         if (!question) {
-            throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Guess not opened currently", HttpStatus.INTERNAL_SERVER);
+            throw new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER);
         }
         const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
         const answers: Array<Answer> = (await DB.getDb().pool.query('SELECT * FROM "Answer" WHERE "questionId"=$1', [gameId])).rows;
@@ -122,6 +145,7 @@ router.post('/game/:gameId/guess', async (req, res, next) => {
         console.log(userAnswer, allVotes);
         const points = Math.round(userAnswer.votes / allVotes * 10000) / 100;
         await DB.getDb().pool.query('INSERT INTO "Guess" ("uid", "cityId", "answerId", "userId", "createdAt", "questionId", "points") VALUES ($1, $2, $3, $4, $5, $6, $7)', [uuid.v4(), user.cityId, answerId, res.locals.userId, new Date(), gameId, points]);
+        await userLevelChange(res.locals.userId);
         res.json({points: points});
     } catch (err) {
         logger.error("Error posting answer: " + JSON.stringify(err.message));
@@ -156,7 +180,8 @@ router.post('/game/:gameId/vote', async (req, res, next) => {
             next(err);
         } else {
             next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
-        }    } finally {
+        }
+    } finally {
         dbClient.release();
     }
 });
@@ -171,7 +196,7 @@ router.post('/game', async (req, res, next) => {
             throw new ErrorObject(ErrorCode.NO_QUESTIONS, "No questions remaining", HttpStatus.INTERNAL_SERVER);
         }
         const questionId = (await dbClient.query('INSERT INTO "Question" ("uid", "question", "userId", "votes", "category") VALUES ($1, $2, $3, 0, $4) RETURNING uid', [uuid.v4(), game.question, res.locals.userId, game.category])).rows[0].uid;
-        for (const answer of game.answers){
+        for (const answer of game.answers) {
             await dbClient.query('INSERT INTO "Answer" ("uid", "questionId", "answer", "votes") VALUES ($1, $2, $3, 0)', [uuid.v4(), questionId, answer.answer]);
         }
         await dbClient.query('COMMIT');
@@ -183,7 +208,8 @@ router.post('/game', async (req, res, next) => {
             next(err);
         } else {
             next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
-        }    } finally {
+        }
+    } finally {
         dbClient.release();
     }
 });
