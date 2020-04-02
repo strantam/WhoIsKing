@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
@@ -136,7 +136,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="Footer.notloggedin" datatype="html">
-        <source>Your score will not count to your city&apos;s score unless you log in.</source>
+        <source>Your score will not count to your city's score unless you log in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/not-logged-in/not-logged-in.component.html</context>
           <context context-type="linenumber">2</context>
@@ -158,9 +158,9 @@
       </trans-unit>
       <trans-unit id="AddCity.Content" datatype="html">
         <source>
-    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/>"/>
 
-    <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/><x id="INTERPOLATION" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+    <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div>"/><x id="INTERPOLATION" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
   </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
@@ -188,18 +188,84 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Footer.loggedin" datatype="html">
+      <trans-unit id="Footer.AddCityText" datatype="html">
         <source>You need to set your city to add your score to the city.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Footer.addCity" datatype="html">
-        <source>Add city</source>
+        <source>Add city
+      </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.YourCity" datatype="html">
+        <source>You are fighting for</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.NextLevel3" datatype="html">
+        <source> You need to reach next level, so you get vote tokens to decide what
+        questions are on the menu!
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.NextLevel4To6" datatype="html">
+        <source> You need to reach next level to
+        get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusVotes}}"/> more votes!
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.NextLevel7" datatype="html">
+        <source> You need to reach next level, and you can ask questions!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.NextLevel10" datatype="html">
+        <source> You need to reach next level, and you can
+        ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusQuestions}}"/> more questions weekly!
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.MaxLevel" datatype="html">
+        <source> Congratulations! You are at the top! Be aware, don't lose your rank!
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.voteButton" datatype="html">
+        <source>Vote</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Footer.askQuestionButton" datatype="html">
+        <source>Ask
+      question
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Settings.logOut" datatype="html">
