@@ -56,6 +56,8 @@ import {AgmCoreModule} from "@agm/core";
 import { SettingsComponent } from './settings/settings.component';
 import { CityStatisticsComponent } from './statistics/city-statistics/city-statistics.component';
 import { GameResultComponent } from './game/statistics/game-result/game-result.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 registerLocaleData(localeHu);
 
@@ -118,7 +120,10 @@ registerLocaleData(localeHu);
     MatSelectModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    ChartsModule
+    ChartsModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    })
   ],
   entryComponents: [
     AreYouSureModalComponent,
