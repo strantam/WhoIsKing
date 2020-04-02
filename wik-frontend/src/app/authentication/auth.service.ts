@@ -5,7 +5,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 
 import {Observable, of} from 'rxjs';
 import {switchMap} from "rxjs/operators";
-import {auth} from "firebase";
+import { auth } from 'firebase/app';
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -35,18 +36,18 @@ export class AuthService {
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     return credential.user;
   }
 
   async fbSignin() {
     const provider = new auth.FacebookAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
     return credential.user;
   }
 
   async signOut() {
-    await this.afAuth.auth.signOut();
+    await this.afAuth.signOut();
     localStorage.removeItem("auth_token");
     await this.router.navigate(['/game']);
     await this.router.navigate([{outlets: {'footerinfo': ['loggedout']}}])
