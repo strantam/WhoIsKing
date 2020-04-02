@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   dev: false,
-  googleMapsAPIKey: 'AIzaSyBCCxb_1EVuqM6I1m6Y4RflazFRIdYLdB4',
+  googleMapsAPIKey: 'AIzaSyBrJ8nO7WnXfXFRnlILs0H8f_5vEvLH57Q',
   apiUrl: "http://localhost:9090/api/",
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
