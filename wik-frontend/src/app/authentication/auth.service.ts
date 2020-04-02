@@ -5,7 +5,10 @@ import {AngularFireAuth} from '@angular/fire/auth';
 
 import {Observable, of} from 'rxjs';
 import {switchMap} from "rxjs/operators";
-import { auth } from 'firebase/app';
+import {auth} from 'firebase/app';
+import {fetchUser} from "../reducers/user/user";
+import {Store} from "@ngrx/store";
+import {State} from "../reducers";
 
 
 @Injectable({providedIn: 'root'})
@@ -15,16 +18,22 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private store: Store<State>
   ) {
     // Get the auth state, then fetch the Firestore user document or return null
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         // Logged in
         if (user) {
-          user.getIdToken().then(token => localStorage.setItem("auth_token", token)).catch(err => {
-            console.log("Error getting id token", err)
-          });
+          user.getIdToken()
+            .then(token => {
+              localStorage.setItem("auth_token", token);
+              store.dispatch(fetchUser());
+            })
+            .catch(err => {
+              console.log("Error getting id token", err)
+            });
           return of(user);
         } else {
           localStorage.removeItem("auth_token");

@@ -58,6 +58,8 @@ import {GameResultComponent} from './game/statistics/game-result/game-result.com
 import {StoreModule} from '@ngrx/store';
 import {reducers, metaReducers} from './reducers';
 import {LottieModule} from "ngx-lottie";
+import { EffectsModule } from '@ngrx/effects';
+import {UserEffects} from "./reducers/user/user.effects";
 
 registerLocaleData(localeHu);
 
@@ -127,7 +129,8 @@ export function playerFactory() {
     ChartsModule,
     StoreModule.forRoot(reducers, {
       metaReducers
-    })
+    }),
+    EffectsModule.forRoot([UserEffects])
   ],
   entryComponents: [
     AreYouSureModalComponent,

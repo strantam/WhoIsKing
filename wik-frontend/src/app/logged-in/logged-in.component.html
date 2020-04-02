@@ -1,42 +1,42 @@
 <div class="footer" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
   <div>
-    <ng-container *ngIf="user.highestLevel < 2">
+    <ng-container *ngIf="user?.highestLevel < 2">
       <div>You need reach next level to fight for your city!</div>
     </ng-container>
-    <div *ngIf="user.highestLevel >= 2 && !user?.cityName" fxLayout="row" fxLayoutGap="0.5rem">
+    <div *ngIf="user?.highestLevel >= 2 && !user?.cityName" fxLayout="row" fxLayoutGap="0.5rem">
       <div i18n="@@Footer.AddCityText">You need to set your city to add your score to the city.</div>
       <button mat-stroked-button i18n="@@Footer.addCity" (click)="openAddCity()" *ngIf="!user?.cityName">Add city
       </button>
     </div>
-    <ng-container *ngIf="user.highestLevel === 2 && user?.cityName">
+    <ng-container *ngIf="user?.highestLevel === 2 && user?.cityName">
       <ng-container i18n="@@Footer.YourCity">You are fighting for</ng-container>
-      {{user.cityName}}!
+      {{user?.cityName}}!
       <ng-container i18n="@@Footer.NextLevel3"> You need to reach next level, so you get vote tokens to decide what
         questions are on the menu!
       </ng-container>
     </ng-container>
     <ng-container
-      *ngIf="user.currentLevel > 2 && user.currentLevel < 6 ||(user.currentLevel === 7 || user.currentLevel === 8)">
+      *ngIf="user?.currentLevel > 2 && user?.currentLevel < 6 ||(user?.currentLevel === 7 || user?.currentLevel === 8)">
       <ng-container i18n="@@Footer.NextLevel4To6"> You need to reach next level to
-        get {{getNextLevel(user.currentLevel).plusVotes}} more votes!
+        get {{getNextLevel(user?.currentLevel).plusVotes}} more votes!
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="user.currentLevel === 6">
+    <ng-container *ngIf="user?.currentLevel === 6">
       <ng-container i18n="@@Footer.NextLevel7"> You need to reach next level, and you can ask questions!</ng-container>
     </ng-container>
-    <ng-container *ngIf="user.currentLevel === 9">
+    <ng-container *ngIf="user?.currentLevel === 9">
       <ng-container i18n="@@Footer.NextLevel10"> You need to reach next level, and you can
-        ask {{getNextLevel(user.currentLevel).plusQuestions}} more questions weekly!
+        ask {{getNextLevel(user?.currentLevel).plusQuestions}} more questions weekly!
       </ng-container>
     </ng-container>
-    <ng-container *ngIf="user.currentLevel === 10">
+    <ng-container *ngIf="user?.currentLevel === 10">
       <ng-container i18n="@@Footer.MaxLevel"> Congratulations! You are at the top! Be aware, don't lose your rank!
       </ng-container>
     </ng-container>
   </div>
   <div fxLayout="column">
-    <button mat-stroked-button i18n="@@Footer.voteButton" (click)="openAddCity()" *ngIf="user.votes > 0">Vote</button>
-    <button mat-stroked-button i18n="@@Footer.askQuestionButton" (click)="openAddCity()" *ngIf="user.questions > 0">Ask
+    <button mat-stroked-button i18n="@@Footer.voteButton" (click)="openAddCity()" *ngIf="user?.votes > 0">Vote</button>
+    <button mat-stroked-button i18n="@@Footer.askQuestionButton" (click)="openAddCity()" *ngIf="user?.questions > 0">Ask
       question
     </button>
   </div>

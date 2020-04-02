@@ -4,6 +4,9 @@ import {MatDialog} from "@angular/material/dialog";
 import {HttpHandlerService} from "../http-service/http-handler.service";
 import {User} from "../../../../wik-backend/src/openApi/model/user";
 import {Level} from "../../../../wik-backend/src/openApi/model/level";
+import {State} from "../reducers";
+import {select, Store} from "@ngrx/store";
+import {fetchUser} from "../reducers/user/user";
 
 @Component({
   selector: 'app-logged-in',
@@ -15,23 +18,20 @@ export class LoggedInComponent implements OnInit {
   public user: User;
   public levels: Array<Level> = [];
 
-  constructor(private dialog: MatDialog, private httpHandlerService: HttpHandlerService) {
+  constructor(private dialog: MatDialog, private httpHandlerService: HttpHandlerService, private store: Store<State>) {
   }
 
   async ngOnInit() {
-    this.refreshUser();
+    this.store.pipe(select('user')).subscribe(user => {
+      this.user = user;
+    });
     this.levels = await this.httpHandlerService.getLevels();
   }
 
   async openAddCity() {
     const dialogRef = this.dialog.open(AddCityComponent);
     await dialogRef.afterClosed().toPromise();
-    this.refreshUser();
-  }
-
-  async refreshUser() {
-    this.user = await this.httpHandlerService.getPersonalInfo();
-
+    this.store.dispatch(fetchUser());
   }
 
   public getNextLevel(levelIndex: number): Level {
