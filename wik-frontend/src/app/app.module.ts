@@ -43,7 +43,6 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./authentication/auth.interceptor";
 import {GeneralLayoutComponent} from './layout/general-layout/general-layout.component';
-import {LottieAnimationViewModule} from "ng-lottie";
 import {SpreadComponent} from './spread/spread.component';
 import {GameComponent} from './game/game.component';
 import {StatisticsPageComponent} from './statistics-page/statistics-page.component';
@@ -51,15 +50,20 @@ import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
 import {LoggedInComponent} from './logged-in/logged-in.component';
 import {AddCityComponent} from './addcity/add-city.component';
 import {GameStatisticsComponent} from "./game/statistics/game-statistics.component";
-import { StatisticsComponent } from './statistics/statistics.component';
+import {StatisticsComponent} from './statistics/statistics.component';
 import {AgmCoreModule} from "@agm/core";
-import { SettingsComponent } from './settings/settings.component';
-import { CityStatisticsComponent } from './statistics/city-statistics/city-statistics.component';
-import { GameResultComponent } from './game/statistics/game-result/game-result.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import {SettingsComponent} from './settings/settings.component';
+import {CityStatisticsComponent} from './statistics/city-statistics/city-statistics.component';
+import {GameResultComponent} from './game/statistics/game-result/game-result.component';
+import {StoreModule} from '@ngrx/store';
+import {reducers, metaReducers} from './reducers';
+import {LottieModule} from "ngx-lottie";
 
 registerLocaleData(localeHu);
+
+export function playerFactory() {
+  return import('lottie-web');
+}
 
 @NgModule({
   declarations: [
@@ -85,7 +89,7 @@ registerLocaleData(localeHu);
     GameResultComponent,
   ],
   imports: [
-    LottieAnimationViewModule.forRoot(),
+    LottieModule.forRoot({player: playerFactory}),
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AgmCoreModule.forRoot({

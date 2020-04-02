@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {AnimationOptions} from "ngx-lottie";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public lottieConfig: Object;
+  public lottieConfig: AnimationOptions;
 
   constructor(public dialogRef: MatDialogRef<LoginComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
