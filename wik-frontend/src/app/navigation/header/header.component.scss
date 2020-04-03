@@ -1,11 +1,20 @@
 a {
   text-decoration: none;
   color: white;
+  padding: 0.5rem;
+  border-radius: 0.6rem;
 }
 
 a:hover, a:active {
   color: lightgray;
 }
+
+
+.activeMenu {
+  background-color: #6e55b7;
+  transition: background-color 0.5s ease-in;
+}
+
 
 .navigation-items {
   list-style-type: none;

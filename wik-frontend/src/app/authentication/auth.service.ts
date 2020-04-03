@@ -6,7 +6,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable, of} from 'rxjs';
 import {switchMap} from "rxjs/operators";
 import {auth} from 'firebase/app';
-import {fetchUser} from "../reducers/user/user";
+import {fetchUser, logout} from "../reducers/user/user";
 import {Store} from "@ngrx/store";
 import {State} from "../reducers";
 
@@ -58,6 +58,7 @@ export class AuthService {
   async signOut() {
     await this.afAuth.signOut();
     localStorage.removeItem("auth_token");
+    this.store.dispatch(logout());
     await this.router.navigate(['/game']);
     await this.router.navigate([{outlets: {'footerinfo': ['loggedout']}}])
   }

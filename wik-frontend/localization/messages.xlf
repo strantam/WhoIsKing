@@ -3,17 +3,31 @@
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} SETTINGS {Settings} }</source>
+        <source><x id="INTERPOLATION" equiv-text="{{(user$ | async)?.nickName}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.Level" datatype="html">
+        <source>level:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Header.Points" datatype="html">
+        <source>points:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Game" datatype="html">
         <source>Game</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
@@ -24,7 +38,7 @@
         <source>Statistics</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
@@ -35,7 +49,7 @@
         <source>Spread</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
@@ -221,7 +235,7 @@
       </trans-unit>
       <trans-unit id="Footer.NextLevel4To6" datatype="html">
         <source> You need to reach next level to
-        get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusVotes}}"/> more votes!
+        get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user?.currentLevel).plusVotes}}"/> more votes!
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
@@ -237,7 +251,7 @@
       </trans-unit>
       <trans-unit id="Footer.NextLevel10" datatype="html">
         <source> You need to reach next level, and you can
-        ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusQuestions}}"/> more questions weekly!
+        ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user?.currentLevel).plusQuestions}}"/> more questions weekly!
       </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>

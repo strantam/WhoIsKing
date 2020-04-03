@@ -2,6 +2,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {HeaderTitleService} from "../header-title.service";
 import {AuthService} from "../../authentication/auth.service";
+import {State} from "../../reducers";
+import {select, Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {User} from "../../../../../wik-backend/src/openApi/model/user";
 
 @Component({
   selector: 'app-header',
@@ -9,14 +13,20 @@ import {AuthService} from "../../authentication/auth.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  public user$: Observable<User>;
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor(private router: Router, public headerTitleService: HeaderTitleService, public authService: AuthService) {
+  constructor(
+    private router: Router,
+    public headerTitleService: HeaderTitleService,
+    public authService: AuthService,
+    public store: Store<State>,
+  ) {
   }
 
   ngOnInit() {
+    this.user$ = this.store.pipe(select('user'))
   }
 
   public onToggleSidenav = () => {

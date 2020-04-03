@@ -3,45 +3,36 @@
   <file source-language="en" datatype="plaintext" original="ng2.template" target-language="hu">
     <body>
       <trans-unit id="Header.Title" datatype="html">
-        <source>{VAR_SELECT, select, GAME {Game} SPREAD {Spread} STATISTICS {Statistics} SETTINGS {Settings} }</source><target state="translated">{VAR_SELECT, select, GAME {Játék} SPREAD {Elterjedés} STATISTICS {Statisztika} }</target>
+        <source><x id="INTERPOLATION" equiv-text="{{(user$ | async)?.nickName}}"/></source><target state="translated">{VAR_SELECT, select, GAME {Játék} SPREAD {Elterjedés} STATISTICS {Statisztika} }</target>
+
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">7</context></context-group></trans-unit><trans-unit id="Header.Level" datatype="html">
+        <source>level:</source><target state="new">level:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="Header.Points" datatype="html">
+        <source>points:</source><target state="new">points:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Header.Game" datatype="html">
         <source>Game</source><target state="final">Játék</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
+
+
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">24</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit>
       <trans-unit id="Header.Statistics" datatype="html">
         <source>Statistics</source><target state="final">Statisztika</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit>
+
+
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit>
       <trans-unit id="Header.Spread" datatype="html">
         <source>Spread</source><target state="final">Elterjedés</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
+
+
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">30</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
       <trans-unit id="Header.Logout" datatype="html">
         <source>Settings</source><target state="translated">Kijelentkezés</target>
         <context-group purpose="location">
@@ -187,17 +178,17 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit><trans-unit id="Footer.AddCityText" datatype="html">
-        <source>You need to set your city to add your score to the city.</source><target state="new">You need to set your city to add your score to the city.</target>
+        <source>You need to set your city to add your score to the city.</source><target state="final">Ha szeretnéd hogy a pontjaid számítsanak a városodnak, állítsd be kiért játszol!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      
+
       <trans-unit id="Footer.addCity" datatype="html">
         <source>Add city
       </source><target state="translated">Mentés</target>
-        
+
       <context-group purpose="location"><context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context><context context-type="linenumber">8</context></context-group></trans-unit><trans-unit id="Footer.YourCity" datatype="html">
         <source>You are fighting for</source><target state="new">You are fighting for</target>
         <context-group purpose="location">
@@ -216,7 +207,7 @@
         </context-group>
       </trans-unit><trans-unit id="Footer.NextLevel4To6" datatype="html">
         <source> You need to reach next level to
-        get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusVotes}}"/> more votes!
+        get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user?.currentLevel).plusVotes}}"/> more votes!
       </source><target state="new"> You need to reach next level to
         get <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusVotes}}"/> more votes!
       </target>
@@ -232,7 +223,7 @@
         </context-group>
       </trans-unit><trans-unit id="Footer.NextLevel10" datatype="html">
         <source> You need to reach next level, and you can
-        ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusQuestions}}"/> more questions weekly!
+        ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user?.currentLevel).plusQuestions}}"/> more questions weekly!
       </source><target state="new"> You need to reach next level, and you can
         ask <x id="INTERPOLATION" equiv-text="{{getNextLevel(user.currentLevel).plusQuestions}}"/> more questions weekly!
       </target>
