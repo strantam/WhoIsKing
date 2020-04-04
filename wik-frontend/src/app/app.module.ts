@@ -60,6 +60,7 @@ import {reducers, metaReducers} from './reducers';
 import {LottieModule} from "ngx-lottie";
 import { EffectsModule } from '@ngrx/effects';
 import {UserEffects} from "./reducers/user/user.effects";
+import {GameEffects} from "./reducers/game/game.effects";
 
 registerLocaleData(localeHu);
 
@@ -130,7 +131,7 @@ export function playerFactory() {
     StoreModule.forRoot(reducers, {
       metaReducers
     }),
-    EffectsModule.forRoot([UserEffects])
+    EffectsModule.forRoot([UserEffects, GameEffects])
   ],
   entryComponents: [
     AreYouSureModalComponent,

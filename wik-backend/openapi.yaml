@@ -76,35 +76,14 @@ paths:
     get:
       tags:
         - No auth
-      description: Gets when the next game will be.
+      description: Gets when the next gameState will be.
       responses:
         '200':
           description: Successful get.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  uid:
-                    type: string
-                    format: uuid
-                  openTime:
-                    type: string
-                    format: date-time
-                  changeToGuessTime:
-                    type: string
-                    format: date-time
-                  closeTime:
-                    type: string
-                    format: date-time
-                  currentTime:
-                    type: string
-                    format: date-time
-                required:
-                  - uid
-                  - openTime
-                  - closeTime
-                  - currentTime
+                $ref: '#/components/schemas/Game'
 
         'default':
           $ref: '#/components/responses/GeneralError'
@@ -517,12 +496,12 @@ components:
         changeToGuessTime:
           type: string
           format: date-time
+        currentTime:
+          type: string
+          format: date-time
         category:
           type: string
       additionalProperties: false
-      required:
-        - question
-        - answers
 
   securitySchemes:
     bearerAuth:

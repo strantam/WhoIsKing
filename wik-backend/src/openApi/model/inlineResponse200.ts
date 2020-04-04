@@ -13,39 +13,15 @@
 import { RequestFile } from '../api';
 
 export class InlineResponse200 {
-    'uid': string;
-    'openTime': Date;
-    'changeToGuessTime'?: Date;
-    'closeTime': Date;
-    'currentTime': Date;
+    'points'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "string"
-        },
-        {
-            "name": "openTime",
-            "baseName": "openTime",
-            "type": "Date"
-        },
-        {
-            "name": "changeToGuessTime",
-            "baseName": "changeToGuessTime",
-            "type": "Date"
-        },
-        {
-            "name": "closeTime",
-            "baseName": "closeTime",
-            "type": "Date"
-        },
-        {
-            "name": "currentTime",
-            "baseName": "currentTime",
-            "type": "Date"
+            "name": "points",
+            "baseName": "points",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {

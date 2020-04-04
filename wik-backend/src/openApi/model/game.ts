@@ -15,11 +15,12 @@ import { GameAnswers } from './gameAnswers';
 
 export class Game {
     'uid'?: string;
-    'question': string;
-    'answers': Array<GameAnswers>;
+    'question'?: string;
+    'answers'?: Array<GameAnswers>;
     'openTime'?: Date;
     'closeTime'?: Date;
     'changeToGuessTime'?: Date;
+    'currentTime'?: Date;
     'category'?: string;
 
     static discriminator: string | undefined = undefined;
@@ -53,6 +54,11 @@ export class Game {
         {
             "name": "changeToGuessTime",
             "baseName": "changeToGuessTime",
+            "type": "Date"
+        },
+        {
+            "name": "currentTime",
+            "baseName": "currentTime",
             "type": "Date"
         },
         {

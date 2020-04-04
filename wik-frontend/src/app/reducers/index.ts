@@ -6,15 +6,21 @@ import {
 import {environment} from '../../environments/environment';
 import {User} from "../../../../wik-backend/src/openApi/model/user";
 import {userReducer} from "./user/user";
+import {gameStateReducer, GameState} from "./gameState/gameState";
+import {Game} from "../../../../wik-backend/src/openApi/model/game";
+import {gameReduce} from "./game/game";
 
 export interface State {
   user: User;
-
+  gameState: GameState,
+  game: Game
 }
 
 
 export const reducers: ActionReducerMap<State> = {
-  user: userReducer
+  user: userReducer,
+  gameState: gameStateReducer,
+  game: gameReduce
 };
 
 
