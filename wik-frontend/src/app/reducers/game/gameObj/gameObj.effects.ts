@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
-import {HttpHandlerService} from "../../http-service/http-handler.service";
+import {HttpHandlerService} from "../../../http-service/http-handler.service";
 import {EMPTY, from} from "rxjs";
-import {loadNewGame, loadNewGameSuccess} from "./game";
+import {loadNewGameSuccess} from "./gameObj";
+import {waitForGame} from "../game";
 
 @Injectable()
-export class GameEffects {
+export class GameObjEffects {
 
   loadGame$ = createEffect((): any => {
       return this.actions$.pipe(
-        ofType(loadNewGame),
+        ofType(waitForGame),
         mergeMap(() =>
           from(this.httpHandlerService.getNextGame())
             .pipe(

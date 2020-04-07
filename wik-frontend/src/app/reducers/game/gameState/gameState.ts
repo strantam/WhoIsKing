@@ -1,4 +1,5 @@
 import {createAction, createReducer, on} from "@ngrx/store";
+import {waitForGame} from "../game";
 
 export enum GameState {
   BEFORE_GAME,
@@ -11,7 +12,6 @@ export enum GameState {
   AFTE_GAME_GOT_RESULT
 }
 
-export const waitForGame = createAction('[Game] Before');
 export const showQuestionForSolution = createAction('[Game] Solution');
 export const sendSolution = createAction('[Game] Send Solution');
 export const solutionOver = createAction('[Game] Solution Over');

@@ -10,9 +10,9 @@ import {
   resultReady, sendGuess, sendSolution,
   showQuestionForGuess,
   showQuestionForSolution,
-  solutionOver, waitForGame
-} from "../reducers/gameState/gameState";
-import {loadNewGame} from "../reducers/game/game";
+  solutionOver
+} from "../reducers/game/gameState/gameState";
+import {waitForGame} from "../reducers/game/game";
 
 const second = 1000;
 const delay = 1000;
@@ -64,42 +64,18 @@ export class GameService {
   private currentState: GameState;
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
-    this.init();
-    this.initGameSubscription();
-  }
-
-  async init() {
-    await this.getNextGame();
     this.store.pipe(select('gameState')).subscribe(async (state) => {
       this.currentState = state;
       if (state === GameState.IN_GAME_SOLUTION_NOTSENT) {
         this._game = await this.httpHandlerService.getQuestion(this.uid);
         //     this._gameOptions = JSON.parse(this._game.options);
       }
-    })
-  }
+    });
 
-  public reset(): void {
-    this._uid = null;
-    this._game = null;
-    this._gameOptions = null;
-    this._points = null;
-    if (this.countBack) {
-      clearInterval(this.countBack);
-    }
-  }
-
-  async getNextGame() {
-    this.reset();
-    this.store.dispatch(loadNewGame());
-  }
-
-  initGameSubscription() {
-    this.store.pipe(select('game')).subscribe(nextGame =>{
-      if (!nextGame){
+    this.store.pipe(select('game')).subscribe(nextGame => {
+      if (!nextGame) {
         return;
       }
-      console.log("MIZU", nextGame);
       this._uid = nextGame.uid;
       this._remainingTimeToOpenSolution = (nextGame.openTime.getTime() - nextGame.currentTime.getTime()) + delay;
       this._remainingTimeToCloseSolution = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) - delay;
@@ -110,7 +86,20 @@ export class GameService {
       this.countBack = setInterval(() => {
         this.handleTick();
       }, second);
-    })
+    });
+
+    this.store.dispatch(waitForGame());
+  }
+
+
+  public reset(): void {
+    this._uid = null;
+    this._game = null;
+    this._gameOptions = null;
+    this._points = null;
+    if (this.countBack) {
+      clearInterval(this.countBack);
+    }
   }
 
   private handleTick() {
@@ -123,7 +112,6 @@ export class GameService {
   }
 
   private calculateState() {
-    console.log(this.remainingTimeToOpenSolution);
     if (this._remainingTimeToSum < 0) {
       if (this.currentState !== GameState.AFTE_GAME_GOT_RESULT) {
         this.store.dispatch(resultReady());
@@ -175,8 +163,9 @@ export class GameService {
     }
   }
 
-  public finishRound() {
-    this.getNextGame();
+  public finishRound(){
+    this.reset();
+    this.store.dispatch(waitForGame());
   }
 
   public async getStats(): Promise<ResultAfterGame> {

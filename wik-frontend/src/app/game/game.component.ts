@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GameService} from "./game.service";
-import {GameState} from '../reducers/gameState/gameState';
+import {GameState} from '../reducers/game/gameState/gameState';
 import {select, Store} from "@ngrx/store";
 import {State} from "../reducers";
 
