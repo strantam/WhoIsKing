@@ -72,7 +72,15 @@ export class HttpHandlerService {
 
   public async getQuestion(gameId: string): Promise<Game> {
     try {
-      return await this.httpClient.get<Game>(environment.apiUrl + 'noAuth/game/' + gameId).toPromise();
+      const question = await this.httpClient.get<Game>(environment.apiUrl + 'noAuth/game/' + gameId).toPromise();
+
+      return {
+        ...question,
+        openTime: new Date(question.openTime),
+        closeTime: new Date(question.closeTime),
+        currentTime: new Date(question.currentTime),
+        changeToGuessTime: new Date(question.changeToGuessTime)
+      }
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error get question", err);

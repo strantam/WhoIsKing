@@ -150,11 +150,11 @@ router.post('/game/:gameId/guess', async (req, res, next) => {
         await userLevelChange(res.locals.userId);
         res.json({points: points});
     } catch (err) {
-        logger.error("Error posting answer: " + JSON.stringify(err.message));
+        logger.error("Error posting guess: " + JSON.stringify(err.message));
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting answer.", HttpStatus.INTERNAL_SERVER));
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting guess.", HttpStatus.INTERNAL_SERVER));
         }
     }
 });

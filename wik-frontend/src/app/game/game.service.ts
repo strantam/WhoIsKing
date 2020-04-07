@@ -66,16 +66,14 @@ export class GameService {
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
     this.store.pipe(select('gameState')).subscribe(async (state) => {
       this.currentState = state;
-      if (state === GameState.IN_GAME_SOLUTION_NOTSENT) {
-        this._game = await this.httpHandlerService.getQuestion(this.uid);
-        //     this._gameOptions = JSON.parse(this._game.options);
-      }
     });
 
     this.store.pipe(select('game')).subscribe(nextGame => {
       if (!nextGame) {
         return;
       }
+      this.reset();
+      this._game = nextGame;
       this._uid = nextGame.uid;
       this._remainingTimeToOpenSolution = (nextGame.openTime.getTime() - nextGame.currentTime.getTime()) + delay;
       this._remainingTimeToCloseSolution = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) - delay;
@@ -139,7 +137,7 @@ export class GameService {
     }
     if (this._remainingTimeToOpenSolution < 0) {
       if (this.currentState !== GameState.IN_GAME_SOLUTION_NOTSENT && this.currentState !== GameState.IN_GAME_SOLUTION_SENT) {
-        this.store.dispatch(showQuestionForSolution());
+        this.store.dispatch(showQuestionForSolution({uid: this._uid}));
       }
       return;
     }
@@ -163,7 +161,7 @@ export class GameService {
     }
   }
 
-  public finishRound(){
+  public finishRound() {
     this.reset();
     this.store.dispatch(waitForGame());
   }

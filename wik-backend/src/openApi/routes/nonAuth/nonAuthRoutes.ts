@@ -158,6 +158,8 @@ router.get('/game/:gameId', async (req, res, next) => {
             closeTime: questions[0].closeTime.toISOString(),
             // @ts-ignore
             changeToGuessTime: questions[0].changeToGuessTime.toISOString(),
+            // @ts-ignore
+            currentTime: new Date().toISOString(),
             answers: questions.map(question => {
                 return {answer: question.answer, uid: question.uid}
             })
