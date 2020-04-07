@@ -21,7 +21,12 @@ async function userLevelChange(userId: string): Promise<void> {
     let userPoints: number;
     let user: User;
     [levels, userPoints, user] = await Promise.all([getLevels(), getUserPoints(userId), getUser(userId)]);
-    const userLevelIndex = levels.findIndex(level => level.points > userPoints) - 1;
+    let userLevelIndex;
+    if (userPoints >= levels[levels.length - 1].points) {
+        userLevelIndex = levels.length - 1;
+    } else {
+        userLevelIndex = levels.findIndex(level => level.points > userPoints) - 1;
+    }
     logger.debug("Level change check: " + userPoints + " " + userLevelIndex + " " + levels[userLevelIndex].points + " " + user.uid);
 
     if (levels[userLevelIndex].index > user.highestLevel) {
@@ -146,7 +151,10 @@ router.post('/game/:gameId/guess', async (req, res, next) => {
         const userAnswer = answers.find(answer => answer.uid === answerId);
         console.log(userAnswer, allVotes);
         const points = Math.round(userAnswer.votes / allVotes * 10000) / 100;
-        await DB.getDb().pool.query('INSERT INTO "Guess" ("uid", "cityId", "answerId", "userId", "createdAt", "questionId", "points") VALUES ($1, $2, $3, $4, $5, $6, $7)', [uuid.v4(), user.cityId, answerId, res.locals.userId, new Date(), gameId, points]);
+        await DB.getDb().pool.query(
+            'INSERT INTO "Guess" ("uid", "cityId", "answerId", "userId", "createdAt", "questionId", "points") VALUES ($1, $2, $3, $4, $5, $6, $7)',
+            [uuid.v4(), user.cityId, answerId, res.locals.userId, new Date(), gameId, points]
+        );
         await userLevelChange(res.locals.userId);
         res.json({points: points});
     } catch (err) {

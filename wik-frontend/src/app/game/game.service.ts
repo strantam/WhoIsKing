@@ -25,10 +25,6 @@ export class GameService {
     return this._remainingTimeToCloseSolution;
   }
 
-  get gameOptions(): any {
-    return this._gameOptions;
-  }
-
   get points(): number {
     return this._points;
   }
@@ -58,7 +54,6 @@ export class GameService {
   private _remainingTimeToClose: number;
   private _remainingTimeToSum: number;
   private _game: Game;
-  private _gameOptions: any;
   private _points: number;
 
   private currentState: GameState;
@@ -93,7 +88,6 @@ export class GameService {
   public reset(): void {
     this._uid = null;
     this._game = null;
-    this._gameOptions = null;
     this._points = null;
     if (this.countBack) {
       clearInterval(this.countBack);
@@ -148,16 +142,13 @@ export class GameService {
 
   public async sendAnswer(answerId: string): Promise<void> {
     if (this.currentState === GameState.IN_GAME_SOLUTION_NOTSENT) {
-      this.store.dispatch(sendSolution());
-      await this.httpHandlerService.postAnswer(answerId, this.uid);
+      this.store.dispatch(sendSolution({answerId: answerId, gameId: this.uid}));
     }
   }
 
   public async sendGuess(answerId: string): Promise<void> {
     if (this.currentState === GameState.IN_GAME_GUESS_NOTSENT) {
-      this.store.dispatch(sendGuess());
-      const result = await this.httpHandlerService.postGuess(answerId, this.uid);
-      this._points = result.points;
+      this.store.dispatch(sendGuess({answerId: answerId, gameId: this.uid}));
     }
   }
 

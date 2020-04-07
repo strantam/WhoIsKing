@@ -13,10 +13,10 @@ export enum GameState {
 }
 
 export const showQuestionForSolution = createAction('[Game] Solution', props<{ uid: string }>());
-export const sendSolution = createAction('[Game] Send Solution');
+export const sendSolution = createAction('[Game] Send Solution', props<{ answerId: string, gameId: string }>());
 export const solutionOver = createAction('[Game] Solution Over');
 export const showQuestionForGuess = createAction('[Game] Guess');
-export const sendGuess = createAction('[Game] Send Guess');
+export const sendGuess = createAction('[Game] Send Guess', props<{ answerId: string, gameId: string }>());
 export const guessOver = createAction('[Game] Guess Over');
 export const resultReady = createAction('[Game] Result');
 

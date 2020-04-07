@@ -12,7 +12,12 @@ async function calculatePerks(): Promise<void> {
         const levels: Array<Level> = await getLevels();
         for (const user of users) {
             const userPoints = await getUserPoints(user.uid);
-            const userLevelIndex = levels.findIndex(level => level.points > userPoints) - 1;
+            let userLevelIndex;
+            if (userPoints >= levels[levels.length - 1].points) {
+                userLevelIndex = levels.length - 1;
+            } else {
+                userLevelIndex = levels.findIndex(level => level.points > userPoints) - 1;
+            }
             await DB.getDb().pool.query(
                 'UPDATE "User" SET "votes" = "votes" + $1, "questions" = "questions" + $2 WHERE "uid"= $3',
                 [levels[userLevelIndex].plusVotes, levels[userLevelIndex].plusQuestions, user.uid]
