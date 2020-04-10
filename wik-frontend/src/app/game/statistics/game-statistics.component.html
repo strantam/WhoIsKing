@@ -1,6 +1,6 @@
 <div>Results</div>
 
-<div>You got: {{gameService.points}} points</div>
+<div>You got: {{points$ | async}} points</div>
 
 <app-game-result [gameResult]="stats.gameResult"></app-game-result>
 <app-city-statistics [stats]="stats.cityResult"></app-city-statistics>

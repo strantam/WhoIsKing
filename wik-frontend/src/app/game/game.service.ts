@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
-import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
 import {State} from "../reducers";
 import {select, Store} from "@ngrx/store";
 import {
@@ -13,6 +12,7 @@ import {
   solutionOver
 } from "../reducers/game/gameState/gameState";
 import {waitForGame} from "../reducers/game/game";
+import {fetchUser} from "../reducers/user/user";
 
 const second = 1000;
 const delay = 1000;
@@ -107,6 +107,7 @@ export class GameService {
     if (this._remainingTimeToSum < 0) {
       if (this.currentState !== GameState.AFTE_GAME_GOT_RESULT) {
         this.store.dispatch(resultReady());
+        this.store.dispatch(fetchUser());
       }
       return;
     }
@@ -155,10 +156,6 @@ export class GameService {
   public finishRound() {
     this.reset();
     this.store.dispatch(waitForGame());
-  }
-
-  public async getStats(): Promise<ResultAfterGame> {
-    return this.httpHandlerService.getGameResults(this.uid);
   }
 
 }

@@ -9,18 +9,21 @@ import {userReducer} from "./user/user";
 import {gameStateReducer, GameState} from "./game/gameState/gameState";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {gameReduce} from "./game/gameObj/gameObj";
+import {pointsReducer} from "./points";
 
 export interface State {
   user: User;
   gameState: GameState,
-  game: Game
+  game: Game,
+  points: number
 }
 
 
 export const reducers: ActionReducerMap<State> = {
   user: userReducer,
   gameState: gameStateReducer,
-  game: gameReduce
+  game: gameReduce,
+  points: pointsReducer
 };
 
 

@@ -5,6 +5,7 @@ import {HttpHandlerService} from "../../../http-service/http-handler.service";
 import {EMPTY, from} from "rxjs";
 import {sendGuess, sendSolution} from "./gameState";
 import {noop} from "../../generic";
+import {setPoints} from "../../points";
 
 @Injectable()
 export class GameStateEffects {
@@ -32,7 +33,7 @@ export class GameStateEffects {
         mergeMap((solution) =>
           from(this.httpHandlerService.postGuess(solution.answerId, solution.gameId))
             .pipe(
-              map(() => ({type: noop.type})),
+              map((point) => ({type: setPoints.type, points: point.points})),
               catchError((msg) => {
                 console.error("Error posting guess", msg);
                 return EMPTY
