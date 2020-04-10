@@ -3,8 +3,7 @@
             (click)="this.navigateBack()">arrow_back
   </mat-icon>
   <div fxFlexAlign="column">
-    <div class="title"
-         i18n="@@Header.Title">{{(user$ | async)?.nickName}}</div>
+    <div class="title">{{(user$ | async)?.nickName}}</div>
     <div class="subTitle" *ngIf="user$ | async">
       <ng-container i18n="@@Header.Level">level:</ng-container>
       {{(user$ | async)?.currentLevel}}
