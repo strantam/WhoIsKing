@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
 import {HttpHandlerService} from "../http-service/http-handler.service";
-import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {State} from "../reducers";
 import {select, Store} from "@ngrx/store";
 import {
+  gameLoaded,
   GameState,
   guessOver,
-  resultReady, sendGuess, sendSolution,
+  resultReady,
   showQuestionForGuess,
   showQuestionForSolution,
   solutionOver
 } from "../reducers/game/gameState/gameState";
-import {waitForGame} from "../reducers/game/game";
 import {fetchUser} from "../reducers/user/user";
 
 const second = 1000;
@@ -25,18 +24,6 @@ export class GameService {
     return this._remainingTimeToCloseSolution;
   }
 
-  get points(): number {
-    return this._points;
-  }
-
-  get game(): Game {
-    return this._game;
-  }
-
-  get uid(): string {
-    return this._uid;
-  }
-
   get remainingTimeToOpenSolution(): number {
     return this._remainingTimeToOpenSolution;
   }
@@ -45,7 +32,6 @@ export class GameService {
     return this._remainingTimeToClose;
   }
 
-  private _uid: string;
   private countBack;
 
   private _remainingTimeToOpenSolution: number;
@@ -53,8 +39,6 @@ export class GameService {
   private _remainingTimeToGuess: number;
   private _remainingTimeToClose: number;
   private _remainingTimeToSum: number;
-  private _game: Game;
-  private _points: number;
 
   private currentState: GameState;
 
@@ -67,9 +51,9 @@ export class GameService {
       if (!nextGame) {
         return;
       }
-      this.reset();
-      this._game = nextGame;
-      this._uid = nextGame.uid;
+      if (this.countBack) {
+        clearInterval(this.countBack);
+      }
       this._remainingTimeToOpenSolution = (nextGame.openTime.getTime() - nextGame.currentTime.getTime()) + delay;
       this._remainingTimeToCloseSolution = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) - delay;
       this._remainingTimeToGuess = (nextGame.changeToGuessTime.getTime() - nextGame.currentTime.getTime()) + delay;
@@ -80,18 +64,6 @@ export class GameService {
         this.handleTick();
       }, second);
     });
-
-    this.store.dispatch(waitForGame());
-  }
-
-
-  public reset(): void {
-    this._uid = null;
-    this._game = null;
-    this._points = null;
-    if (this.countBack) {
-      clearInterval(this.countBack);
-    }
   }
 
   private handleTick() {
@@ -132,30 +104,13 @@ export class GameService {
     }
     if (this._remainingTimeToOpenSolution < 0) {
       if (this.currentState !== GameState.IN_GAME_SOLUTION_NOTSENT && this.currentState !== GameState.IN_GAME_SOLUTION_SENT) {
-        this.store.dispatch(showQuestionForSolution({uid: this._uid}));
+        this.store.dispatch(showQuestionForSolution());
       }
       return;
     }
     if (this.currentState !== GameState.BEFORE_GAME) {
-      this.store.dispatch(waitForGame());
+      this.store.dispatch(gameLoaded());
     }
-  }
-
-  public async sendAnswer(answerId: string): Promise<void> {
-    if (this.currentState === GameState.IN_GAME_SOLUTION_NOTSENT) {
-      this.store.dispatch(sendSolution({answerId: answerId, gameId: this.uid}));
-    }
-  }
-
-  public async sendGuess(answerId: string): Promise<void> {
-    if (this.currentState === GameState.IN_GAME_GUESS_NOTSENT) {
-      this.store.dispatch(sendGuess({answerId: answerId, gameId: this.uid}));
-    }
-  }
-
-  public finishRound() {
-    this.reset();
-    this.store.dispatch(waitForGame());
   }
 
 }

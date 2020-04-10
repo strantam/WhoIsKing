@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {Actions, createEffect, ofType, ROOT_EFFECTS_INIT} from '@ngrx/effects';
+import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpHandlerService} from "../../../http-service/http-handler.service";
 import {EMPTY, from} from "rxjs";
-import {loadNewGameSuccess} from "./gameObj";
-import {waitForGame} from "../game";
+import {loadNewGame, loadNewGameSuccess} from "./gameObj";
 import {showQuestionForSolution} from "../gameState/gameState";
+import {Store} from "@ngrx/store";
+import {State} from "../../index";
 
 @Injectable()
 export class GameObjEffects {
 
   loadNextGame$ = createEffect((): any => {
       return this.actions$.pipe(
-        ofType(waitForGame),
+        ofType(loadNewGame, ROOT_EFFECTS_INIT),
         mergeMap(() =>
           from(this.httpHandlerService.getNextGame())
             .pipe(
@@ -31,8 +32,9 @@ export class GameObjEffects {
   loadGame$ = createEffect((): any => {
       return this.actions$.pipe(
         ofType(showQuestionForSolution),
-        mergeMap((game) =>
-          from(this.httpHandlerService.getQuestion(game.uid))
+        withLatestFrom(this.store),
+        mergeMap(([, storeState]) =>
+          from(this.httpHandlerService.getQuestion(storeState.game.uid))
             .pipe(
               map(nextGame => ({type: loadNewGameSuccess.type, nextGame})),
               catchError((msg) => {
@@ -46,11 +48,10 @@ export class GameObjEffects {
   );
 
 
-
-
   constructor(
     private actions$: Actions,
-    private httpHandlerService: HttpHandlerService
+    private httpHandlerService: HttpHandlerService,
+    private store: Store<State>
   ) {
   }
 }

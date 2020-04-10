@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpHandlerService} from "../../../http-service/http-handler.service";
 import {EMPTY, from} from "rxjs";
 import {sendGuess, sendSolution} from "./gameState";
 import {noop} from "../../generic";
 import {setPoints} from "../../points";
+import {Store} from "@ngrx/store";
+import {State} from "../../index";
 
 @Injectable()
 export class GameStateEffects {
@@ -13,8 +15,9 @@ export class GameStateEffects {
   postSolution$ = createEffect((): any => {
       return this.actions$.pipe(
         ofType(sendSolution),
-        mergeMap((solution) =>
-          from(this.httpHandlerService.postAnswer(solution.answerId, solution.gameId))
+        withLatestFrom(this.store),
+        mergeMap(([action, storeState]) =>
+          from(this.httpHandlerService.postAnswer(action.answerId, storeState.game.uid))
             .pipe(
               map(() => ({type: noop.type})),
               catchError((msg) => {
@@ -30,8 +33,9 @@ export class GameStateEffects {
   postGuess$ = createEffect((): any => {
       return this.actions$.pipe(
         ofType(sendGuess),
-        mergeMap((solution) =>
-          from(this.httpHandlerService.postGuess(solution.answerId, solution.gameId))
+        withLatestFrom(this.store),
+        mergeMap(([action, storeState]) =>
+          from(this.httpHandlerService.postGuess(action.answerId, storeState.game.uid))
             .pipe(
               map((point) => ({type: setPoints.type, points: point.points})),
               catchError((msg) => {
@@ -47,7 +51,8 @@ export class GameStateEffects {
 
   constructor(
     private actions$: Actions,
-    private httpHandlerService: HttpHandlerService
+    private httpHandlerService: HttpHandlerService,
+    private store: Store<State>,
   ) {
   }
 }

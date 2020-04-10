@@ -1,5 +1,4 @@
 import {createAction, createReducer, on, props} from "@ngrx/store";
-import {waitForGame} from "../game";
 
 export enum GameState {
   BEFORE_GAME,
@@ -12,17 +11,18 @@ export enum GameState {
   AFTE_GAME_GOT_RESULT
 }
 
-export const showQuestionForSolution = createAction('[Game] Solution', props<{ uid: string }>());
-export const sendSolution = createAction('[Game] Send Solution', props<{ answerId: string, gameId: string }>());
+export const showQuestionForSolution = createAction('[Game] Solution');
+export const sendSolution = createAction('[Game] Send Solution', props<{ answerId: string }>());
 export const solutionOver = createAction('[Game] Solution Over');
 export const showQuestionForGuess = createAction('[Game] Guess');
-export const sendGuess = createAction('[Game] Send Guess', props<{ answerId: string, gameId: string }>());
+export const sendGuess = createAction('[Game] Send Guess', props<{ answerId: string }>());
 export const guessOver = createAction('[Game] Guess Over');
 export const resultReady = createAction('[Game] Result');
+export const gameLoaded = createAction('[Game] Loaded');
 
 const _gameStateReducer = createReducer(
   GameState.BEFORE_GAME,
-  on(waitForGame, (() => GameState.BEFORE_GAME)),
+  on(gameLoaded, (() => GameState.BEFORE_GAME)),
   on(showQuestionForSolution, (() => GameState.IN_GAME_SOLUTION_NOTSENT)),
   on(sendSolution, (() => GameState.IN_GAME_SOLUTION_SENT)),
   on(solutionOver, (() => GameState.IN_GAME_WAITING_FOR_GUESS)),

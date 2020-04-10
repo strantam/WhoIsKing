@@ -3,9 +3,9 @@
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT">
   <div>Solution until: {{gameService.remainingTimeToCloseSolution | minute}}</div>
-  <div>Question: {{gameService.game?.question}}</div>
-  <div *ngFor="let answer of gameService.game?.answers"
-       (click)="gameService.sendAnswer(answer.uid)">{{answer.answer}}</div>
+  <div>Question: {{game?.question}}</div>
+  <div *ngFor="let answer of game?.answers"
+       (click)="sendAnswer(answer.uid)">{{answer.answer}}</div>
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_SENT">
   Waiting for solutions...
@@ -15,9 +15,9 @@
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT">
   <div>Guess until: {{gameService.remainingTimeToClose | minute}}</div>
-  <div>Question: {{gameService.game?.question}}</div>
-  <div *ngFor="let answer of gameService.game.answers"
-       (click)="gameService.sendGuess(answer.uid)">{{answer.answer}}</div>
+  <div>Question: {{game?.question}}</div>
+  <div *ngFor="let answer of game.answers"
+       (click)="sendGuess(answer.uid)">{{answer.answer}}</div>
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_GUESS_SENT">
   Waiting for results...
