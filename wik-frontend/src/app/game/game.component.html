@@ -1,8 +1,8 @@
 <div *ngIf="currentState === GameState.BEFORE_GAME">
-  Next game in: {{gameService.remainingTimeToOpenSolution | minute}}
+  Next game in: {{remainingTimeToOpenSolution | minute}}
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT">
-  <div>Solution until: {{gameService.remainingTimeToCloseSolution | minute}}</div>
+  <div>Solution until: {{remainingTimeToCloseSolution | minute}}</div>
   <div>Question: {{game?.question}}</div>
   <div *ngFor="let answer of game?.answers"
        (click)="sendAnswer(answer.uid)">{{answer.answer}}</div>
@@ -14,7 +14,7 @@
   Waiting for solutions... Just 2 more sec...
 </div>
 <div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT">
-  <div>Guess until: {{gameService.remainingTimeToClose | minute}}</div>
+  <div>Guess until: {{remainingTimeToClose | minute}}</div>
   <div>Question: {{game?.question}}</div>
   <div *ngFor="let answer of game.answers"
        (click)="sendGuess(answer.uid)">{{answer.answer}}</div>

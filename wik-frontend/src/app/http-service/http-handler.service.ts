@@ -9,6 +9,7 @@ import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRe
 import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
 import {User} from "../../../../wik-backend/src/openApi/model/user";
 import {Level} from "../../../../wik-backend/src/openApi/model/level";
+import {GameModel} from "../model/GameModel";
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class HttpHandlerService {
     }
   }
 
-  public async getNextGame(): Promise<{ uid: string, openTime: Date, closeTime: Date, currentTime: Date, changeToGuessTime: Date }> {
+  public async getNextGame(): Promise<GameModel> {
     try {
       const nextGame = await this.httpClient.get<{ uid: string, openTime: string, closeTime: string, currentTime: string, changeToGuessTime: string }>(environment.apiUrl + 'noAuth/nextGame').toPromise();
       return {
@@ -62,7 +63,8 @@ export class HttpHandlerService {
         openTime: new Date(nextGame.openTime),
         closeTime: new Date(nextGame.closeTime),
         currentTime: new Date(nextGame.currentTime),
-        changeToGuessTime: new Date(nextGame.changeToGuessTime)
+        changeToGuessTime: new Date(nextGame.changeToGuessTime),
+        frontendTime: new Date(),
       }
     } catch (err) {
       // TODO handle errors on ui
@@ -70,7 +72,7 @@ export class HttpHandlerService {
     }
   }
 
-  public async getQuestion(gameId: string): Promise<Game> {
+  public async getQuestion(gameId: string): Promise<GameModel> {
     try {
       const question = await this.httpClient.get<Game>(environment.apiUrl + 'noAuth/game/' + gameId).toPromise();
 
@@ -79,7 +81,8 @@ export class HttpHandlerService {
         openTime: new Date(question.openTime),
         closeTime: new Date(question.closeTime),
         currentTime: new Date(question.currentTime),
-        changeToGuessTime: new Date(question.changeToGuessTime)
+        changeToGuessTime: new Date(question.changeToGuessTime),
+        frontendTime: new Date(),
       }
     } catch (err) {
       // TODO handle errors on ui

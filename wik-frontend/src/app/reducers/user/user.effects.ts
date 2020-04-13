@@ -4,13 +4,14 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {fetchUser, fetchUserSuccess} from "./user";
 import {EMPTY, from} from "rxjs";
+import {resultReady} from "../game/gameState/gameState";
 
 @Injectable()
 export class UserEffects {
 
   loadUser$ = createEffect((): any => {
       return this.actions$.pipe(
-        ofType(fetchUser),
+        ofType(fetchUser, resultReady),
         mergeMap(() =>
           from(this.httpHandlerService.getPersonalInfo())
             .pipe(

@@ -7,14 +7,14 @@ import {environment} from '../../environments/environment';
 import {User} from "../../../../wik-backend/src/openApi/model/user";
 import {userReducer} from "./user/user";
 import {gameStateReducer, GameState} from "./game/gameState/gameState";
-import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {gameReduce} from "./game/gameObj/gameObj";
 import {pointsReducer} from "./points";
+import {GameModel} from "../model/GameModel";
 
 export interface State {
   user: User;
   gameState: GameState,
-  game: Game,
+  game: GameModel,
   points: number
 }
 

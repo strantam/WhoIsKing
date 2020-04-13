@@ -1,13 +1,15 @@
 import {createAction, createReducer, on, props} from "@ngrx/store";
-import {Game} from "../../../../../../wik-backend/src/openApi/model/game";
+import {GameModel} from "../../../model/GameModel";
 
-export const loadNewGameSuccess = createAction('[Game] Load new game success', props<{ nextGame: Game }>());
+export const loadNextGameSuccess = createAction('[Game] Load next game success', props<{ nextGame: GameModel }>());
+export const loadCurrentGameSuccess = createAction('[Game] Load current game success', props<{ nextGame: GameModel }>());
+
 export const loadNewGame = createAction('[Game] Load new game');
 
 
 const _gameReduce = createReducer(
   null,
-  on(loadNewGameSuccess, ((state, {nextGame}) => (nextGame))),
+  on(loadNextGameSuccess, loadCurrentGameSuccess, ((state, {nextGame}) => (nextGame))),
 );
 
 export function gameReduce(state, action) {
