@@ -44,6 +44,11 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private countBack;
 
+  public solutionProgress: number = 0;
+  public solutionTime: number = 0;
+  public guessTime: number = 0;
+  public guessProgress: number = 0;
+
 
   constructor(public store: Store<State>) {
   }
@@ -65,9 +70,11 @@ export class GameComponent implements OnInit, OnDestroy {
       this.remainingTimeToClose = times.remainingTimeToClose;
       this.remainingTimeToCloseSolution = times.remainingTimeToCloseSolution;
       this.remainingTimeToOpenSolution = times.remainingTimeToOpenSolution;
-
-
+      this.solutionTime = this.remainingTimeToCloseSolution - this.remainingTimeToOpenSolution;
+      this.guessTime = this.remainingTimeToClose - times.remainingTimeToGuess;
       this.countBack = setInterval(() => {
+        this.solutionProgress = Math.max(Math.min((this.solutionTime - this.remainingTimeToCloseSolution) / this.solutionTime * 100, 100), 0);
+        this.guessProgress = Math.max(Math.min((this.guessTime - this.remainingTimeToClose) / this.guessTime * 100, 100), 0);
         this.remainingTimeToClose -= SECOND;
         this.remainingTimeToCloseSolution -= SECOND;
         this.remainingTimeToOpenSolution -= SECOND;

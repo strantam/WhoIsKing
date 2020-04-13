@@ -58,10 +58,12 @@ import {GameResultComponent} from './game/statistics/game-result/game-result.com
 import {StoreModule} from '@ngrx/store';
 import {reducers, metaReducers} from './reducers';
 import {LottieModule} from "ngx-lottie";
-import { EffectsModule } from '@ngrx/effects';
+import {EffectsModule} from '@ngrx/effects';
 import {UserEffects} from "./reducers/user/user.effects";
 import {GameObjEffects} from "./reducers/game/gameObj/gameObj.effects";
 import {GameStateEffects} from "./reducers/game/gameState/gameState.effects";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatDividerModule} from "@angular/material/divider";
 
 registerLocaleData(localeHu);
 
@@ -118,6 +120,8 @@ export function playerFactory() {
     MatSidenavModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatProgressBarModule,
+    MatDividerModule,
     MatRadioModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production || environment.dev}),
     FormsModule,

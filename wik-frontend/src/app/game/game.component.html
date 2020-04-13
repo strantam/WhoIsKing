@@ -1,37 +1,68 @@
 <div class="root">
-  <div *ngIf="currentState === GameState.BEFORE_GAME" [@slideInOut]>
-    Next game in: {{remainingTimeToOpenSolution | minute}}
-    <ng-lottie
-      [options]="lottieConfig"
-      [width]="'50%'"
-      [height]="'50%'">
-    </ng-lottie>
+  <div *ngIf="currentState === GameState.BEFORE_GAME" [@slideInOut] fxLayout="column"
+       fxLayoutAlign="center center" class="h100">
+    <h1>Next game</h1>
+    <div class="w100" [ngClass.gt-xs]="{'w70': true}">
+      <ng-lottie
+        [options]="lottieConfig">
+      </ng-lottie>
+    </div>
+    <h1>{{remainingTimeToOpenSolution | minute}}</h1>
   </div>
-  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT" [@slideInOut]>
-    <div>Solution until: {{remainingTimeToCloseSolution | minute}}</div>
-    <div>Question: {{game?.question}}</div>
-    <div *ngFor="let answer of game?.answers"
-         (click)="sendAnswer(answer.uid)">{{answer.answer}}</div>
+  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT" [@slideInOut] fxLayout="column"
+       fxLayoutAlign="space-between center" class="h100" fxLayoutGap="2rem">
+    <div fxLayoutGap="1rem" fxLayout="column" fxLayoutAlign="space-between center">
+      <h3>What do you think?</h3>
+      <h1>{{game?.question}}</h1>
+    </div>
+    <div class="w100" fxLayout="column" fxLayoutGap="1rem">
+      <button mat-raised-button class="w100" *ngFor="let answer of game?.answers"
+              (click)="sendAnswer(answer.uid)">{{answer.answer}}</button>
+    </div>
+    <div class="w100" fxLayout="column" fxLayoutAlign="flex-start center" fxLayoutGap="0.5rem">
+      <mat-progress-bar mode="determinate" value="{{solutionProgress}}"></mat-progress-bar>
+      <h3>{{remainingTimeToCloseSolution | minute}}</h3>
+    </div>
   </div>
-  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_SENT" [@slideInOut]>
-    Waiting for solutions...
+
+  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_SENT || currentState === GameState.IN_GAME_WAITING_FOR_GUESS" [@slideInOut] fxLayout="column"
+       fxLayoutAlign="center center">
+    <h1>Waiting for solutions</h1>
+    <div class="w100" [ngClass.gt-xs]="{'w70': true}">
+      <ng-lottie
+        [options]="lottieConfig">
+      </ng-lottie>
+    </div>
   </div>
-  <div *ngIf="currentState === GameState.IN_GAME_WAITING_FOR_GUESS" [@slideInOut]>
-    Waiting for solutions... Just 2 more sec...
+
+  <div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT" [@slideInOut] fxLayout="column"
+       fxLayoutAlign="space-between center" class="h100" fxLayoutGap="2rem">
+    <div fxLayoutGap="1rem" fxLayout="column" fxLayoutAlign="space-between center">
+      <h3>What do you think others think?</h3>
+      <h1>{{game?.question}}</h1>
+    </div>
+    <div class="w100" fxLayout="column" fxLayoutGap="1rem">
+      <button mat-raised-button class="w100" *ngFor="let answer of game?.answers"
+              (click)="sendGuess(answer.uid)">{{answer.answer}}</button>
+    </div>
+    <div class="w100" fxLayout="column" fxLayoutAlign="flex-start center" fxLayoutGap="0.5rem">
+      <mat-progress-bar mode="determinate" value="{{guessProgress}}"></mat-progress-bar>
+      <h3>{{remainingTimeToClose | minute}}</h3>
+    </div>
   </div>
-  <div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT" [@slideInOut]>
-    <div>Guess until: {{remainingTimeToClose | minute}}</div>
-    <div>Question: {{game?.question}}</div>
-    <div *ngFor="let answer of game.answers"
-         (click)="sendGuess(answer.uid)">{{answer.answer}}</div>
+
+  <div *ngIf="currentState === GameState.IN_GAME_GUESS_SENT || currentState === GameState.AFTER_GAME_WAITING_FOR_RESULT" [@slideInOut] fxLayout="column"
+       fxLayoutAlign="center center">
+    <h1>Waiting for guesses</h1>
+    <div class="w100" [ngClass.gt-xs]="{'w70': true}">
+      <ng-lottie
+        [options]="lottieConfig">
+      </ng-lottie>
+    </div>
   </div>
-  <div *ngIf="currentState === GameState.IN_GAME_GUESS_SENT" [@slideInOut]>
-    Waiting for results...
-  </div>
-  <div *ngIf="currentState === GameState.AFTER_GAME_WAITING_FOR_RESULT" [@slideInOut]>
-    Waiting for results... Just 2 more sec...
-  </div>
+
   <div *ngIf="currentState === GameState.AFTE_GAME_GOT_RESULT" [@slideInOut]>
     <app-game-statistics></app-game-statistics>
   </div>
+
 </div>
