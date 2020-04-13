@@ -1,4 +1,26 @@
-<button mat-stroked-button i18n="@@Settings.logOut" (click)="authService.signOut()">Log out</button>
-<button mat-stroked-button i18n="@@Settings.changeCity" (click)="openChangeCity()">Change city</button>
+<div fxLayout="column" fxLayoutAlign="flex-start center" class="h100">
+  <div [ngClass.gt-xs]="{'w70': true}" fxLayout="column" fxLayoutAlign="flex-start center" class="h100 w100"
+       fxLayoutGap="2rem">
 
-<button mat-stroked-button i18n="@@Settings.deleteUser" (click)="deleteUser()">Delete registration</button>
+    <button class="w100" mat-stroked-button i18n="@@Settings.logOut" (click)="authService.signOut()">
+      <div fxLayout="row" class="w100" fxLayoutAlign="start center">
+        <mat-icon fxFlex="0 0 fit-content">exit_to_app</mat-icon>
+        <div fxFlex="1 1">Log out</div>
+      </div>
+    </button>
+
+    <button class="w100" mat-stroked-button i18n="@@Settings.changeCity" (click)="openChangeCity()">
+      <div fxLayout="row" class="w100" fxLayoutAlign="start center">
+        <mat-icon fxFlex="0 0 fit-content">location_city</mat-icon>
+        <div fxFlex="1 1">Change city</div>
+      </div>
+    </button>
+
+    <button class="w100" mat-stroked-button i18n="@@Settings.deleteUser" (click)="deleteUser()">
+      <div fxLayout="row" class="w100" fxLayoutAlign="start center">
+        <mat-icon fxFlex="0 0 fit-content">delete_forever</mat-icon>
+        <div fxFlex="1 1">Delete registration</div>
+      </div>
+    </button>
+  </div>
+</div>
