@@ -4,15 +4,35 @@ import {select, Store} from "@ngrx/store";
 import {State} from "../reducers";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 import {calculateTimes} from "../utils/gameState";
+import {AnimationOptions} from "ngx-lottie";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 const SECOND = 1000;
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateX(100%)'}),
+        animate('1000ms ease-in', style({transform: 'translateX(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('1000ms ease-in', style({transform: 'translateX(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class GameComponent implements OnInit, OnDestroy {
+  public lottieConfig: AnimationOptions = {
+    path: '/assets/animations/stopwatch.json',
+    renderer: 'canvas',
+    autoplay: true,
+    loop: true
+  };
+
   GameState = GameState;
 
   public currentState: GameState;

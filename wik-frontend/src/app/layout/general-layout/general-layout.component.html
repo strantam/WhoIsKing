@@ -5,9 +5,11 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
-      <main class="mainElement">
-        <router-outlet></router-outlet>
-      </main>
+      <div class="parentOfMain">
+        <main class="h100" [ngClass.gt-xs]="{'mainElementOnGt': true}">
+          <router-outlet></router-outlet>
+        </main>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </app-layout>

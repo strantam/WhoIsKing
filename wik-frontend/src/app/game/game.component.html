@@ -1,30 +1,37 @@
-<div *ngIf="currentState === GameState.BEFORE_GAME">
-  Next game in: {{remainingTimeToOpenSolution | minute}}
-</div>
-<div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT">
-  <div>Solution until: {{remainingTimeToCloseSolution | minute}}</div>
-  <div>Question: {{game?.question}}</div>
-  <div *ngFor="let answer of game?.answers"
-       (click)="sendAnswer(answer.uid)">{{answer.answer}}</div>
-</div>
-<div *ngIf="currentState === GameState.IN_GAME_SOLUTION_SENT">
-  Waiting for solutions...
-</div>
-<div *ngIf="currentState === GameState.IN_GAME_WAITING_FOR_GUESS">
-  Waiting for solutions... Just 2 more sec...
-</div>
-<div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT">
-  <div>Guess until: {{remainingTimeToClose | minute}}</div>
-  <div>Question: {{game?.question}}</div>
-  <div *ngFor="let answer of game.answers"
-       (click)="sendGuess(answer.uid)">{{answer.answer}}</div>
-</div>
-<div *ngIf="currentState === GameState.IN_GAME_GUESS_SENT">
-  Waiting for results...
-</div>
-<div *ngIf="currentState === GameState.AFTER_GAME_WAITING_FOR_RESULT">
-  Waiting for results... Just 2 more sec...
-</div>
-<div *ngIf="currentState === GameState.AFTE_GAME_GOT_RESULT">
-  <app-game-statistics></app-game-statistics>
+<div class="root">
+  <div *ngIf="currentState === GameState.BEFORE_GAME" [@slideInOut]>
+    Next game in: {{remainingTimeToOpenSolution | minute}}
+    <ng-lottie
+      [options]="lottieConfig"
+      [width]="'50%'"
+      [height]="'50%'">
+    </ng-lottie>
+  </div>
+  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_NOTSENT" [@slideInOut]>
+    <div>Solution until: {{remainingTimeToCloseSolution | minute}}</div>
+    <div>Question: {{game?.question}}</div>
+    <div *ngFor="let answer of game?.answers"
+         (click)="sendAnswer(answer.uid)">{{answer.answer}}</div>
+  </div>
+  <div *ngIf="currentState === GameState.IN_GAME_SOLUTION_SENT" [@slideInOut]>
+    Waiting for solutions...
+  </div>
+  <div *ngIf="currentState === GameState.IN_GAME_WAITING_FOR_GUESS" [@slideInOut]>
+    Waiting for solutions... Just 2 more sec...
+  </div>
+  <div *ngIf="currentState === GameState.IN_GAME_GUESS_NOTSENT" [@slideInOut]>
+    <div>Guess until: {{remainingTimeToClose | minute}}</div>
+    <div>Question: {{game?.question}}</div>
+    <div *ngFor="let answer of game.answers"
+         (click)="sendGuess(answer.uid)">{{answer.answer}}</div>
+  </div>
+  <div *ngIf="currentState === GameState.IN_GAME_GUESS_SENT" [@slideInOut]>
+    Waiting for results...
+  </div>
+  <div *ngIf="currentState === GameState.AFTER_GAME_WAITING_FOR_RESULT" [@slideInOut]>
+    Waiting for results... Just 2 more sec...
+  </div>
+  <div *ngIf="currentState === GameState.AFTE_GAME_GOT_RESULT" [@slideInOut]>
+    <app-game-statistics></app-game-statistics>
+  </div>
 </div>
