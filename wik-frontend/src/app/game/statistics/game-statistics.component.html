@@ -1,8 +1,11 @@
-<div>Results</div>
+<h2>Results</h2>
 
-<div>You got: {{points$ | async}} points</div>
+<h4>You got: {{points$ | async}} points</h4>
 
-<app-game-result [gameResult]="stats.gameResult"></app-game-result>
+<h2>Answers</h2>
+<app-game-result [gameResult]="stats.gameResult.answers"></app-game-result>
+
+<h2>City results</h2>
 <app-city-statistics [stats]="stats.cityResult"></app-city-statistics>
 
 

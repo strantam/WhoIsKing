@@ -1,1 +1,10 @@
-<div *ngFor="let answer of gameResult.answers">{{answer.uid}}: {{answer.ratio}}</div>
+<div *ngFor="let answer of visibleResult">{{answer}}</div>
+<div>
+  <canvas baseChart
+          [data]="answersData.results"
+          [labels]="answersData.labels"
+          [options]="answersChartOptions"
+          [legend]="false"
+          [chartType]="'horizontalBar'">
+  </canvas>
+</div>
