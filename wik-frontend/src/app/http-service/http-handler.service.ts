@@ -4,12 +4,12 @@ import {City} from "../../../../wik-backend/src/openApi/model/city";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 
 import {environment} from "../../environments/environment";
-import {GameResult} from "../../../../wik-backend/src/openApi/model/gameResult";
 import {CityWithRegs} from "../../../../wik-backend/src/openApi/model/cityWithRegs";
 import {ResultAfterGame} from "../../../../wik-backend/src/openApi/model/resultAfterGame";
 import {User} from "../../../../wik-backend/src/openApi/model/user";
 import {Level} from "../../../../wik-backend/src/openApi/model/level";
 import {GameModel} from "../model/GameModel";
+import {Statistics} from "../../../../wik-backend/src/openApi/model/statistics";
 
 @Injectable({
   providedIn: 'root'
@@ -118,10 +118,10 @@ export class HttpHandlerService {
     }
   }
 
-  public async getStatistics(fromDate?: string): Promise<Array<GameResult>> {
+  public async getStatistics(fromDate?: string): Promise<Statistics> {
     try {
       const param = fromDate ? {datePicker: fromDate} : {};
-      return await this.httpClient.get<Array<GameResult>>(environment.apiUrl + 'noAuth/game/result', {
+      return await this.httpClient.get<Statistics>(environment.apiUrl + 'noAuth/game/result', {
         params: param
       }).toPromise();
     } catch (err) {

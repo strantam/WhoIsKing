@@ -1,9 +1,24 @@
-<div>
-  Score:
-  <div *ngFor="let city of citySuccessList">{{city.name}}: {{city.avgScore}}</div>
+<div *ngIf="cityScore && cityScore.cityResults && cityScore.cityResults.length">
+  <h3>Score</h3>
+  <div>
+    <canvas baseChart
+            [data]="cityScore.cityResults"
+            [labels]="cityScore.cityLabels"
+            [options]="cityScoreChartOptions"
+            [legend]="false"
+            [chartType]="'horizontalBar'">
+    </canvas>
+  </div>
+  <h3>Participants</h3>
+  <div>
+    <canvas baseChart
+            [data]="cityParticipants.cityResults"
+            [labels]="cityParticipants.cityLabels"
+            [options]="cityParticipantsChartOptions"
+            [legend]="false"
+            [chartType]="'horizontalBar'">
+    </canvas>
+  </div>
 </div>
+<app-not-found *ngIf="!cityScore || !cityScore.cityResults || !cityScore.cityResults.length"></app-not-found>
 
-<div>
-  Participants:
-  <div *ngFor="let city of cityParticipantsList">{{city.name}}: {{city.participants}}</div>
-</div>

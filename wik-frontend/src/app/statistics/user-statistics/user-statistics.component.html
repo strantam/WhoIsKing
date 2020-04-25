@@ -1,0 +1,11 @@
+<div *ngIf="userScore && userScore.results && userScore.results.length">
+  <h3>Score</h3>
+  <canvas baseChart
+          [data]="userScore.results"
+          [labels]="userScore.labels"
+          [options]="userScoreChartOptions"
+          [legend]="false"
+          [chartType]="'horizontalBar'">
+  </canvas>
+</div>
+<app-not-found *ngIf="!userScore || !userScore.results || !userScore.results.length"></app-not-found>

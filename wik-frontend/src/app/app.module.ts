@@ -15,7 +15,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LayoutComponent} from './layout/layout.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatListModule} from "@angular/material/list";
-import {CommonModule, DatePipe, I18nSelectPipe} from "@angular/common";
+import {CommonModule, DatePipe, DecimalPipe, I18nSelectPipe} from "@angular/common";
 import {MatTabsModule} from "@angular/material/tabs";
 import {SidenavListComponent} from './navigation/sidenav-list/sidenav-list.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -50,7 +50,6 @@ import {NotLoggedInComponent} from './not-logged-in/not-logged-in.component';
 import {LoggedInComponent} from './logged-in/logged-in.component';
 import {AddCityComponent} from './addcity/add-city.component';
 import {GameStatisticsComponent} from "./game/statistics/game-statistics.component";
-import {StatisticsComponent} from './statistics/statistics.component';
 import {AgmCoreModule} from "@agm/core";
 import {SettingsComponent} from './settings/settings.component';
 import {CityStatisticsComponent} from './statistics/city-statistics/city-statistics.component';
@@ -64,6 +63,8 @@ import {GameObjEffects} from "./reducers/game/gameObj/gameObj.effects";
 import {GameStateEffects} from "./reducers/game/gameState/gameState.effects";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatDividerModule} from "@angular/material/divider";
+import { UserStatisticsComponent } from './statistics/user-statistics/user-statistics.component';
+import { NotFoundComponent } from './layout/not-found/not-found.component';
 
 registerLocaleData(localeHu);
 
@@ -89,10 +90,11 @@ export function playerFactory() {
     LoggedInComponent,
     AddCityComponent,
     GameStatisticsComponent,
-    StatisticsComponent,
     SettingsComponent,
     CityStatisticsComponent,
     GameResultComponent,
+    UserStatisticsComponent,
+    NotFoundComponent,
   ],
   imports: [
     LottieModule.forRoot({player: playerFactory}),
@@ -144,7 +146,14 @@ export function playerFactory() {
     LoginComponent,
     AddCityComponent
   ],
-  providers: [DatePipe, I18nSelectPipe, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [DatePipe,
+    I18nSelectPipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
