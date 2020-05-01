@@ -35,10 +35,12 @@ export class LoginComponent implements OnInit {
 
   public googleSignin() {
     this.auth.googleSignin();
+    this.dialogRef.close();
   }
 
   public fbSignin() {
     this.auth.fbSignin();
+    this.dialogRef.close();
   }
 
   public onNoClick() {

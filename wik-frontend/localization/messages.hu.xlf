@@ -91,28 +91,22 @@
       </trans-unit><trans-unit id="StaticticsPage.1D" datatype="html">
         <source>1 day</source><target state="final">Napi</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">5</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="StaticticsPage.1W" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="StaticticsPage.1W" datatype="html">
         <source>1 week</source><target state="final">Heti</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="StaticticsPage.1M" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">6</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="StaticticsPage.1M" datatype="html">
         <source>1 month</source><target state="final">Havi</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="StaticticsPage.All" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit><trans-unit id="StaticticsPage.All" datatype="html">
         <source>All</source><target state="final">Összes</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit><trans-unit id="StaticticsPage.User" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">10</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">22</context></context-group></trans-unit><trans-unit id="StaticticsPage.User" datatype="html">
         <source>User</source><target state="new">User</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit><trans-unit id="StaticticsPage.City" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="StaticticsPage.City" datatype="html">
         <source>City</source><target state="new">City</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/statistics-page/statistics-page.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit>
       <trans-unit id="Footer.notloggedin" datatype="html">
         <source>Your score will not count to your city's score unless you log in.</source><target state="final">Bejelentkezés nélkül nem számítanaka az eredményeid a városod eredményeibe.</target>
         <context-group purpose="location">
@@ -129,28 +123,23 @@
       </trans-unit>
       <trans-unit id="AddCity.HeaderTitle" datatype="html">
         <source>Choose city!</source><target state="final">Hol ragadtál?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit>
       <trans-unit id="AddCity.Content" datatype="html">
         <source>
-    <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/>"/>
-
-    <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div>"/><x id="INTERPOLATION" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
-  </source><target state="new">
+      <x id="START_TAG_DIV_2" ctype="x-div" equiv-text="&lt;div>"/>
+        <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div>"/><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b>"/><x id="INTERPOLATION" equiv-text="{{city.zip}}"/><x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b>"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
+        <x id="START_TAG_DIV_1" ctype="x-div" equiv-text="&lt;div>"/><x id="INTERPOLATION_1" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
+      <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
+    </source><target state="new">
     <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/>"/>
 
     <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div>"/><x id="INTERPOLATION" equiv-text="{{city.name}}"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
   </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">8</context></context-group></trans-unit>
       <trans-unit id="AddCity.SearchCityInput" datatype="html">
-        <source>Search city</source><target state="final">Város neve</target>
+        <source>City name/zip</source><target state="translated">Város neve</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
           <context context-type="linenumber">4</context>
@@ -158,17 +147,11 @@
       </trans-unit>
       <trans-unit id="AddCity.Cancel" datatype="html">
         <source>Cancel</source><target state="final">Mégse</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit><trans-unit id="AddCity.Ok" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="AddCity.Ok" datatype="html">
         <source>Save</source><target state="final">Mentés</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/addcity/add-city.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit><trans-unit id="Footer.AddCityText" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/addcity/add-city.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="Footer.AddCityText" datatype="html">
         <source>You need to set your city to add your score to the city.</source><target state="final">Ha szeretnéd hogy a pontjaid számítsanak a városodnak, állítsd be kiért játszol!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/logged-in/logged-in.component.html</context>

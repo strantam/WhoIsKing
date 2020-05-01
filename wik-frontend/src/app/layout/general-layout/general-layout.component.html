@@ -1,14 +1,14 @@
 <app-layout>
   <mat-sidenav-container>
 
-    <mat-sidenav position="end" #sidenavMenu role="navigation">
+    <mat-sidenav [autoFocus]="false" position="end" #sidenavMenu role="navigation">
       <app-sidenav-list (sidenavClose)="sidenavMenu.close()"></app-sidenav-list>
     </mat-sidenav>
     <mat-sidenav-content>
       <app-header (sidenavToggle)="sidenavMenu.toggle()"
                   (sidenavSettingsToggle)="sidenavSettings.toggle()"></app-header>
       <mat-sidenav-container>
-        <mat-sidenav position="end" #sidenavSettings role="navigation">
+        <mat-sidenav [autoFocus]="false" position="end" #sidenavSettings role="navigation">
           <app-settings></app-settings>
         </mat-sidenav>
         <mat-sidenav-content>

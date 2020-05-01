@@ -17,7 +17,7 @@ export class AddCityComponent implements OnInit {
   public filteredCitiesTop: Array<City> = [];
 
   public cityPickerCtrl = new FormControl();
-  private selectedCityId: string;
+  public selectedCityId: string;
 
   constructor(
     public dialogRef: MatDialogRef<AddCityComponent>,

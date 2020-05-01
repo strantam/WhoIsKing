@@ -7,14 +7,16 @@
 
   <h3 i18n="@@Login.MainTitle">Welcome to Who Is King?</h3>
   <p i18n="@@Login.SubTitle">Login to get started...</p>
-  <div class="w100">
-    <div class="loginOpt">
-      <button (click)="googleSignin()">Google</button>
-    </div>
+  <div>
+    <button mat-button  (click)="googleSignin()">
+      <mat-icon svgIcon="google-logo"></mat-icon>
+      Login with Google
+    </button>
   </div>
-  <div class="w100">
-    <div class="loginOpt">
-      <button (click)="fbSignin()">Facebook</button>
-    </div>
+  <div>
+    <button mat-button (click)="fbSignin()">
+      <mat-icon svgIcon="facebook-logo"></mat-icon>
+      Login with Facebook
+    </button>
   </div>
 </div>

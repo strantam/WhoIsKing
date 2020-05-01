@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {LoginComponent} from "../authentication/login/login.component";
 
@@ -9,13 +9,14 @@ import {LoginComponent} from "../authentication/login/login.component";
 })
 export class NotLoggedInComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   ngOnInit() {
   }
 
   async login() {
-    const dialogRef = this.dialog.open(LoginComponent);
+    this.dialog.open(LoginComponent, {autoFocus: false});
   }
 
 }

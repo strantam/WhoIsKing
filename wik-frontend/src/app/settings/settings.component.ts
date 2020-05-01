@@ -41,6 +41,6 @@ export class SettingsComponent implements OnInit {
   }
 
   login() {
-    this.dialog.open(LoginComponent);
+    this.dialog.open(LoginComponent, {autoFocus: false});
   }
 }
