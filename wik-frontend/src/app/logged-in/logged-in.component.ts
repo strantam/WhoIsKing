@@ -29,7 +29,7 @@ export class LoggedInComponent implements OnInit {
   }
 
   async openAddCity() {
-    const dialogRef = this.dialog.open(AddCityComponent);
+    const dialogRef = this.dialog.open(AddCityComponent, {height: '90%', minWidth: '40%'});
     await dialogRef.afterClosed().toPromise();
     this.store.dispatch(fetchUser());
   }

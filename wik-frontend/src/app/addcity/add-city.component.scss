@@ -1,0 +1,29 @@
+.city {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  border-radius: 0.2rem;
+  cursor: pointer;
+}
+
+.city:hover {
+  background-color: #9f6cff;
+  color: white;
+}
+
+.citySelected {
+  background-color: #803cb7;
+  color: white;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.zip {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+h1 {
+  text-align: center;
+}

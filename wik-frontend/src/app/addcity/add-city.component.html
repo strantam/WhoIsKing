@@ -1,10 +1,18 @@
-<h1 mat-dialog-title i18n="@@AddCity.HeaderTitle">Choose city!</h1>
-<div>
-  <div mat-dialog-content i18n="@@AddCity.Content">
-    <input type="text" placeholder="Search city" i18n-placeholder="@@AddCity.SearchCityInput" matInput
+<div class="w100 h100" fxLayout="column" fxLayoutAlign="space-between center">
+  <div>
+    <h1 mat-dialog-title i18n="@@AddCity.HeaderTitle" fxFlexAlign="center">Choose city!</h1>
+    <input type="text" placeholder="City name/zip" i18n-placeholder="@@AddCity.SearchCityInput" matInput autocomplete="off"
            [formControl]="cityPickerCtrl">
-
-    <div *ngFor="let city of filteredCitiesTop" (click)="selectCity(city.uid)">{{city.name}}</div>
+  </div>
+  <div class="h100">
+    <div mat-dialog-content i18n="@@AddCity.Content" class="w100">
+      <div fxLayout="row" class="w100 city" [ngClass]="{'citySelected': selectedCityId === city.uid}"
+           fxLayoutAlign="start center"
+           *ngFor="let city of filteredCitiesTop" (click)="selectCity(city.uid)">
+        <div fxFlex="0 0 fit-content" class="zip"><b>{{city.zip}}</b></div>
+        <div fxFlex="1 1">{{city.name}}</div>
+      </div>
+    </div>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()" i18n="@@AddCity.Cancel">Cancel</button>

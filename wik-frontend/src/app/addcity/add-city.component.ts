@@ -12,8 +12,7 @@ import {map, startWith} from "rxjs/operators";
   styleUrls: ['./add-city.component.scss']
 })
 export class AddCityComponent implements OnInit {
-
-  private cities: Array<City> = [];
+  private cities: Array<{ name, uid, zip, mergedAddress }> = [];
 
   public filteredCitiesTop: Array<City> = [];
 
@@ -32,22 +31,35 @@ export class AddCityComponent implements OnInit {
     let result: Array<City> = [];
     if (value.toLowerCase) {
       const filterValue = latinize(value).toLowerCase();
-      result = this.cities.filter(city => latinize(city.name).toLowerCase().indexOf(filterValue) !== -1)
+      result = this.cities.filter(city => city.mergedAddress.indexOf(filterValue) !== -1)
     }
     return result;
   }
 
   async ngOnInit() {
-    this.cities = (await this.httpService.getCities()).sort((cityA, cityB) => cityA.name > cityB.name ? 1 : -1);
-
+    this.cities = (await this.httpService.getCities())
+      .sort((cityA, cityB) => cityA.name > cityB.name ? 1 : -1)
+      .map((city: City) => {
+        return {
+          name: city.name,
+          uid: city.uid,
+          zip: city.zip,
+          mergedAddress: latinize(city.name + city.zip).toLowerCase()
+        }
+      });
     const filteredCitiesObs = this.cityPickerCtrl.valueChanges
       .pipe(
         startWith(''),
-        map(state => state ? this.filterStates(state) : this.cities),
+        map(state => {
+          if (state.length < 2) {
+            return [];
+          }
+          return state ? this.filterStates(state) : this.cities
+        }),
       );
 
     filteredCitiesObs.subscribe((filteredCities: Array<City>) => {
-      this.filteredCitiesTop = filteredCities.slice(0, Math.min(filteredCities.length, 15));
+      this.filteredCitiesTop = filteredCities.slice(0, Math.min(filteredCities.length, 5));
     });
   }
 
@@ -60,7 +72,7 @@ export class AddCityComponent implements OnInit {
   }
 
   public async saveCity() {
-    if (!this.selectedCityId){
+    if (!this.selectedCityId) {
       console.warn("No selected city");
       return;
     }
