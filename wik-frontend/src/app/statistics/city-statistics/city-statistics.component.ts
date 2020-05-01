@@ -57,7 +57,6 @@ export class CityStatisticsComponent implements OnInit {
 
   @Input()
   public set stats(stats: Array<CityResult>) {
-    this._stats = stats;
     this._stats = stats ? stats : [];
     this.sortStats();
   }

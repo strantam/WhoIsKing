@@ -65,6 +65,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatDividerModule} from "@angular/material/divider";
 import { UserStatisticsComponent } from './statistics/user-statistics/user-statistics.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
+import { LevelChangeComponent } from './level-change/level-change.component';
 
 registerLocaleData(localeHu);
 
@@ -95,6 +96,7 @@ export function playerFactory() {
     GameResultComponent,
     UserStatisticsComponent,
     NotFoundComponent,
+    LevelChangeComponent,
   ],
   imports: [
     LottieModule.forRoot({player: playerFactory}),

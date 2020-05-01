@@ -1,0 +1,18 @@
+<h1 mat-dialog-title i18n="@@LevelChange.Congrats">
+  Congratulations!
+</h1>
+<div mat-dialog-content>
+  You reached {{userLevel}}.
+  <ng-container *ngIf="selectedLevel?.plusQuestions">
+    <ng-container i18n="@@LevelChange.PlusQuestions">Plus questions:</ng-container>
+    {{selectedLevel.plusQuestions}}
+  </ng-container>
+  <ng-container *ngIf="selectedLevel?.plusVotes">
+    <ng-container i18n="@@LevelChange.PlusVotes">Plus votes:</ng-container>
+    {{selectedLevel.plusVotes}}
+  </ng-container>
+  <ng-container *ngIf="selectedLevel?.other && selectedLevel.other.length > 0" i18n="@@LevelChange.Other">You can vote
+    for cities now!
+  </ng-container>
+</div>
+

@@ -6,5 +6,7 @@
 - SSR
 - tests
 - add question module
-- level change
 - select language
+- scripts to fill db
+- time travel
+- levelchange design

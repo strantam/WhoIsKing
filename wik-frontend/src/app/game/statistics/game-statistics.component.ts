@@ -13,7 +13,7 @@ import {loadNewGame} from "../../reducers/game/gameObj/gameObj";
 })
 export class GameStatisticsComponent implements OnInit {
 
-  public stats: ResultAfterGame;
+  public stats: ResultAfterGame = {gameResult: {answers: []}, cityResult: []};
   public points$: Observable<number>;
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {

@@ -3,7 +3,7 @@
 <h4>You got: {{points$ | async}} points</h4>
 
 <h2>Answers</h2>
-<app-game-result [gameResult]="stats.gameResult.answers"></app-game-result>
+<app-game-result [gameResult]="stats.gameResult?.answers"></app-game-result>
 
 <h2>City results</h2>
 <app-city-statistics [stats]="stats.cityResult"></app-city-statistics>
