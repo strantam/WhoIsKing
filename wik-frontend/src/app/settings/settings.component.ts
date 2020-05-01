@@ -6,6 +6,7 @@ import {HttpHandlerService} from "../http-service/http-handler.service";
 import {fetchUser} from "../reducers/user/user";
 import {Store} from "@ngrx/store";
 import {State} from "../reducers";
+import {LoginComponent} from "../authentication/login/login.component";
 
 @Component({
   selector: 'app-settings',
@@ -14,6 +15,8 @@ import {State} from "../reducers";
 })
 export class SettingsComponent implements OnInit {
 
+  public loggedIn: boolean = false;
+
   constructor(public authService: AuthService,
               private dialog: MatDialog,
               private httpHandlerService: HttpHandlerService,
@@ -21,6 +24,9 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.select('user').subscribe(user => {
+      this.loggedIn = !!user;
+    })
   }
 
   async openChangeCity() {
@@ -34,4 +40,7 @@ export class SettingsComponent implements OnInit {
     await this.authService.signOut();
   }
 
+  login() {
+    this.dialog.open(LoginComponent);
+  }
 }

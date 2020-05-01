@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   public user$: Observable<User>;
 
   @Output() public sidenavToggle = new EventEmitter();
+  @Output() public sidenavSettingsToggle = new EventEmitter();
 
   constructor(
     private router: Router,
@@ -31,6 +32,10 @@ export class HeaderComponent implements OnInit {
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
+  };
+
+  public onToggleSettings = () => {
+    this.sidenavSettingsToggle.emit();
   };
 
   public navigateBack() {

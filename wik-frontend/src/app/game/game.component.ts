@@ -7,7 +7,7 @@ import {calculateTimes} from "../utils/gameState";
 import {AnimationOptions} from "ngx-lottie";
 import {animate, style, transition, trigger} from "@angular/animations";
 
-const SECOND = 1000;
+const PROGRESS_BAR_REFRESH_MS = 25;
 
 @Component({
   selector: 'app-game',
@@ -75,10 +75,10 @@ export class GameComponent implements OnInit, OnDestroy {
       this.countBack = setInterval(() => {
         this.solutionProgress = Math.max(Math.min((this.solutionTime - this.remainingTimeToCloseSolution) / this.solutionTime * 100, 100), 0);
         this.guessProgress = Math.max(Math.min((this.guessTime - this.remainingTimeToClose) / this.guessTime * 100, 100), 0);
-        this.remainingTimeToClose -= SECOND;
-        this.remainingTimeToCloseSolution -= SECOND;
-        this.remainingTimeToOpenSolution -= SECOND;
-      }, SECOND);
+        this.remainingTimeToClose -= PROGRESS_BAR_REFRESH_MS;
+        this.remainingTimeToCloseSolution -= PROGRESS_BAR_REFRESH_MS;
+        this.remainingTimeToOpenSolution -= PROGRESS_BAR_REFRESH_MS;
+      }, PROGRESS_BAR_REFRESH_MS);
     });
   }
 
