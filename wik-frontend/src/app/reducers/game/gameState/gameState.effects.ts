@@ -19,6 +19,7 @@ import {State} from "../../index";
 import {loadNextGameSuccess} from "../gameObj/gameObj";
 import {calculateTimes} from "../../../utils/gameState";
 
+const RXJS_MAX_TIMEOUT = 2147483647;
 
 @Injectable()
 export class GameStateEffects {
@@ -84,9 +85,14 @@ export class GameStateEffects {
         switchMap(([, storeState]) => {
             const times = calculateTimes(storeState.game);
             const nextState = GameStateEffects.calculateNextState(times);
+            if (!nextState.nextAction) {
+              return EMPTY;
+            }
+
             return timer(nextState.time).pipe(
               map(() => ({type: nextState.nextAction.type}))
             )
+
           }
         ),
         catchError((msg) => {
@@ -163,6 +169,9 @@ export class GameStateEffects {
     ];
 
     const nextAction = possibleActions[possibleActions.findIndex(action => action.time < 0) - 1];
+    if (nextAction.time > RXJS_MAX_TIMEOUT) {
+      return {nextAction: null, time: -1}
+    }
     return {nextAction: nextAction.nextAction, time: nextAction.time};
   }
 }
