@@ -5,6 +5,7 @@
 - api fix
 - levelchange design
 - scripts to fill db
+- spinner
 
 - SSR
 - SEO

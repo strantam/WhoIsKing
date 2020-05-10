@@ -1,0 +1,12 @@
+<mat-tab-group (selectedTabChange)="changeOwner($event)">
+  <mat-tab label="All" i18n-label="@@Question.AllTab">
+  </mat-tab>
+  <mat-tab label="Own" i18n-label="@@Question.OwnTab">
+  </mat-tab>
+</mat-tab-group>
+<div *ngFor="let question of questions; let i = index">
+  <hr *ngIf="i===topQuestions && allOwner">
+  {{question.question}} {{question.votes}}
+  <button mat-stroked-button i18n="@@Question.voteButton" (click)="vote(question.uid)" *ngIf="user?.votes > 0">Vote
+  </button>
+</div>

@@ -67,6 +67,8 @@ import { UserStatisticsComponent } from './statistics/user-statistics/user-stati
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { LevelChangeComponent } from './level-change/level-change.component';
 import { QuestionComponent } from './question/question.component';
+import { AskedQuestionComponent } from './question/asked-question/asked-question.component';
+import { VotableQuestionComponent } from './question/votable-question/votable-question.component';
 
 registerLocaleData(localeHu);
 
@@ -99,6 +101,8 @@ export function playerFactory() {
     NotFoundComponent,
     LevelChangeComponent,
     QuestionComponent,
+    AskedQuestionComponent,
+    VotableQuestionComponent,
   ],
   imports: [
     LottieModule.forRoot({player: playerFactory}),

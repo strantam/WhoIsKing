@@ -128,6 +128,14 @@ export class HttpHandlerService {
     }
   }
 
+  public async postVote(gameId: string): Promise<void> {
+    try {
+      await this.httpClient.post(environment.apiUrl + 'auth/game/' + gameId + '/vote', {}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post answer", err);
+    }
+  }
 
   public async getGameResults(gameId: string): Promise<ResultAfterGame> {
     try {

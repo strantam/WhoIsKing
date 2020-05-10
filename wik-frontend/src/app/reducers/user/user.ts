@@ -4,9 +4,11 @@ import {User} from "../../../../../wik-backend/src/openApi/model/user";
 export const fetchUser = createAction('[User] Fetch');
 export const logout = createAction('[User] Logout');
 export const fetchUserSuccess = createAction('[User] Fetch Success', props<{ user: User }>());
+export const vote = createAction('[User] vote');
 
 const _userReducer = createReducer(null,
-  on(fetchUserSuccess, ((state, {user}) => (user))),
+  on(fetchUserSuccess, (state, {user}) => (user)),
+  on(vote, (user: User) => ({...user, votes: user.votes - 1})),
   on(logout, (() => null))
 );
 
