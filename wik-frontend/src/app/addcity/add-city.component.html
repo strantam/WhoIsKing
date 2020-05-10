@@ -5,7 +5,7 @@
            [formControl]="cityPickerCtrl">
   </div>
   <div class="h100">
-    <div mat-dialog-content i18n="@@AddCity.Content" class="w100">
+    <div mat-dialog-content class="w100">
       <div fxLayout="row" class="w100 city" [ngClass]="{'citySelected': selectedCityId === city.uid}"
            fxLayoutAlign="start center"
            *ngFor="let city of filteredCitiesTop" (click)="selectCity(city.uid)">
