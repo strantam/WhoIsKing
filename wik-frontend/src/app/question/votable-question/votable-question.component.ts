@@ -15,7 +15,7 @@ import {environment} from "../../../environments/environment";
 export class VotableQuestionComponent implements OnInit {
   public readonly topQuestions = environment.questionsPerDay;
 
-  private allOwner: boolean = true;
+  public allOwner: boolean = true;
   public questions: Array<Game> = [];
   public user: User;
 

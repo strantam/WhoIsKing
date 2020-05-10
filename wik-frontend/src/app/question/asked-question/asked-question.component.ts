@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Game} from "../../../../../wik-backend/src/openApi/model/game";
 import {HttpHandlerService} from "../../http-service/http-handler.service";
-import {Store} from "@ngrx/store";
-import {State} from "../../reducers";
 import {GameResultAnswers} from "../../../../../wik-backend/src/openApi/model/gameResultAnswers";
 
 @Component({
@@ -14,9 +12,9 @@ export class AskedQuestionComponent implements OnInit {
   private allOwner: boolean = true;
   public questions: Array<Game> = [];
 
-  private results: Map<string, Array<GameResultAnswers>> = new Map();
+  public results: Map<string, Array<GameResultAnswers>> = new Map();
 
-  constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
+  constructor(private httpHandlerService: HttpHandlerService) {
   }
 
   ngOnInit(): void {
