@@ -11,7 +11,8 @@ export enum HeaderTitles {
   "GAME" = "GAME",
   "STATISTICS" = "STATISTICS",
   "SPREAD" = "SPREAD",
-  "SETTINGS" = "SETTINGS"
+  "SETTINGS" = "SETTINGS",
+  "QUESTIONS" = "QUESTIONS",
 }
 
 export enum SnackbarTexts {

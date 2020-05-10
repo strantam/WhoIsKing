@@ -9,6 +9,7 @@ import {SpreadComponent} from "./spread/spread.component";
 import {LoggedInComponent} from "./logged-in/logged-in.component";
 import {NotLoggedInComponent} from "./not-logged-in/not-logged-in.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {QuestionComponent} from "./question/question.component";
 
 
 const routes: Routes = [
@@ -36,6 +37,11 @@ const routes: Routes = [
         component: SettingsComponent,
         data: {title: HeaderTitles.SETTINGS, hideBack: true},
         canActivate: [AuthGuard]
+      },
+      {
+        path: 'questions',
+        component: QuestionComponent,
+        data: {title: HeaderTitles.QUESTIONS, hideBack: true}
       },
       {path: '', redirectTo: '/game', pathMatch: 'full'}
     ]

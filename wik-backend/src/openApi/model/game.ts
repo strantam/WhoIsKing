@@ -17,6 +17,7 @@ export class Game {
     'uid'?: string;
     'question'?: string;
     'answers'?: Array<GameAnswers>;
+    'votes'?: number;
     'openTime'?: Date;
     'closeTime'?: Date;
     'changeToGuessTime'?: Date;
@@ -40,6 +41,11 @@ export class Game {
             "name": "answers",
             "baseName": "answers",
             "type": "Array<GameAnswers>"
+        },
+        {
+            "name": "votes",
+            "baseName": "votes",
+            "type": "number"
         },
         {
             "name": "openTime",

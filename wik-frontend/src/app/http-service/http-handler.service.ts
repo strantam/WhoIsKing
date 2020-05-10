@@ -90,6 +90,26 @@ export class HttpHandlerService {
     }
   }
 
+  public async getAllGames(askedQuestions: boolean): Promise<Array<Game>> {
+    try {
+      const param = askedQuestions ? {askedQuestion: 'true'} : {};
+      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'noAuth/game/', {params: param}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error get question", err);
+    }
+  }
+
+  public async getOwnGames(askedQuestions: boolean): Promise<Array<Game>> {
+    try {
+      const param = askedQuestions ? {askedQuestion: 'true'} : {};
+      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'auth/game/', {params: param}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error get question", err);
+    }
+  }
+
   public async postAnswer(answerId: string, gameId: string): Promise<void> {
     try {
       await this.httpClient.post(environment.apiUrl + 'auth/game/' + gameId + '/solution', {answer: answerId}).toPromise();

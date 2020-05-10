@@ -7,12 +7,9 @@ import * as uuid from 'uuid';
 import {User as ApiUser} from "../../../openApi/model/user"
 import {Game} from "../../model/game";
 import {getLevels, getUser, getUserPoints} from "../../../util/dbQuery";
-
+import * as express from 'express';
 
 const logger = getLogger(module.filename);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const express = require('express');
-
 const router = express.Router();
 
 
@@ -78,7 +75,7 @@ router.delete('/user/me', async (req, res, next) => {
 router.get('/user/me', async (req, res, next) => {
     try {
         const currentUserCityName: { cityName, nickName, votes, questions, highestLevel } = (await DB.getDb().pool.query(
-            'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions", U."highestLevel" ' +
+            'SELECT C."name" as "cityName", U."nickName", U."votes", U."questions", U."highestLevel", U."uid" ' +
             'FROM "User" as U ' +
             'LEFT JOIN "City" as C ' +
             'ON C."uid"= U."cityId" ' +
@@ -205,9 +202,9 @@ router.post('/game', async (req, res, next) => {
         if (!user) {
             throw new ErrorObject(ErrorCode.NO_QUESTIONS, "No questions remaining", HttpStatus.INTERNAL_SERVER);
         }
-        const questionId = (await dbClient.query('INSERT INTO "Question" ("uid", "question", "userId", "votes", "category") VALUES ($1, $2, $3, 0, $4) RETURNING uid', [uuid.v4(), game.question, res.locals.userId, game.category])).rows[0].uid;
+        const questionId = (await dbClient.query('INSERT INTO "Question" ("uid", "question", "userId", "votes", "category", "createdAt") VALUES ($1, $2, $3, 0, $4, $5) RETURNING uid', [uuid.v4(), game.question, res.locals.userId, game.category, new Date()])).rows[0].uid;
         for (const answer of game.answers) {
-            await dbClient.query('INSERT INTO "Answer" ("uid", "questionId", "answer", "votes") VALUES ($1, $2, $3, 0)', [uuid.v4(), questionId, answer.answer]);
+            await dbClient.query('INSERT INTO "Answer" ("uid", "questionId", "answer", "votes", "createdAt") VALUES ($1, $2, $3, 0, $4)', [uuid.v4(), questionId, answer.answer, new Date()]);
         }
         await dbClient.query('COMMIT');
         res.json({});
@@ -221,6 +218,32 @@ router.post('/game', async (req, res, next) => {
         }
     } finally {
         dbClient.release();
+    }
+});
+
+router.get('/game', async (req, res, next) => {
+    try {
+        const askedQuestion: boolean = req.query.askedQuestion ? req.query.askedQuestion : false;
+        let questions: Array<Question>;
+        if (askedQuestion) {
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "userId"=$1 AND "closeTime" < $2 ORDER BY "createdAt" DESC', [res.locals.userId, new Date()])).rows;
+        } else {
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL AND "userId"=$1 ORDER BY "createdAt" DESC', [res.locals.userId])).rows;
+        }
+        const apiResult: Array<Game> = questions.map(question => ({
+            question: question.question,
+            uid: question.uid,
+            category: question.category,
+            votes: question.votes,
+        }));
+        res.json(apiResult);
+    } catch (err) {
+        logger.error("Cannot get questions for user " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions for user", HttpStatus.INTERNAL_SERVER));
+        }
     }
 });
 

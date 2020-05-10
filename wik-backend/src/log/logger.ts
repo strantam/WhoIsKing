@@ -6,7 +6,7 @@ import {AsyncHookHandler} from "./AsyncHookHandler";
 
 const hookHandler = AsyncHookHandler.getAsyncHookHandler();
 
-const addTransId = format((info): TransformableInfo => {
+const addTransactionIdFormatter = format((info): TransformableInfo => {
     const transId = hookHandler.getTransactionId();
     if (transId) {
         info.transId = transId;
@@ -23,12 +23,13 @@ export function getLogger(fileNameWithPath: string): Logger {
             format.timestamp({
                 format: 'YYYY-MM-DD HH:mm:ss'
             }),
-            addTransId(),
-            format.simple()
+            addTransactionIdFormatter(),
         ),
         defaultMeta: {fileName: fileName},
         transports: [
-            new winston.transports.Console()
+            new winston.transports.Console({
+                format: format.combine(format.colorize(), format.simple()),
+            })
         ]
     });
 }

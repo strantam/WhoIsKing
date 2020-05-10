@@ -66,6 +66,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import { UserStatisticsComponent } from './statistics/user-statistics/user-statistics.component';
 import { NotFoundComponent } from './layout/not-found/not-found.component';
 import { LevelChangeComponent } from './level-change/level-change.component';
+import { QuestionComponent } from './question/question.component';
 
 registerLocaleData(localeHu);
 
@@ -97,6 +98,7 @@ export function playerFactory() {
     UserStatisticsComponent,
     NotFoundComponent,
     LevelChangeComponent,
+    QuestionComponent,
   ],
   imports: [
     LottieModule.forRoot({player: playerFactory}),

@@ -18,19 +18,26 @@
         <source>Statistics</source><target state="final">Statistics</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="Header.Questions" datatype="html">
+        <source>Questions</source><target state="final">Questions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/header/header.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Header.Spread" datatype="html">
         <source>Spread</source><target state="final">Spread</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit>
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/header/header.component.html</context><context context-type="linenumber">32</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">12</context></context-group></trans-unit>
       <trans-unit id="Header.Logout" datatype="html">
         <source>Settings</source><target state="final">Settings</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/navigation/sidenav-list/sidenav-list.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit>
       <trans-unit id="AreYouSure.Header" datatype="html">
         <source>Are you sure?</source><target state="final">Are you sure?</target>
         <context-group purpose="location">
@@ -264,6 +271,38 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/level-change/level-change.component.html</context>
           <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit><trans-unit id="Question.AllTab" datatype="html">
+        <source>All</source><target state="final">All</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit><trans-unit id="Question.OwnTab" datatype="html">
+        <source>Own</source><target state="final">Own</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit><trans-unit id="Question.NotAskedTab" datatype="html">
+        <source>Not asked</source><target state="final">Not asked</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="Question.AskedTab" datatype="html">
+        <source>Asked</source><target state="final">Asked</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
     </body>

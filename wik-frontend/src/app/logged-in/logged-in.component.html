@@ -35,8 +35,8 @@
     </ng-container>
   </div>
   <div fxLayout="column">
-    <button mat-stroked-button i18n="@@Footer.voteButton" (click)="openAddCity()" *ngIf="user?.votes > 0">Vote</button>
-    <button mat-stroked-button i18n="@@Footer.askQuestionButton" (click)="openAddCity()" *ngIf="user?.questions > 0">Ask
+    <button mat-stroked-button i18n="@@Footer.voteButton" routerLink="/questions" *ngIf="user?.votes > 0">Vote</button>
+    <button mat-stroked-button i18n="@@Footer.askQuestionButton" routerLink="/questions"  *ngIf="user?.questions > 0">Ask
       question
     </button>
   </div>

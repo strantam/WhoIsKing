@@ -121,6 +121,23 @@ paths:
           description: Empty response on succesful creation
         'default':
           $ref: '#/components/responses/GeneralError'
+    get:
+      tags:
+        - Games
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AskedQuestion'
+      description: Gets games, that have not been asked/scheduled, and asked by logged in user, timestamp DESC
+      responses:
+        '200':
+          description: Games, filtered by user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
 
   "/auth/game/{gameId}/vote":
     post:
@@ -270,6 +287,24 @@ paths:
                   $ref: '#/components/schemas/Level'
         'default':
           $ref: '#/components/responses/GeneralError'
+  "/noAuth/game":
+    get:
+      tags:
+        - Games
+      parameters:
+        - $ref: '#/components/parameters/AskedQuestion'
+      description: Gets games, that have not been asked/scheduled, vote DESC
+      responses:
+        '200':
+          description: Games, filtered by user who asked if given as a param
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+
+
 
 components:
   responses:
@@ -288,6 +323,13 @@ components:
         type: string
         format: uuid
       required: true
+    AskedQuestion:
+      in: query
+      name: askedQuestion
+      schema:
+        type: boolean
+        default: false
+      required: false
     DatePicker:
       in: query
       name: datePicker
@@ -298,6 +340,7 @@ components:
           - 1W
           - 1M
           - ALL
+        default: ALL
       required: false
 
   schemas:
@@ -487,6 +530,9 @@ components:
               uid:
                 type: string
                 format: uuid
+        votes:
+          type: number
+          minimum: 0
         openTime:
           type: string
           format: date-time

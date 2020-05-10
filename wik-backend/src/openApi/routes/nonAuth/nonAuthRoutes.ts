@@ -9,12 +9,9 @@ import {Statistics} from "../../model/statistics";
 import {ResultAfterGame} from "../../model/resultAfterGame";
 import {getLevels} from "../../../util/dbQuery";
 import {Level} from "../../model/level";
-
+import * as express from 'express';
 
 const logger = getLogger(module.filename);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const express = require('express');
-
 const router = express.Router();
 
 router.get('/city', async (req, res, next) => {
@@ -220,6 +217,33 @@ router.get('/game/:gameId/result', async (req, res, next) => {
         }
     }
 });
+
+router.get('/game', async (req, res, next) => {
+    try {
+        const askedQuestion: boolean = req.query.askedQuestion ? req.query.askedQuestion : false;
+        let questions: Array<Question>;
+        if (askedQuestion) {
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "closeTime" < $1 ORDER BY "votes" DESC',[new Date()])).rows;
+        } else {
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL ORDER BY "votes" DESC')).rows;
+        }
+        const apiResult: Array<Game> = questions.map(question => ({
+            question: question.question,
+            uid: question.uid,
+            category: question.category,
+            votes: question.votes,
+        }));
+        res.json(apiResult);
+    } catch (err) {
+        logger.error("Cannot get questions " + JSON.stringify(err.message));
+        if (err.ownErrorObject) {
+            next(err);
+        } else {
+            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions", HttpStatus.INTERNAL_SERVER));
+        }
+    }
+});
+
 
 router.get('/level', async (req, res, next) => {
     try {
