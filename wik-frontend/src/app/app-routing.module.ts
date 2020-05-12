@@ -10,6 +10,7 @@ import {LoggedInComponent} from "./logged-in/logged-in.component";
 import {NotLoggedInComponent} from "./not-logged-in/not-logged-in.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {QuestionComponent} from "./question/question.component";
+import {QuestionFooterComponent} from "./question/footer/question-footer.component";
 
 
 const routes: Routes = [
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'loggedout',
     component: NotLoggedInComponent,
+    outlet: 'footerinfo'
+  },
+  {
+    path: 'question',
+    component: QuestionFooterComponent,
     outlet: 'footerinfo'
   }
 ];

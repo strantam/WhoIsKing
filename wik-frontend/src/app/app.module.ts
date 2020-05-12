@@ -69,6 +69,8 @@ import { LevelChangeComponent } from './level-change/level-change.component';
 import { QuestionComponent } from './question/question.component';
 import { AskedQuestionComponent } from './question/asked-question/asked-question.component';
 import { VotableQuestionComponent } from './question/votable-question/votable-question.component';
+import { QuestionFooterComponent } from './question/footer/question-footer.component';
+import {RouterModule} from "@angular/router";
 
 registerLocaleData(localeHu);
 
@@ -103,8 +105,10 @@ export function playerFactory() {
     QuestionComponent,
     AskedQuestionComponent,
     VotableQuestionComponent,
+    QuestionFooterComponent,
   ],
   imports: [
+    RouterModule.forRoot([]),
     LottieModule.forRoot({player: playerFactory}),
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
