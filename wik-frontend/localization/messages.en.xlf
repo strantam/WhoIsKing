@@ -280,15 +280,18 @@
         <source>Own</source><target state="final">Own</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/question/asked-question/asked-question.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="Question.voteButton" datatype="html">
-        <source>Vote
-  </source><target state="final">Vote
-  </target>
+      <context-group purpose="location"><context context-type="sourcefile">src/app/question/asked-question/asked-question.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="Question.currentVotes" datatype="html">
+        <source>current votes</source><target state="final">current votes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
-      </trans-unit><trans-unit id="Question.NotAskedTab" datatype="html">
+      </trans-unit><trans-unit id="Question.voteButton" datatype="html">
+        <source>Vote
+      </source><target state="final">Vote
+      </target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="Question.NotAskedTab" datatype="html">
         <source>Not asked</source><target state="final">Not asked</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/question/question.component.html</context>

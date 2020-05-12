@@ -1,0 +1,26 @@
+.mainElementOnGt {
+  width: 70%;
+  align-self: center;
+}
+
+.parentOfMain {
+  flex-shrink: 1;
+  flex-grow: 1;
+  position: relative;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.questions:first-of-type {
+  margin-top: 0.8rem;
+}
+
+.questions {
+  margin-bottom: 0.3rem;
+}
+
+mat-card-title {
+  font-size: 1rem;
+}

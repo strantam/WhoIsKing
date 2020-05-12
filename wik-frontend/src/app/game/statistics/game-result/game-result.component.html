@@ -1,4 +1,8 @@
-<div *ngFor="let answer of visibleResult">{{answer}}</div>
+<mat-list>
+  <mat-list-item *ngFor="let answer of visibleResult">
+    <p class="index">{{answer.index}}</p>
+    <p class="answer">{{answer.answer}}</p></mat-list-item>
+</mat-list>
 <div>
   <canvas baseChart
           [data]="answersData.results"

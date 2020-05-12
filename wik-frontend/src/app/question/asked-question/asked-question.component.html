@@ -4,12 +4,14 @@
   <mat-tab label="Own" i18n-label="@@Question.OwnTab">
   </mat-tab>
 </mat-tab-group>
-<mat-expansion-panel *ngFor="let question of questions" (opened)="openQuestionPanel(question.uid)">
-  <mat-expansion-panel-header>
-    <mat-panel-title>{{question.question}}</mat-panel-title>
-  </mat-expansion-panel-header>
-  <ng-template matExpansionPanelContent>
-        <app-game-result [gameResult]="this.results.get(question.uid)"></app-game-result>
-  </ng-template>
-</mat-expansion-panel>
-
+<div class="parentOfMain">
+  <mat-expansion-panel *ngFor="let question of questions" (opened)="openQuestionPanel(question.uid)"
+                       [ngClass.gt-xs]="{'mainElementOnGt': true}">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{question.question}}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-game-result [gameResult]="this.results.get(question.uid)"></app-game-result>
+    </ng-template>
+  </mat-expansion-panel>
+</div>

@@ -203,7 +203,7 @@ router.get('/game/:gameId/result', async (req, res, next) => {
 
             gameResult: {
                 answers: answerResults.map(answer => {
-                    return {uid: answer.uid, ratio: Math.round(answer.votes / allVotes * 10000) / 100}
+                    return {uid: answer.uid, answer: answer.answer, ratio: Math.round(answer.votes / allVotes * 10000) / 100}
                 })
             }
         };

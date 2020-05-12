@@ -15,6 +15,7 @@ import { RequestFile } from '../api';
 export class GameResultAnswers {
     'ratio': number;
     'uid': string;
+    'answer': string;
 
     static discriminator: string | undefined = undefined;
 
@@ -27,6 +28,11 @@ export class GameResultAnswers {
         {
             "name": "uid",
             "baseName": "uid",
+            "type": "string"
+        },
+        {
+            "name": "answer",
+            "baseName": "answer",
             "type": "string"
         }    ];
 

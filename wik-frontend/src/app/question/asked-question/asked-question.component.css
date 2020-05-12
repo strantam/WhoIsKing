@@ -1,0 +1,22 @@
+.mainElementOnGt {
+  width: 70%;
+  align-self: center;
+}
+
+.parentOfMain {
+  flex-shrink: 1;
+  flex-grow: 1;
+  position: relative;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-expansion-panel:first-of-type {
+  margin-top: 1rem;
+}
+
+mat-expansion-panel {
+  margin-bottom: 0.5rem;
+}

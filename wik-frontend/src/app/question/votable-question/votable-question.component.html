@@ -4,9 +4,17 @@
   <mat-tab label="Own" i18n-label="@@Question.OwnTab">
   </mat-tab>
 </mat-tab-group>
-<div *ngFor="let question of questions; let i = index">
-  <hr *ngIf="i===topQuestions && allOwner">
-  {{question.question}} {{question.votes}}
-  <button mat-stroked-button i18n="@@Question.voteButton" (click)="vote(question.uid)" *ngIf="user?.votes > 0">Vote
-  </button>
+<div class="parentOfMain">
+  <mat-card *ngFor="let question of questions; let i = index" [ngClass.gt-xs]="{'mainElementOnGt': true}"
+            class="questions">
+    <hr *ngIf="i===topQuestions && allOwner">
+    <mat-card-title>{{question.question}}</mat-card-title>
+    <mat-card-subtitle>{{question.votes}}
+      <ng-container i18n="@@Question.currentVotes">current votes</ng-container>
+    </mat-card-subtitle>
+    <mat-card-actions align="end">
+      <button mat-stroked-button i18n="@@Question.voteButton" (click)="vote(question.uid)" *ngIf="user?.votes > 0">Vote
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>

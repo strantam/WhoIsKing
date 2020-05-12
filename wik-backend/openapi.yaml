@@ -479,9 +479,12 @@ components:
               uid:
                 type: string
                 format: uuid
+              answer:
+                type: string
             required:
               - ratio
               - uid
+              - answer
 
     UserResult:
       type: object

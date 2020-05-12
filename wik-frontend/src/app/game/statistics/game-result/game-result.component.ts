@@ -1,8 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {State} from "../../../reducers";
-import {GameModel} from "../../../model/GameModel";
-import {GameAnswers} from "../../../../../../wik-backend/src/openApi/model/gameAnswers";
 import {GameResultAnswers} from "../../../../../../wik-backend/src/openApi/model/gameResultAnswers";
 
 @Component({
@@ -35,7 +31,6 @@ export class GameResultComponent implements OnInit {
   };
 
   private _gameResult: Array<GameResultAnswers> = [];
-  private answers: Array<GameAnswers> = [];
 
   @Input()
   set gameResult(gameResult: Array<GameResultAnswers>) {
@@ -43,29 +38,20 @@ export class GameResultComponent implements OnInit {
     this.calculateAnswers();
   };
 
-  public visibleResult: Array<string> = [];
+  public visibleResult: Array<{ index: number, answer: string }> = [];
 
-  constructor(private store: Store<State>) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.store.select('game').subscribe((game: GameModel) => {
-      this.answers = game.answers;
-      this.calculateAnswers();
-    })
   }
 
   public calculateAnswers() {
     this.visibleResult = [];
-    let i = 1;
-    for (const result of this._gameResult) {
-      const answer = this.answers.find(answer => {
-        return answer.uid === result.uid;
-      });
-      this.visibleResult.push(i + ' ' + answer.answer);
+    for (let i = 1; i <= this._gameResult.length; i++) {
+      this.visibleResult.push({index: i, answer: this._gameResult[i - 1].answer});
       this.answersData.labels.push(i.toString());
-      i++;
-      this.answersData.results.push(result.ratio);
+      this.answersData.results.push(this._gameResult[i - 1].ratio);
     }
   }
 
