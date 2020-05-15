@@ -1,5 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {select, Store} from "@ngrx/store";
+import { Subject} from "rxjs";
+import {State} from "../reducers";
+import {takeUntil} from "rxjs/operators";
 
 
 @Component({
@@ -8,13 +12,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit, OnDestroy {
+  private unsubscribe$: Subject<void> = new Subject<void>();
   public asked: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store<State>) {
   }
 
   ngOnInit(): void {
     this.router.navigate([{outlets: {'footerinfo': ['question']}}]);
+    this.store.pipe(select('user'), takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.router.navigate([{outlets: {'footerinfo': ['question']}}]);
+    })
   }
 
   public async changeAsked(event) {
@@ -25,5 +33,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.router.navigate([{outlets: {'footerinfo': ['loggedin']}}]);
     });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

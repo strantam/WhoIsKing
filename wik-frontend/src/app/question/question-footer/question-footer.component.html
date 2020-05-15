@@ -1,0 +1,16 @@
+<div *ngIf="!(user$ | async)" class="footer" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+  <div i18n="@@QuestionFooter.Login">You need to log in to vote, or ask questions.</div>
+  <button mat-stroked-button i18n="@@QuestionFooter.loginButton" (click)="login()">Login</button>
+</div>
+
+<div *ngIf="(user$ | async)" class="footer" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.5rem">
+  <div>
+    <div>
+      <ng-container i18n="@@QuestionFooter.Questions">Questions you can ask:</ng-container>
+      {{(user$ | async)?.questions}}</div>
+    <div>
+      <ng-container i18n="@@QuestionFooter.Votes">Votes you can give:</ng-container>
+      {{(user$ | async)?.votes}}</div>
+  </div>
+  <button *ngIf="(user$ | async)?.questions > 0" mat-stroked-button i18n="@@QuestionFooter.AskQuestion" (click)="askQuestion()">Ask question</button>
+</div>

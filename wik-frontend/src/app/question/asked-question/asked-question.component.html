@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="changeOwner($event)">
+<mat-tab-group  *ngIf="(user$ | async)" (selectedTabChange)="changeOwner($event)">
   <mat-tab label="All" i18n-label="@@Question.AllTab">
   </mat-tab>
   <mat-tab label="Own" i18n-label="@@Question.OwnTab">

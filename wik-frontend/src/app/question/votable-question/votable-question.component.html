@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="changeOwner($event)">
+<mat-tab-group *ngIf="(user$ | async)" (selectedTabChange)="changeOwner($event)">
   <mat-tab label="All" i18n-label="@@Question.AllTab">
   </mat-tab>
   <mat-tab label="Own" i18n-label="@@Question.OwnTab">
@@ -13,7 +13,7 @@
       <ng-container i18n="@@Question.currentVotes">current votes</ng-container>
     </mat-card-subtitle>
     <mat-card-actions align="end">
-      <button mat-stroked-button i18n="@@Question.voteButton" (click)="vote(question.uid)" *ngIf="user?.votes > 0">Vote
+      <button mat-stroked-button i18n="@@Question.voteButton" (click)="vote(question.uid)" *ngIf="(user$ | async)?.votes > 0">Vote
       </button>
     </mat-card-actions>
   </mat-card>

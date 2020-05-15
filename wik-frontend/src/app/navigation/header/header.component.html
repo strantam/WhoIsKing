@@ -31,7 +31,7 @@
       <li>
         <a routerLink="/spread" i18n="@@Header.Spread" routerLinkActive="activeMenu">Spread</a>
       </li>
-      <li>
+      <li *ngIf="user$ | async">
         <a (click)="onToggleSettings()">
           <mat-icon>settings</mat-icon>
         </a>

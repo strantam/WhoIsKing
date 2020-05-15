@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.user.subscribe(user => {
+    this.auth.authUser.subscribe(user => {
       if (user) {
         this.router.navigate([{outlets: {'footerinfo': ['loggedin']}}]);
         this.dialogRef.close();

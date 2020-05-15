@@ -11,7 +11,7 @@
   <a mat-list-item routerLink="/spread" (click)="onSidenavClose()">
     <mat-icon>settings_applications</mat-icon> <span class="nav-caption" i18n="@@Header.Spread">Spread</span>
   </a>
-  <a mat-list-item routerLink="/settings" (click)="onSidenavClose()">
+  <a *ngIf="user$ | async" mat-list-item routerLink="/settings" (click)="onSidenavClose()">
     <mat-icon>settings</mat-icon> <span class="nav-caption" i18n="@@Header.Logout">Settings</span>
   </a>
 </mat-nav-list>

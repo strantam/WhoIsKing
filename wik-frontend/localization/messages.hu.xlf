@@ -290,7 +290,37 @@
       </source><target state="new">Vote
   </target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="Question.NotAskedTab" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="QuestionFooter.Login" datatype="html">
+        <source>You need to log in to vote, or ask questions.</source><target state="new">You need to log in to vote, or ask questions.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question-footer/question-footer.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="QuestionFooter.loginButton" datatype="html">
+        <source>Login</source><target state="new">Login</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question-footer/question-footer.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit><trans-unit id="QuestionFooter.Questions" datatype="html">
+        <source>Questions you can ask:</source><target state="new">Questions you can ask:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question-footer/question-footer.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="QuestionFooter.Votes" datatype="html">
+        <source>Votes you can give:</source><target state="new">Votes you can give:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question-footer/question-footer.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit><trans-unit id="QuestionFooter.AskQuestion" datatype="html">
+        <source>Ask question</source><target state="new">Ask question</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/question/question-footer/question-footer.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit><trans-unit id="Question.NotAskedTab" datatype="html">
         <source>Not asked</source><target state="new">Not asked</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/question/question.component.html</context>

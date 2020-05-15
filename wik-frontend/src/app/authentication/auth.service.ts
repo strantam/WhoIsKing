@@ -7,29 +7,34 @@ import {Observable, of} from 'rxjs';
 import {switchMap} from "rxjs/operators";
 import {auth} from 'firebase/app';
 import {fetchUser, logout} from "../reducers/user/user";
-import {Store} from "@ngrx/store";
+import {select, Store} from "@ngrx/store";
 import {State} from "../reducers";
+import {User} from "../../../../wik-backend/src/openApi/model/user";
 
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  user: Observable<any>;
+  authUser: Observable<any>;
+  private userDoc: User;
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
     private store: Store<State>
   ) {
-    // Get the auth state, then fetch the Firestore user document or return null
-    this.user = this.afAuth.authState.pipe(
+    this.store.pipe(select('user')).subscribe(user => this.userDoc = user);
+    this.authUser = this.afAuth.authState.pipe(
       switchMap(user => {
         // Logged in
         if (user) {
           user.getIdToken()
             .then(token => {
+              console.log('Auth service fetching user');
               localStorage.setItem("auth_token", token);
-              store.dispatch(fetchUser());
+              if (!this.userDoc) {
+                store.dispatch(fetchUser());
+              }
             })
             .catch(err => {
               console.log("Error getting id token", err)

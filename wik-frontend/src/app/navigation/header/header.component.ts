@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {HeaderTitleService} from "../header-title.service";
-import {AuthService} from "../../authentication/auth.service";
 import {State} from "../../reducers";
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
@@ -21,7 +20,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     public headerTitleService: HeaderTitleService,
-    public authService: AuthService,
     public store: Store<State>,
   ) {
   }

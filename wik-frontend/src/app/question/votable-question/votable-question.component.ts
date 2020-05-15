@@ -6,6 +6,7 @@ import {vote} from "../../reducers/user/user";
 import {Game} from "../../../../../wik-backend/src/openApi/model/game";
 import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {environment} from "../../../environments/environment";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-votable-question',
@@ -17,15 +18,13 @@ export class VotableQuestionComponent implements OnInit {
 
   public allOwner: boolean = true;
   public questions: Array<Game> = [];
-  public user: User;
+  public user$: Observable<User>;
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select('user')).subscribe(user => {
-      this.user = user;
-    });
+    this.user$ = this.store.pipe(select('user'));
     this.getQuestions();
   }
 

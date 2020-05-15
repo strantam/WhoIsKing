@@ -31,6 +31,7 @@ export class LoggedInComponent implements OnInit {
   async openAddCity() {
     const dialogRef = this.dialog.open(AddCityComponent, {height: '90%', minWidth: '40%'});
     await dialogRef.afterClosed().toPromise();
+    console.log("Fetching user after adding city");
     this.store.dispatch(fetchUser());
   }
 

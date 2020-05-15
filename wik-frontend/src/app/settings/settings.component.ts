@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit {
   async openChangeCity() {
     const dialogRef = this.dialog.open(AddCityComponent, {height: '90%', minWidth: '40%'});
     await dialogRef.afterClosed().toPromise();
+    console.log("Fetching user after adding city");
     this.store.dispatch(fetchUser());
   }
 
