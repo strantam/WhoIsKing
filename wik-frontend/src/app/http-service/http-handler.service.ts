@@ -137,6 +137,15 @@ export class HttpHandlerService {
     }
   }
 
+  public async postQuestion(question: Game): Promise<void> {
+    try {
+      await this.httpClient.post(environment.apiUrl + 'auth/game', question).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post question", err);
+    }
+  }
+
   public async getGameResults(gameId: string): Promise<ResultAfterGame> {
     try {
       return await this.httpClient.get<ResultAfterGame>(environment.apiUrl + 'noAuth/game/' + gameId + '/result').toPromise();

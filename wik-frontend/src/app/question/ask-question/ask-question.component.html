@@ -1,0 +1,24 @@
+<h1 mat-dialog-title i18n="@@AskQuestion.Header">New question</h1>
+<div [formGroup]="askQuestionForm">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"
+                matInput formControlName="question" type="text" placeholder="Question"
+                i18n-placeholder="@@AskQuestion.QuestionPlaceHolder"></textarea>
+      <mat-error *ngIf="askQuestionForm.get('question').errors?.required" i18n="@@NoValueValidation">
+        No value
+      </mat-error>
+    </mat-form-field>
+    <div formArrayName="answers">
+      <mat-form-field *ngFor="let answer of answers.controls, let i = index">
+        <input autocomplete="off" matInput [formControlName]="i" placeholder="Answer"
+               i18n-placeholder="@@AskQuestion.AnswerPlaceHolder">
+      </mat-form-field>
+    </div>
+    <button (click)="addAnswer()">Add answer</button>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close()" i18n="@@CancelButton">Cancel</button>
+    <button mat-button (click)="save()" #saveButton i18n="@@SaveButton">Save</button>
+  </div>
+</div>

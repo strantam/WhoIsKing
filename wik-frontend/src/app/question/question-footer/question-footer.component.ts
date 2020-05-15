@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
 import {Observable} from "rxjs";
 import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {LoginComponent} from "../../authentication/login/login.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AskQuestionComponent} from "../ask-question/ask-question.component";
+import {HttpHandlerService} from "../../http-service/http-handler.service";
+import {Game} from "../../../../../wik-backend/src/openApi/model/game";
 
 @Component({
   selector: 'app-footer',
@@ -14,7 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
 export class QuestionFooterComponent implements OnInit {
   public user$: Observable<User>;
 
-  constructor(private store: Store<State>, private dialog: MatDialog) { }
+  constructor(private store: Store<State>, private dialog: MatDialog, private httpHandlerService: HttpHandlerService) {
+  }
 
   ngOnInit(): void {
     this.user$ = this.store.pipe(select('user'))
@@ -25,7 +29,13 @@ export class QuestionFooterComponent implements OnInit {
   }
 
   async askQuestion() {
-    console.log('add question');
+    const dialogRef = this.dialog.open(AskQuestionComponent, {autoFocus: false});
+    const result = await dialogRef.afterClosed().toPromise();
+    const question: Game = {
+      question: result.question,
+      answers: result.answers.map((answer: string) => ({answer: answer}))
+    };
+    await this.httpHandlerService.postQuestion(question);
   }
 
 }

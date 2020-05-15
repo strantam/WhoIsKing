@@ -8,6 +8,7 @@
 - scripts to fill db
 - spinner
 
+- frontend error handling
 - SSR
 - SEO
 - tests

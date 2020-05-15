@@ -71,6 +71,7 @@ import { AskedQuestionComponent } from './question/asked-question/asked-question
 import { VotableQuestionComponent } from './question/votable-question/votable-question.component';
 import { QuestionFooterComponent } from './question/question-footer/question-footer.component';
 import {RouterModule} from "@angular/router";
+import { AskQuestionComponent } from './question/ask-question/ask-question.component';
 
 registerLocaleData(localeHu);
 
@@ -106,6 +107,7 @@ export function playerFactory() {
     AskedQuestionComponent,
     VotableQuestionComponent,
     QuestionFooterComponent,
+    AskQuestionComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

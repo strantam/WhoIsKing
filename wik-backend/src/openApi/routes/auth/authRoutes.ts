@@ -209,7 +209,7 @@ router.post('/game', async (req, res, next) => {
         await dbClient.query('COMMIT');
         res.json({});
     } catch (err) {
-        logger.error("Error on adding vote" + JSON.stringify(err.message));
+        logger.error("Error on adding game" + JSON.stringify(err.message));
         await dbClient.query('ROLLBACK');
         if (err.ownErrorObject) {
             next(err);

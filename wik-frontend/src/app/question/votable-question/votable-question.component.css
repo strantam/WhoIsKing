@@ -24,3 +24,8 @@
 mat-card-title {
   font-size: 1rem;
 }
+
+.separateTop {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
