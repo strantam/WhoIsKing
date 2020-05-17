@@ -3,7 +3,8 @@ import {Router} from "@angular/router";
 import {select, Store} from "@ngrx/store";
 import { Subject} from "rxjs";
 import {State} from "../reducers";
-import {takeUntil} from "rxjs/operators";
+import {take, takeUntil} from "rxjs/operators";
+import {fetchUser} from "../reducers/user/user";
 
 
 @Component({
@@ -22,7 +23,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.router.navigate([{outlets: {'footerinfo': ['question']}}]);
     this.store.pipe(select('user'), takeUntil(this.unsubscribe$)).subscribe(() => {
       this.router.navigate([{outlets: {'footerinfo': ['question']}}]);
-    })
+    });
+    this.store.pipe(select('user'), take(1)).subscribe((user) => {
+      if(!user ){
+        this.store.dispatch(fetchUser());
+      }
+    });
   }
 
   public async changeAsked(event) {

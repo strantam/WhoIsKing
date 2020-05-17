@@ -1,12 +1,11 @@
 # WhoIsKing
 
 ## TODO
-- add question module
-- landing
+- spinner
 - api fix
 - levelchange design
+- landing
 - scripts to fill db
-- spinner
 
 - frontend error handling
 - SSR
