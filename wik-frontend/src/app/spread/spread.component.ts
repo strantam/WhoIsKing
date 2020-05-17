@@ -14,11 +14,13 @@ export class SpreadComponent implements OnInit {
   public registrations: Array<CityWithRegs> = [];
   private map: google.maps.Map = null;
   private heatmap: google.maps.visualization.HeatmapLayer = null;
+  public spinner: boolean = false;
 
   constructor(private httpHandlerService: HttpHandlerService) {
   }
 
   async ngOnInit() {
+    this.spinner = true;
   }
 
   async getRegistrations() {
@@ -37,6 +39,7 @@ export class SpreadComponent implements OnInit {
       map: this.map,
       data: coords
     });
+    this.spinner = false;
   }
 
   public getLatLng(): Array<WeightedLocation> {

@@ -1,28 +1,31 @@
-<mat-tab-group (selectedTabChange)="changeType($event)">
-  <mat-tab label="User" i18n-label="@@StaticticsPage.User">
-    <mat-tab-group (selectedTabChange)="changeDate($event)">
-      <mat-tab label="1 day" i18n-label="@@StaticticsPage.1D">
-      </mat-tab>
-      <mat-tab label="1 week" i18n-label="@@StaticticsPage.1W">
-      </mat-tab>
-      <mat-tab label="1 month" i18n-label="@@StaticticsPage.1M">
-      </mat-tab>
-      <mat-tab label="All" i18n-label="@@StaticticsPage.All">
-      </mat-tab>
-    </mat-tab-group>
-  </mat-tab>
-  <mat-tab label="City" i18n-label="@@StaticticsPage.City">
-    <mat-tab-group (selectedTabChange)="changeDate($event)">
-      <mat-tab label="1 day" i18n-label="@@StaticticsPage.1D">
-      </mat-tab>
-      <mat-tab label="1 week" i18n-label="@@StaticticsPage.1W">
-      </mat-tab>
-      <mat-tab label="1 month" i18n-label="@@StaticticsPage.1M">
-      </mat-tab>
-      <mat-tab label="All" i18n-label="@@StaticticsPage.All">
-      </mat-tab>
-    </mat-tab-group>
-  </mat-tab>
-</mat-tab-group>
-<app-user-statistics *ngIf="userSelected" [stats]="stats.userResult"></app-user-statistics>
-<app-city-statistics *ngIf="!userSelected" [stats]="stats.cityResult"></app-city-statistics>
+<app-spinner-wrapper [showSpinner]="spinner">
+
+  <mat-tab-group (selectedTabChange)="changeType($event)">
+    <mat-tab label="User" i18n-label="@@StaticticsPage.User">
+      <mat-tab-group (selectedTabChange)="changeDate($event)">
+        <mat-tab label="1 day" i18n-label="@@StaticticsPage.1D">
+        </mat-tab>
+        <mat-tab label="1 week" i18n-label="@@StaticticsPage.1W">
+        </mat-tab>
+        <mat-tab label="1 month" i18n-label="@@StaticticsPage.1M">
+        </mat-tab>
+        <mat-tab label="All" i18n-label="@@StaticticsPage.All">
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="City" i18n-label="@@StaticticsPage.City">
+      <mat-tab-group (selectedTabChange)="changeDate($event)">
+        <mat-tab label="1 day" i18n-label="@@StaticticsPage.1D">
+        </mat-tab>
+        <mat-tab label="1 week" i18n-label="@@StaticticsPage.1W">
+        </mat-tab>
+        <mat-tab label="1 month" i18n-label="@@StaticticsPage.1M">
+        </mat-tab>
+        <mat-tab label="All" i18n-label="@@StaticticsPage.All">
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+  </mat-tab-group>
+  <app-user-statistics *ngIf="userSelected" [stats]="stats?.userResult"></app-user-statistics>
+  <app-city-statistics *ngIf="!userSelected" [stats]="stats?.cityResult"></app-city-statistics>
+</app-spinner-wrapper>

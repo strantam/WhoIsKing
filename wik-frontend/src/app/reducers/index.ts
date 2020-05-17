@@ -10,12 +10,14 @@ import {gameStateReducer, GameState} from "./game/gameState/gameState";
 import {gameReduce} from "./game/gameObj/gameObj";
 import {pointsReducer} from "./points";
 import {GameModel} from "../model/GameModel";
+import {spinnerReducer} from "./spinner/spinner";
 
 export interface State {
   user: User;
   gameState: GameState,
   game: GameModel,
-  points: number
+  points: number,
+  spinner: boolean,
 }
 
 
@@ -23,7 +25,8 @@ export const reducers: ActionReducerMap<State> = {
   user: userReducer,
   gameState: gameStateReducer,
   game: gameReduce,
-  points: pointsReducer
+  points: pointsReducer,
+  spinner: spinnerReducer,
 };
 
 

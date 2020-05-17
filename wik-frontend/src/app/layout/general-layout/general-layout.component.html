@@ -11,13 +11,17 @@
         <mat-sidenav [autoFocus]="false" position="end" #sidenavSettings role="navigation">
           <app-settings></app-settings>
         </mat-sidenav>
+
         <mat-sidenav-content>
-          <div class="parentOfMain">
-            <main class="h100" [ngClass.gt-xs]="{'mainElementOnGt': true}">
-              <router-outlet></router-outlet>
-            </main>
-          </div>
+            <div class="parentOfMain">
+
+              <main class="h100" [ngClass.gt-xs]="{'mainElementOnGt': true}">
+                <router-outlet></router-outlet>
+              </main>
+
+            </div>
         </mat-sidenav-content>
+
       </mat-sidenav-container>
     </mat-sidenav-content>
   </mat-sidenav-container>

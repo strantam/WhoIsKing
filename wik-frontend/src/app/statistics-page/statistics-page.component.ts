@@ -8,6 +8,7 @@ import {Statistics} from "../../../../wik-backend/src/openApi/model/statistics";
   styleUrls: ['./statistics-page.component.scss']
 })
 export class StatisticsPageComponent implements OnInit {
+  public spinner: boolean = false;
 
   public stats: Statistics;
   public userSelected: boolean = true;
@@ -25,17 +26,25 @@ export class StatisticsPageComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.spinner = true;
     this.stats = await this.httpHandlerService.getStatistics("1D");
+    this.spinner = false;
   }
 
-  public async changeType(event){
+  public async changeType(event) {
+    this.spinner = true;
     this.userSelected = event.index === 0;
     this.stats = await this.httpHandlerService.getStatistics(StatisticsPageComponent.tabDate.get(this.userSelected ? this.selectedDateTabUser : this.selectedDateTabCity));
+    this.spinner = false;
+
   }
 
   public async changeDate(event) {
+    this.spinner = true;
     this.userSelected ? this.selectedDateTabUser = event.index : this.selectedDateTabCity = event.index;
     this.stats = await this.httpHandlerService.getStatistics(StatisticsPageComponent.tabDate.get(event.index));
+    this.spinner = false;
+
   }
 
 }

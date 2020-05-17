@@ -1,7 +1,6 @@
 # WhoIsKing
 
 ## TODO
-- spinner
 - api fix
 - levelchange design
 - landing

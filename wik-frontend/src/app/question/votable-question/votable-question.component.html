@@ -6,7 +6,9 @@
 </mat-tab-group>
 <div class="parentOfMain">
   <ng-container *ngFor="let question of questions; let i = index">
-    <div class="separateTop" *ngIf="i===topQuestions && allOwner"><hr></div>
+    <div class="separateTop" *ngIf="i===topQuestions && allOwner">
+      <hr>
+    </div>
 
     <mat-card [ngClass.gt-xs]="{'mainElementOnGt': true}"
               class="questions">

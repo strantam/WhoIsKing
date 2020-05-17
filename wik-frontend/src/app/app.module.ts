@@ -72,6 +72,7 @@ import { VotableQuestionComponent } from './question/votable-question/votable-qu
 import { QuestionFooterComponent } from './question/question-footer/question-footer.component';
 import {RouterModule} from "@angular/router";
 import { AskQuestionComponent } from './question/ask-question/ask-question.component';
+import { SpinnerWrapperComponent } from './layout/spinner-wrapper/spinner-wrapper.component';
 
 registerLocaleData(localeHu);
 
@@ -108,6 +109,7 @@ export function playerFactory() {
     VotableQuestionComponent,
     QuestionFooterComponent,
     AskQuestionComponent,
+    SpinnerWrapperComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

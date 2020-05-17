@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
@@ -6,34 +6,47 @@ import {vote} from "../../reducers/user/user";
 import {Game} from "../../../../../wik-backend/src/openApi/model/game";
 import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
+import {pairwise, takeUntil} from "rxjs/operators";
+import {addSpinner, removeSpinner} from "../../reducers/spinner/spinner";
 
 @Component({
   selector: 'app-votable-question',
   templateUrl: './votable-question.component.html',
   styleUrls: ['./votable-question.component.css']
 })
-export class VotableQuestionComponent implements OnInit {
+export class VotableQuestionComponent implements OnInit, OnDestroy {
   public readonly topQuestions = environment.questionsPerDay;
 
   public allOwner: boolean = true;
   public questions: Array<Game> = [];
   public user$: Observable<User>;
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.user$ = this.store.pipe(select('user'));
+    this.store.pipe(select('user'), pairwise<User>(), takeUntil(this.unsubscribe$)).subscribe(([prevUser, currentUser]) => {
+      if (!prevUser || !currentUser) {
+        return;
+      }
+      if (prevUser.questions !== currentUser.questions) {
+        this.getQuestions();
+      }
+    });
     this.getQuestions();
   }
 
   public async getQuestions() {
+    this.store.dispatch(addSpinner());
     if (this.allOwner) {
       this.questions = await this.httpHandlerService.getAllGames(false);
     } else {
       this.questions = await this.httpHandlerService.getOwnGames(false);
     }
+    this.store.dispatch(removeSpinner());
   }
 
   public async changeOwner(event) {
@@ -42,8 +55,15 @@ export class VotableQuestionComponent implements OnInit {
   }
 
   public async vote(questionId) {
+    this.store.dispatch(addSpinner());
     await this.httpHandlerService.postVote(questionId);
     this.store.dispatch(vote());
     await this.getQuestions();
+    this.store.dispatch(removeSpinner());
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

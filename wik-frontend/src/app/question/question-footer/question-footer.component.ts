@@ -8,6 +8,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {AskQuestionComponent} from "../ask-question/ask-question.component";
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {Game} from "../../../../../wik-backend/src/openApi/model/game";
+import {addSpinner, removeSpinner} from "../../reducers/spinner/spinner";
+import {askQuestion} from "../../reducers/user/user";
 
 @Component({
   selector: 'app-footer',
@@ -31,11 +33,15 @@ export class QuestionFooterComponent implements OnInit {
   async askQuestion() {
     const dialogRef = this.dialog.open(AskQuestionComponent, {autoFocus: false});
     const result = await dialogRef.afterClosed().toPromise();
+    this.store.dispatch(addSpinner());
     const question: Game = {
       question: result.question,
       answers: result.answers.map((answer: string) => ({answer: answer}))
     };
     await this.httpHandlerService.postQuestion(question);
+    this.store.dispatch(askQuestion());
+    this.store.dispatch(removeSpinner());
+
   }
 
 }

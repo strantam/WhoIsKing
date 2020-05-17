@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div class="overlay" *ngIf="showSpinner">
+    <div class="spinner-wrapper">
+      <div class="container">
+        <div class="row">
+          <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="loading"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-content [class.blurred]="showSpinner"></ng-content>
+</div>
