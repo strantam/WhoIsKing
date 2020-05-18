@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
-import {addSpinner, removeSpinner} from "../../reducers/spinner/spinner";
 
 @Component({
   selector: 'app-asked-question',
@@ -31,13 +30,11 @@ export class AskedQuestionComponent implements OnInit {
   }
 
   public async getQuestions() {
-    this.store.dispatch(addSpinner());
     if (this.allOwner) {
       this.questions = await this.httpHandlerService.getAllGames(true);
     } else {
       this.questions = await this.httpHandlerService.getOwnGames(true);
     }
-    this.store.dispatch(removeSpinner());
   }
 
   public async changeOwner(event) {

@@ -73,6 +73,7 @@ import { QuestionFooterComponent } from './question/question-footer/question-foo
 import {RouterModule} from "@angular/router";
 import { AskQuestionComponent } from './question/ask-question/ask-question.component';
 import { SpinnerWrapperComponent } from './layout/spinner-wrapper/spinner-wrapper.component';
+import {SpinnerInterceptor} from "./layout/spinner-wrapper/spinner.interceptor";
 
 registerLocaleData(localeHu);
 
@@ -167,6 +168,11 @@ export function playerFactory() {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
       multi: true
     },
     DecimalPipe],

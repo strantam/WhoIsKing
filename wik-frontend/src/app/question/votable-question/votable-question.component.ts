@@ -8,7 +8,6 @@ import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {environment} from "../../../environments/environment";
 import {Observable, Subject} from "rxjs";
 import {pairwise, takeUntil} from "rxjs/operators";
-import {addSpinner, removeSpinner} from "../../reducers/spinner/spinner";
 
 @Component({
   selector: 'app-votable-question',
@@ -40,13 +39,11 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
   }
 
   public async getQuestions() {
-    this.store.dispatch(addSpinner());
     if (this.allOwner) {
       this.questions = await this.httpHandlerService.getAllGames(false);
     } else {
       this.questions = await this.httpHandlerService.getOwnGames(false);
     }
-    this.store.dispatch(removeSpinner());
   }
 
   public async changeOwner(event) {
@@ -55,11 +52,9 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
   }
 
   public async vote(questionId) {
-    this.store.dispatch(addSpinner());
     await this.httpHandlerService.postVote(questionId);
     this.store.dispatch(vote());
     await this.getQuestions();
-    this.store.dispatch(removeSpinner());
   }
 
   ngOnDestroy(): void {
