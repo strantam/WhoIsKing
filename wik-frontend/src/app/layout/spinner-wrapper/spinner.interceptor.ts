@@ -9,7 +9,7 @@ import Timer = NodeJS.Timer;
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-
+  private static readonly SPINNER_TIMEOUT = 600;
   private count = 0;
   private addSpinnerTimeout: Timer;
 
@@ -21,7 +21,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
     if (this.count === 1) {
       this.addSpinnerTimeout = setTimeout(() => {
         this.store.dispatch(addSpinner());
-      }, 600)
+      }, SpinnerInterceptor.SPINNER_TIMEOUT)
     }
     return next.handle(req)
       .pipe(finalize(() => {
