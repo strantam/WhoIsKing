@@ -63,16 +63,16 @@ import {GameObjEffects} from "./reducers/game/gameObj/gameObj.effects";
 import {GameStateEffects} from "./reducers/game/gameState/gameState.effects";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatDividerModule} from "@angular/material/divider";
-import { UserStatisticsComponent } from './statistics/user-statistics/user-statistics.component';
-import { NotFoundComponent } from './layout/not-found/not-found.component';
-import { LevelChangeComponent } from './level-change/level-change.component';
-import { QuestionComponent } from './question/question.component';
-import { AskedQuestionComponent } from './question/asked-question/asked-question.component';
-import { VotableQuestionComponent } from './question/votable-question/votable-question.component';
-import { QuestionFooterComponent } from './question/question-footer/question-footer.component';
+import {UserStatisticsComponent} from './statistics/user-statistics/user-statistics.component';
+import {NotFoundComponent} from './layout/not-found/not-found.component';
+import {LevelChangeComponent} from './level-change/level-change.component';
+import {QuestionComponent} from './question/question.component';
+import {AskedQuestionComponent} from './question/asked-question/asked-question.component';
+import {VotableQuestionComponent} from './question/votable-question/votable-question.component';
+import {QuestionFooterComponent} from './question/question-footer/question-footer.component';
 import {RouterModule} from "@angular/router";
-import { AskQuestionComponent } from './question/ask-question/ask-question.component';
-import { SpinnerWrapperComponent } from './layout/spinner-wrapper/spinner-wrapper.component';
+import {AskQuestionComponent} from './question/ask-question/ask-question.component';
+import {SpinnerWrapperComponent} from './layout/spinner-wrapper/spinner-wrapper.component';
 import {SpinnerInterceptor} from "./layout/spinner-wrapper/spinner.interceptor";
 
 registerLocaleData(localeHu);
@@ -114,7 +114,7 @@ export function playerFactory() {
   ],
   imports: [
     RouterModule.forRoot([]),
-    LottieModule.forRoot({player: playerFactory}),
+    LottieModule.forRoot({player: playerFactory, useCache: true}),
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AgmCoreModule.forRoot({

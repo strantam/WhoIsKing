@@ -10,18 +10,17 @@ import {AnimationOptions} from "ngx-lottie";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public lottieConfig: AnimationOptions;
+  public lottieConfig: AnimationOptions = {
+    path: '/assets/animations/login-animation.json',
+    renderer: 'canvas',
+    autoplay: true,
+    loop: true
+  };
 
   constructor(public dialogRef: MatDialogRef<LoginComponent>,
               @Inject(MAT_DIALOG_DATA) public data,
               public auth: AuthService,
               private router: Router) {
-    this.lottieConfig = {
-      path: '/assets/animations/login-animation.json',
-      renderer: 'canvas',
-      autoplay: true,
-      loop: true
-    };
   }
 
   ngOnInit() {

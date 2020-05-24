@@ -1,12 +1,10 @@
 # WhoIsKing
 
 ## TODO
-- api fix
-- levelchange design
 - landing
 - scripts to fill db
 
-- frontend error handling
+- frontend error handling/backend generic error handling
 - SSR
 - SEO
 - tests

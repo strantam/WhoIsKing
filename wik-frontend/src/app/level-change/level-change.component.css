@@ -1,0 +1,14 @@
+mat-icon {
+  font-size: 4rem;
+  height: 4rem;
+  width: 4rem;
+  color: gold;
+}
+
+.prize {
+  text-align: center;
+}
+
+button {
+  margin-top: 2rem;
+}
