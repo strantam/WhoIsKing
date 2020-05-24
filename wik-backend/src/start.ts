@@ -17,7 +17,6 @@ const hookHandler = AsyncHookHandler.getAsyncHookHandler();
 const logger = getLogger(module.filename);
 
 
-
 const cert = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 admin.initializeApp({
     credential: admin.credential.cert(cert)
@@ -52,7 +51,13 @@ class Server {
         }));
 
         this.app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(yamlConv.load(__dirname + '/../openapi.yaml')));
-        this.app.use((req, res ,next) => {
+        this.app.use((req, res, next) => {
+            if (process.env.ENVIRONMENT && !(process.env.ENVIRONMENT === "LOCAL") && req.headers['x-forwarded-proto'] !== 'https') {
+                return res.redirect('https://' + req.headers.host + req.url);
+            } else
+                return next();
+        });
+        this.app.use((req, res, next) => {
             hookHandler.init();
             next();
         });
