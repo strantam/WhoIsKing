@@ -7,18 +7,19 @@ info:
     name: T.S.
 
 servers:
-  - url: http://localhost:9090/api
+  - url: http://localhost:9090/api/v1
     description: Local server
-  - url: https://wik-dev.herokuapp.com/api
+  - url: https://wik-dev.herokuapp.com/api/v1
     description: DEV environment
-  - url: https://wik-prd.herokuapp.com/api
+  - url: https://wik-prd.herokuapp.com/api/v1
     description: PRD environment
 
 paths:
-  "/noAuth/city":
+  "/city":
     get:
       tags:
         - No auth
+        - City
       description: List of all cities.
       responses:
         '200':
@@ -32,10 +33,12 @@ paths:
 
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/noAuth/city/registrations":
+
+  "/city/registrations":
     get:
       tags:
         - No auth
+        - City
       description: List of registrations grouped by city.
       responses:
         '200':
@@ -50,32 +53,11 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/auth/city":
-    post:
-      tags:
-        - Auth
-      security:
-        - bearerAuth: []
-      description: Set city of player.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                cityId:
-                  type: string
-                  format: uuid
-      responses:
-        '200':
-          description: You get an empty 200 on successful save.
-        'default':
-          $ref: '#/components/responses/GeneralError'
-
-  "/noAuth/nextGame":
+  "/game/next":
     get:
       tags:
         - No auth
+        - Game
       description: Gets when the next gameState will be.
       responses:
         '200':
@@ -88,12 +70,13 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/noAuth/game/{gameId}":
+  "/game/{gameId}":
     get:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
         - No auth
+        - Game
       description: Gets the question with the given uid, if openTime is over.
       responses:
         '200':
@@ -104,10 +87,11 @@ paths:
                 $ref: '#/components/schemas/Game'
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/auth/game":
+  "/game":
     post:
       tags:
         - Auth
+        - Game
       security:
         - bearerAuth: []
       description: Adds a new question in the name of the user.
@@ -123,12 +107,30 @@ paths:
           $ref: '#/components/responses/GeneralError'
     get:
       tags:
-        - Games
+        - No auth
+        - Game
+      parameters:
+        - $ref: '#/components/parameters/AskedQuestion'
+      description: Gets games, that have not been asked/scheduled, timestamp DESC
+      responses:
+        '200':
+          description: Games.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Game'
+  "/game/own":
+    get:
+      tags:
+        - Auth
+        - Game
       security:
         - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/AskedQuestion'
-      description: Gets games, that have not been asked/scheduled, and asked by logged in user, timestamp DESC
+      description: Gets games, that have not been asked/scheduled, filtered by logged in user, timestamp DESC
       responses:
         '200':
           description: Games, filtered by user.
@@ -139,12 +141,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/Game'
 
-  "/auth/game/{gameId}/vote":
+  "/game/{gameId}/vote":
     post:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
         - Auth
+        - Game
       security:
         - bearerAuth: []
       description: Adds a new question in the name of the user.
@@ -154,12 +157,13 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/auth/game/{gameId}/solution":
+  "/game/{gameId}/solution":
     post:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
         - Auth
+        - Game
       security:
         - bearerAuth: []
       description: Sends the answer to the given question. Only accepted if sent before changeToGuessTime.
@@ -178,12 +182,13 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/auth/game/{gameId}/guess":
+  "/game/{gameId}/guess":
     post:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
         - Auth
+        - Game
       security:
         - bearerAuth: []
       description: Sends the answer to the given question. Only accepted if sent after changeToGuessTime and closeTime.
@@ -210,12 +215,13 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/noAuth/game/{gameId}/result":
+  "/game/{gameId}/result":
     get:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
         - No auth
+        - Game
       description: Get the result for the given question (after closeTime)
       responses:
         '200':
@@ -226,12 +232,13 @@ paths:
                 $ref: '#/components/schemas/ResultAfterGame'
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/noAuth/game/result":
+  "/game/result":
     get:
       parameters:
         - $ref: '#/components/parameters/DatePicker'
       tags:
         - No auth
+        - Game
       description: Get the aggregated results.
       responses:
         '200':
@@ -243,10 +250,11 @@ paths:
         'default':
           $ref: '#/components/responses/GeneralError'
 
-  "/auth/user/me":
+  "/user/me":
     get:
       tags:
         - Auth
+        - User
       security:
         - bearerAuth: []
       description: Gets backend info for user.
@@ -271,10 +279,34 @@ paths:
           description: Empty response on successful post.
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/noAuth/level":
+
+  "/user/me/city":
+    post:
+      tags:
+        - Auth
+        - User
+      security:
+        - bearerAuth: []
+      description: Set city of player.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cityId:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: You get an empty 200 on successful save.
+        'default':
+          $ref: '#/components/responses/GeneralError'
+  "/level":
     get:
       tags:
         - No auth
+        - Level
       description: Gets available levels.
       responses:
         '200':
@@ -287,22 +319,7 @@ paths:
                   $ref: '#/components/schemas/Level'
         'default':
           $ref: '#/components/responses/GeneralError'
-  "/noAuth/game":
-    get:
-      tags:
-        - Games
-      parameters:
-        - $ref: '#/components/parameters/AskedQuestion'
-      description: Gets games, that have not been asked/scheduled, vote DESC
-      responses:
-        '200':
-          description: Games, filtered by user who asked if given as a param
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Game'
+
 
 
 
@@ -326,6 +343,13 @@ components:
     AskedQuestion:
       in: query
       name: askedQuestion
+      schema:
+        type: boolean
+        default: false
+      required: false
+    UserFilter:
+      in: query
+      name: userFilter
       schema:
         type: boolean
         default: false

@@ -9,6 +9,7 @@ if (os.platform() === 'win32') {
     cmd = 'schemats'
 }
 
+//postgres://user:pass@host:port/db?ssl=true !!! not sslmode=required
 const command = spawn(cmd, ["generate", "-c", process.env["POSTGRES-CONN"], "-s", "public" ,"-o", "src/db/DatabaseMapping.ts"]);
 
 command.stdout.on('data', function (data) {

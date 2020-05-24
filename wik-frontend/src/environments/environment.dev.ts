@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   dev: true,
   googleMapsAPIKey: 'AIzaSyBCCxb_1EVuqM6I1m6Y4RflazFRIdYLdB4',
-  apiUrl: "https://wik-dev.herokuapp.com/api/",
+  apiUrl: "https://wik-dev.herokuapp.com/api/v1/",
   questionsPerDay: 3,
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",

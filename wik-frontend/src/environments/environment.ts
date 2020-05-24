@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   dev: false,
   googleMapsAPIKey: 'AIzaSyBrJ8nO7WnXfXFRnlILs0H8f_5vEvLH57Q',
-  apiUrl: "http://localhost:9090/api/",
+  apiUrl: "http://localhost:9090/api/v1/",
   questionsPerDay: 3,
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",

@@ -4,24 +4,19 @@ import * as admin from 'firebase-admin';
 import * as expressWinston from 'express-winston';
 import * as swaggerUI from 'swagger-ui-express';
 import * as yamlConv from 'yamljs';
-import * as uuid from 'uuid';
-
-
-import {getUserFromToken} from "./util/auth";
+import addRoutes from './routes/index.routes';
 import {AsyncHookHandler} from "./log/AsyncHookHandler";
 import {getLogger} from "./log/logger";
 import {OpenApiValidator} from "express-openapi-validator/dist";
-import {DB} from "./db";
-import {ErrorCode, ErrorObject, HttpStatus} from "./error/ErrorObject";
-import {authRouter} from "./openApi/routes/auth/authRoutes";
-import {nonAuthRouter} from "./openApi/routes/nonAuth/nonAuthRoutes";
+import {ErrorObject} from "./error/ErrorObject";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const express = require('express');
 
 const hookHandler = AsyncHookHandler.getAsyncHookHandler();
 
 const logger = getLogger(module.filename);
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const express = require('express');
+
 
 const cert = JSON.parse(process.env.FIREBASE_CREDENTIALS);
 admin.initializeApp({
@@ -56,34 +51,10 @@ class Server {
             extended: true
         }));
 
-        this.app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(yamlConv.load(__dirname + '/../openapi.yaml')));
+        this.app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(yamlConv.load(__dirname + '/../openapi.yaml')));
         this.app.use((req, res ,next) => {
             hookHandler.init();
             next();
-        });
-        this.app.use('/api/auth', async (req, res, next) => {
-            try {
-                let firebaseUser;
-                try {
-                    firebaseUser = await getUserFromToken(req.headers.authorization as string);
-                } catch (err) {
-                    logger.error("Auth token not valid" + JSON.stringify(err));
-                    throw new ErrorObject(ErrorCode.FIREBASE_AUTH_ERROR, "Auth token not valid", HttpStatus.UNAUTHENTICATED);
-                }
-                logger.info(firebaseUser.uid);
-                let user = await DB.getDb().pool.query('SELECT * FROM "User" WHERE "fireBaseId"=$1', [firebaseUser.uid]);
-                if (user.rows && user.rows.length === 0) {
-                    user = await DB.getDb().pool.query('INSERT INTO "User" ("uid", "fireBaseId", "createdAt", "highestLevel", "nickName", "votes", "questions") VALUES ($1, $2, $3, $4, $5, 0, 0) RETURNING *', [uuid.v4(), firebaseUser.uid, new Date(), 1, "user" + new Date().toISOString()]);
-                }
-                if (!user || !user.rows || user.rows.length !== 1) {
-                    throw new ErrorObject(ErrorCode.DB_QUERY_ERROR, "DB user id cannot be resolved", HttpStatus.INTERNAL_SERVER);
-                }
-                res.locals.userId = user.rows[0].uid;
-                next();
-            } catch (err) {
-                logger.error("Error on authentication " + JSON.stringify(err));
-                next(err);
-            }
         });
 
         this.app.use(expressWinston.logger({
@@ -114,8 +85,7 @@ class Server {
             ]
         }).install(this.app);
 
-        this.app.use('/api/auth', authRouter);
-        this.app.use('/api/noAuth', nonAuthRouter);
+        addRoutes(this.app);
 
         this.app.get('*', (req, res) => {
             res.sendFile(path.resolve(__dirname + '/../../wik-frontend/dist/hu/index.html'));

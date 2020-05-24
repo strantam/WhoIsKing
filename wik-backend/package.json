@@ -15,6 +15,7 @@
     "@types/node": "^10.12.10",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-openapi-validator": "^3.9.5",
     "express-winston": "^4.0.3",
     "firebase-admin": "^8.9.2",
