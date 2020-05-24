@@ -241,37 +241,32 @@
         </context-group>
       </trans-unit><trans-unit id="LevelChange.Congrats" datatype="html">
         <source>
-  Congratulations!
-</source><target state="new">
+    Congratulations!
+  </source><target state="new">
   Congratulations!
 </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/level-change/level-change.component.html</context>
-          <context context-type="linenumber">1</context>
-        </context-group>
-      </trans-unit><trans-unit id="LevelChange.PlusQuestions" datatype="html">
-        <source>Plus questions:</source><target state="new">Plus questions:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/level-change/level-change.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit><trans-unit id="LevelChange.PlusVotes" datatype="html">
-        <source>Plus votes:</source><target state="new">Plus votes:</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/level-change/level-change.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit><trans-unit id="LevelChange.Other" datatype="html">
-        <source>You can vote
-    for cities now!
-  </source><target state="new">You can vote
-    for cities now!
-  </target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/level-change/level-change.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit><trans-unit id="LevelChange.LevelReached" datatype="html">
+        <source>You reached level</source><target state="new">You reached level</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/level-change/level-change.component.html</context>
           <context context-type="linenumber">14</context>
         </context-group>
-      </trans-unit><trans-unit id="Question.AllTab" datatype="html">
+      </trans-unit><trans-unit id="LevelChange.PlusQuestions" datatype="html">
+        <source>Plus questions:</source><target state="new">Plus questions:</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/level-change/level-change.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="LevelChange.PlusVotes" datatype="html">
+        <source>Plus votes:</source><target state="new">Plus votes:</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/level-change/level-change.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit><trans-unit id="LevelChange.Other" datatype="html">
+        <source>You can
+      vote
+      for cities now!
+    </source><target state="new">You can vote
+    for cities now!
+  </target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/level-change/level-change.component.html</context><context context-type="linenumber">26</context></context-group></trans-unit><trans-unit id="Question.AllTab" datatype="html">
         <source>All</source><target state="new">All</target>
         
         
@@ -282,12 +277,12 @@
       <context-group purpose="location"><context context-type="sourcefile">src/app/question/asked-question/asked-question.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="Question.currentVotes" datatype="html">
         <source>current votes</source><target state="new">current votes</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="Question.voteButton" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="Question.voteButton" datatype="html">
         <source>Vote
         </source><target state="new">Vote
   </target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit><trans-unit id="AskQuestion.Header" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/question/votable-question/votable-question.component.html</context><context context-type="linenumber">22</context></context-group></trans-unit><trans-unit id="AskQuestion.Header" datatype="html">
         <source>New question</source><target state="new">New question</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/question/ask-question/ask-question.component.html</context>
