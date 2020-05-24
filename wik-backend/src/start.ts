@@ -40,6 +40,12 @@ class Server {
             const cors = require('cors');
             this.app.use(cors());
         }
+        this.app.use((req, res, next) => {
+            if (process.env.ENVIRONMENT && !(process.env.ENVIRONMENT === "LOCAL") && req.headers['x-forwarded-proto'] !== 'https') {
+                return res.redirect('https://' + req.headers.host + req.url);
+            } else
+                return next();
+        });
         this.app.use(express.static(__dirname + '/../../wik-frontend/dist/hu/'));
         // Depending on your own needs, this can be extended
         this.app.use(bodyParser.json({limit: '50mb'}));
@@ -51,12 +57,7 @@ class Server {
         }));
 
         this.app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(yamlConv.load(__dirname + '/../openapi.yaml')));
-        this.app.use((req, res, next) => {
-            if (process.env.ENVIRONMENT && !(process.env.ENVIRONMENT === "LOCAL") && req.headers['x-forwarded-proto'] !== 'https') {
-                return res.redirect('https://' + req.headers.host + req.url);
-            } else
-                return next();
-        });
+
         this.app.use((req, res, next) => {
             hookHandler.init();
             next();
