@@ -10,6 +10,8 @@ import * as uuid from 'uuid';
 
 const logger = getLogger(module.filename);
 
+const LIMIT = 10;
+
 export async function nextGame(req, res, next) {
     try {
         const nextQuestion = (await DB.getDb().pool.query('SELECT "uid", "openTime", "closeTime", "changeToGuessTime" FROM "Question" WHERE "closeTime" > $1 ORDER BY "openTime" LIMIT 1', [new Date()])).rows[0];
@@ -181,11 +183,12 @@ export async function getResultForGame(req, res, next) {
 export async function getAll(req, res, next) {
     try {
         const askedQuestion: boolean = req.query.askedQuestion ? req.query.askedQuestion : false;
+        const section: number = req.query.section;
         let questions: Array<Question>;
         if (askedQuestion) {
-            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "closeTime" < $1 ORDER BY "closeTime" DESC', [new Date()])).rows;
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "closeTime" < $1 ORDER BY "closeTime" DESC LIMIT $2 OFFSET $3', [new Date(), LIMIT, section * LIMIT])).rows;
         } else {
-            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL ORDER BY "votes" DESC')).rows;
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL ORDER BY "votes" DESC LIMIT $1 OFFSET $2', [LIMIT, section * LIMIT])).rows;
         }
         const apiResult: Array<Game> = questions.map(question => ({
             question: question.question,
@@ -207,11 +210,12 @@ export async function getAll(req, res, next) {
 export async function getAllForUser(req, res, next) {
     try {
         const askedQuestion: boolean = req.query.askedQuestion ? req.query.askedQuestion : false;
+        const section: number = req.query.section;
         let questions: Array<Question>;
         if (askedQuestion) {
-            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "userId"=$1 AND "closeTime" < $2 ORDER BY "closeTime" DESC', [res.locals.userId, new Date()])).rows;
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NOT NULL AND "userId"=$1 AND "closeTime" < $2 ORDER BY "closeTime" DESC LIMIT $3 OFFSET $4', [res.locals.userId, new Date(), LIMIT, section * LIMIT])).rows;
         } else {
-            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL AND "userId"=$1 ORDER BY "createdAt" DESC', [res.locals.userId])).rows;
+            questions = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "openTime" IS NULL AND "userId"=$1 ORDER BY "createdAt" DESC LIMIT $2 OFFSET $3', [res.locals.userId, LIMIT, section * LIMIT])).rows;
         }
         const apiResult: Array<Game> = questions.map(question => ({
             question: question.question,

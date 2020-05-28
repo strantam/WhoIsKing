@@ -111,6 +111,7 @@ paths:
         - Game
       parameters:
         - $ref: '#/components/parameters/AskedQuestion'
+        - $ref: '#/components/parameters/Section'
       description: Gets games, that have not been asked/scheduled, timestamp DESC
       responses:
         '200':
@@ -130,6 +131,7 @@ paths:
         - bearerAuth: []
       parameters:
         - $ref: '#/components/parameters/AskedQuestion'
+        - $ref: '#/components/parameters/Section'
       description: Gets games, that have not been asked/scheduled, filtered by logged in user, timestamp DESC
       responses:
         '200':
@@ -366,6 +368,13 @@ components:
           - ALL
         default: ALL
       required: false
+    Section:
+      in: query
+      name: section
+      schema:
+        type: number
+        minimum: 0
+      required: true
 
   schemas:
     Error:

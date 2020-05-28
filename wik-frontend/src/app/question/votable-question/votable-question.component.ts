@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
@@ -15,6 +15,17 @@ import {pairwise, takeUntil} from "rxjs/operators";
   styleUrls: ['./votable-question.component.css']
 })
 export class VotableQuestionComponent implements OnInit, OnDestroy {
+  private scrolledDown$: Subject<void>;
+  private section: number = 0;
+
+  @Input()
+  private set scroll(value: Subject<void>) {
+    this.scrolledDown$ = value;
+    this.scrolledDown$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.getQuestions(++this.section);
+    });
+  }
+
   public readonly topQuestions = environment.questionsPerDay;
 
   public allOwner: boolean = true;
@@ -32,29 +43,35 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
         return;
       }
       if (prevUser.questions !== currentUser.questions) {
-        this.getQuestions();
+        this.getQuestions(0, true);
       }
     });
-    this.getQuestions();
+    await this.getQuestions(0, true);
   }
 
-  public async getQuestions() {
+  public async getQuestions(section: number, newList: boolean = false) {
+    let newQuestions;
     if (this.allOwner) {
-      this.questions = await this.httpHandlerService.getAllGames(false);
+      newQuestions = await this.httpHandlerService.getAllGames(false, section);
     } else {
-      this.questions = await this.httpHandlerService.getOwnGames(false);
+      newQuestions = await this.httpHandlerService.getOwnGames(false, section);
+    }
+    if (newList){
+      this.questions = newQuestions;
+    } else {
+      this.questions = this.questions.concat(newQuestions);
     }
   }
 
   public async changeOwner(event) {
     this.allOwner = event.index === 0;
-    await this.getQuestions();
+    this.section = 0;
+    await this.getQuestions(0, true);
   }
 
   public async vote(questionId) {
     await this.httpHandlerService.postVote(questionId);
     this.store.dispatch(vote());
-    await this.getQuestions();
   }
 
   ngOnDestroy(): void {

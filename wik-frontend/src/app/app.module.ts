@@ -74,6 +74,7 @@ import {RouterModule} from "@angular/router";
 import {AskQuestionComponent} from './question/ask-question/ask-question.component';
 import {SpinnerWrapperComponent} from './layout/spinner-wrapper/spinner-wrapper.component';
 import {SpinnerInterceptor} from "./layout/spinner-wrapper/spinner.interceptor";
+import { InfiniteScrollComponent } from './layout/infinite-scroll/infinite-scroll.component';
 
 registerLocaleData(localeHu);
 
@@ -111,6 +112,7 @@ export function playerFactory() {
     QuestionFooterComponent,
     AskQuestionComponent,
     SpinnerWrapperComponent,
+    InfiniteScrollComponent,
   ],
   imports: [
     RouterModule.forRoot([]),

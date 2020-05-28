@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {City} from "../../../../wik-backend/src/openApi/model/city";
 import {Game} from "../../../../wik-backend/src/openApi/model/game";
 
@@ -90,20 +90,25 @@ export class HttpHandlerService {
     }
   }
 
-  public async getAllGames(askedQuestions: boolean): Promise<Array<Game>> {
+  public async getAllGames(askedQuestions: boolean, section: number): Promise<Array<Game>> {
     try {
-      const param = askedQuestions ? {askedQuestion: 'true'} : {};
-      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'game/', {params: param}).toPromise();
+      let params = new HttpParams();
+      params = params.append('askedQuestion', askedQuestions.toString());
+      params = params.append('section', section.toString());
+      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'game/', {params: params}).toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error get question", err);
     }
   }
 
-  public async getOwnGames(askedQuestions: boolean): Promise<Array<Game>> {
+  public async getOwnGames(askedQuestions: boolean, section: number): Promise<Array<Game>> {
     try {
-      const param = askedQuestions ? {askedQuestion: 'true'} : {};
-      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'game/own', {params: param}).toPromise();
+      let params = new HttpParams();
+      params = params.append('askedQuestion', askedQuestions.toString());
+      params = params.append('section', section.toString());
+
+      return await this.httpClient.get<Array<Game>>(environment.apiUrl + 'game/own', {params: params}).toPromise();
     } catch (err) {
       // TODO handle errors on ui
       console.error("Error get question", err);
