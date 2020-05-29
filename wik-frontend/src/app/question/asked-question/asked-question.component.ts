@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Game} from "../../../../../wik-backend/src/openApi/model/game";
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {GameResultAnswers} from "../../../../../wik-backend/src/openApi/model/gameResultAnswers";
@@ -7,6 +7,7 @@ import {User} from "../../../../../wik-backend/src/openApi/model/user";
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
 import {takeUntil} from "rxjs/operators";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-asked-question',
@@ -14,16 +15,10 @@ import {takeUntil} from "rxjs/operators";
   styleUrls: ['./asked-question.component.css']
 })
 export class AskedQuestionComponent implements OnInit, OnDestroy {
-  private scrolledDown$: Subject<void>;
-  private section: number = 0;
+  private scrolledDown$: Subject<void> = new Subject<void>();
 
-  @Input()
-  private set scroll(value: Subject<void>) {
-    this.scrolledDown$ = value;
-    this.scrolledDown$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.getQuestions(++this.section);
-    });
-  }
+  private section: number = 0;
+  private lastSection: boolean = false;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -36,6 +31,9 @@ export class AskedQuestionComponent implements OnInit, OnDestroy {
   public results: Map<string, Array<GameResultAnswers>> = new Map();
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
+    this.scrolledDown$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.getQuestions(++this.section);
+    });
   }
 
   async ngOnInit(): Promise<void> {
@@ -49,17 +47,28 @@ export class AskedQuestionComponent implements OnInit, OnDestroy {
   }
 
   public async getQuestions(section: number, newList: boolean = false) {
+    this.lastSection = !newList && this.lastSection;
+    if (this.lastSection){
+      return;
+    }
     let newQuestions;
     if (this.allOwner) {
       newQuestions = await this.httpHandlerService.getAllGames(true, section);
     } else {
       newQuestions = await this.httpHandlerService.getOwnGames(true, section);
     }
+    if (newQuestions.length < environment.questionGetLimit){
+      this.lastSection = true;
+    }
     if (newList){
       this.questions = newQuestions;
     } else {
       this.questions = this.questions.concat(newQuestions);
     }
+  }
+
+  public scrolledDown() {
+    this.scrolledDown$.next();
   }
 
   public async changeOwner(event) {

@@ -16,9 +16,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
   public asked: boolean = false;
 
-  public askedScroll$: Subject<void> = new Subject<void>();
-  public notAskedScroll$: Subject<void> = new Subject<void>();
-
   constructor(private router: Router, private store: Store<State>) {
   }
 
@@ -36,14 +33,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   public async changeAsked(event) {
     this.asked = event.index !== 0;
-  }
-
-  public scrolledDown() {
-    if (this.asked) {
-      this.askedScroll$.next();
-    } else {
-      this.notAskedScroll$.next();
-    }
   }
 
   async ngOnDestroy(): Promise<void> {

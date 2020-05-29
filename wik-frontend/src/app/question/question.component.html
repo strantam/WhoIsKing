@@ -1,10 +1,8 @@
-<app-infinite-scroll (scrolled)="scrolledDown()">
-  <mat-tab-group (selectedTabChange)="changeAsked($event)">
-    <mat-tab label="Not asked" i18n-label="@@Question.NotAskedTab">
-    </mat-tab>
-    <mat-tab label="Asked" i18n-label="@@Question.AskedTab">
-    </mat-tab>
-  </mat-tab-group>
-  <app-votable-question *ngIf="!asked" [scroll]="notAskedScroll$"></app-votable-question>
-  <app-asked-question *ngIf="asked" [scroll]="askedScroll$"></app-asked-question>
-</app-infinite-scroll>
+<mat-tab-group (selectedTabChange)="changeAsked($event)">
+  <mat-tab label="Not asked" i18n-label="@@Question.NotAskedTab">
+  </mat-tab>
+  <mat-tab label="Asked" i18n-label="@@Question.AskedTab">
+  </mat-tab>
+</mat-tab-group>
+<app-votable-question *ngIf="!asked"></app-votable-question>
+<app-asked-question *ngIf="asked"></app-asked-question>

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpHandlerService} from "../../http-service/http-handler.service";
 import {select, Store} from "@ngrx/store";
 import {State} from "../../reducers";
@@ -15,16 +15,9 @@ import {pairwise, takeUntil} from "rxjs/operators";
   styleUrls: ['./votable-question.component.css']
 })
 export class VotableQuestionComponent implements OnInit, OnDestroy {
-  private scrolledDown$: Subject<void>;
+  private scrolledDown$: Subject<void> = new Subject<void>();
   private section: number = 0;
-
-  @Input()
-  private set scroll(value: Subject<void>) {
-    this.scrolledDown$ = value;
-    this.scrolledDown$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
-      this.getQuestions(++this.section);
-    });
-  }
+  private lastSection: boolean = false;
 
   public readonly topQuestions = environment.questionsPerDay;
 
@@ -34,6 +27,9 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private httpHandlerService: HttpHandlerService, private store: Store<State>) {
+    this.scrolledDown$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      this.getQuestions(++this.section);
+    });
   }
 
   async ngOnInit(): Promise<void> {
@@ -50,17 +46,28 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
   }
 
   public async getQuestions(section: number, newList: boolean = false) {
+    this.lastSection = !newList && this.lastSection;
+    if (this.lastSection) {
+      return;
+    }
     let newQuestions;
     if (this.allOwner) {
       newQuestions = await this.httpHandlerService.getAllGames(false, section);
     } else {
       newQuestions = await this.httpHandlerService.getOwnGames(false, section);
     }
-    if (newList){
+    if (newQuestions.length < environment.questionGetLimit) {
+      this.lastSection = true;
+    }
+    if (newList) {
       this.questions = newQuestions;
     } else {
       this.questions = this.questions.concat(newQuestions);
     }
+  }
+
+  public scrolledDown() {
+    this.scrolledDown$.next();
   }
 
   public async changeOwner(event) {
@@ -72,6 +79,7 @@ export class VotableQuestionComponent implements OnInit, OnDestroy {
   public async vote(questionId) {
     await this.httpHandlerService.postVote(questionId);
     this.store.dispatch(vote());
+    this.questions.find(question => question.uid === questionId).votes++;
   }
 
   ngOnDestroy(): void {

@@ -1,19 +1,22 @@
-<mat-tab-group *ngIf="(user$ | async)" (selectedTabChange)="changeOwner($event)">
-  <mat-tab label="All" i18n-label="@@Question.AllTab">
-  </mat-tab>
-  <mat-tab label="Own" i18n-label="@@Question.OwnTab">
-  </mat-tab>
-</mat-tab-group>
-<div class="parentOfMain">
-  <mat-expansion-panel *ngFor="let question of questions" (opened)="openQuestionPanel(question.uid)"
-                       [ngClass.gt-xs]="{'mainElementOnGt': true}">
-    <mat-expansion-panel-header>
-      <mat-panel-title>{{question.question}}</mat-panel-title>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <app-spinner-wrapper [showSpinner]="questionSpinner">
-        <app-game-result [gameResult]="this.results.get(question.uid)"></app-game-result>
-      </app-spinner-wrapper>
-    </ng-template>
-  </mat-expansion-panel>
-</div>
+<app-infinite-scroll (scrolled)="scrolledDown()">
+
+  <mat-tab-group *ngIf="(user$ | async)" (selectedTabChange)="changeOwner($event)">
+    <mat-tab label="All" i18n-label="@@Question.AllTab">
+    </mat-tab>
+    <mat-tab label="Own" i18n-label="@@Question.OwnTab">
+    </mat-tab>
+  </mat-tab-group>
+  <div class="parentOfMain">
+    <mat-expansion-panel *ngFor="let question of questions" (opened)="openQuestionPanel(question.uid)"
+                         [ngClass.gt-xs]="{'mainElementOnGt': true}">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{question.question}}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <app-spinner-wrapper [showSpinner]="questionSpinner">
+          <app-game-result [gameResult]="this.results.get(question.uid)"></app-game-result>
+        </app-spinner-wrapper>
+      </ng-template>
+    </mat-expansion-panel>
+  </div>
+</app-infinite-scroll>

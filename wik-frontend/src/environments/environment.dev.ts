@@ -4,6 +4,7 @@ export const environment = {
   googleMapsAPIKey: 'AIzaSyBCCxb_1EVuqM6I1m6Y4RflazFRIdYLdB4',
   apiUrl: "https://wik-dev.herokuapp.com/api/v1/",
   questionsPerDay: 3,
+  questionGetLimit: 10,
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
     authDomain: "who-is-king.firebaseapp.com",

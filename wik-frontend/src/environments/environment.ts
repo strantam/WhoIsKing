@@ -8,6 +8,7 @@ export const environment = {
   googleMapsAPIKey: 'AIzaSyBrJ8nO7WnXfXFRnlILs0H8f_5vEvLH57Q',
   apiUrl: "http://localhost:9090/api/v1/",
   questionsPerDay: 3,
+  questionGetLimit: 10,
   firebaseConfig: {
     apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
     authDomain: "who-is-king.firebaseapp.com",
