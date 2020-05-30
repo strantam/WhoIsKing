@@ -4,7 +4,7 @@ import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpHandlerService} from "../../../http-service/http-handler.service";
 import {EMPTY, from} from "rxjs";
 import {loadCurrentGameSuccess, loadNewGame, loadNextGameSuccess} from "./gameObj";
-import {showQuestionForSolution} from "../gameState/gameState";
+import {showQuestionForGuess, showQuestionForSolution} from "../gameState/gameState";
 import {Store} from "@ngrx/store";
 import {State} from "../../index";
 import {GameModel} from "../../../model/GameModel";
@@ -32,7 +32,7 @@ export class GameObjEffects {
 
   loadGame$ = createEffect((): any => {
       return this.actions$.pipe(
-        ofType(showQuestionForSolution),
+        ofType(showQuestionForSolution, showQuestionForGuess),
         withLatestFrom(this.store),
         mergeMap(([, storeState]) =>
           from(this.httpHandlerService.getQuestion(storeState.game.uid))

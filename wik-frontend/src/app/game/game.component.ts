@@ -16,11 +16,8 @@ const PROGRESS_BAR_REFRESH_MS = 25;
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
-        style({transform: 'translateX(100%)'}),
-        animate('1000ms ease-in', style({transform: 'translateX(0%)'}))
-      ]),
-      transition(':leave', [
-        animate('1000ms ease-in', style({transform: 'translateX(-100%)'}))
+        style({opacity: '0', transform: 'translateY(5%)'}),
+        animate('500ms ease-in', style({opacity: '1', transform: 'translateY(0%)'}))
       ])
     ])
   ]

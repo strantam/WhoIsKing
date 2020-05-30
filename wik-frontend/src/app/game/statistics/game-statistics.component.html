@@ -1,6 +1,7 @@
 <h2>Results</h2>
 
-<h4>You got: {{points$ | async}} points</h4>
+<h4 *ngIf="points$ | async">You got: {{points$ | async}} points</h4>
+<h4 *ngIf="!(points$ | async)">Log in to collect points!</h4>
 
 <h2>Answers</h2>
 <app-game-result [gameResult]="stats.gameResult?.answers"></app-game-result>
@@ -9,4 +10,4 @@
 <app-city-statistics [stats]="stats.cityResult"></app-city-statistics>
 
 
-<button (click)="finishRound()">Nice!</button>
+<button  mat-stroked-button (click)="finishRound()">Nice!</button>
