@@ -9,7 +9,8 @@
     "generate-db-ts": "node generateDbSchemas.js",
     "generate-models": "npm run generate-db-ts && npm run generate-api-ts",
     "cron-schedule-questions": "node dist/cron/scheduleQuestions",
-    "cron-add-perks-to-users": "node dist/cron/addPerksToUsers"
+    "cron-add-perks-to-users": "node dist/cron/addPerksToUsers",
+    "cron-add-dummy-data": "node dist/cron/dummyData"
   },
   "dependencies": {
     "@types/node": "^10.12.10",

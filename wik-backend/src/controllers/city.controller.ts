@@ -1,7 +1,7 @@
 import {City} from "../db/DatabaseMapping";
 import {DB} from "../db";
 import {City as ApiCity} from "../openApi/model/city";
-import {ErrorCode, ErrorObject, HttpStatus} from "../error/ErrorObject";
+import {ErrorCode, ApiErrorObject, HttpStatus} from "../error/ApiErrorObject";
 import {CityWithRegs} from "../openApi/model/cityWithRegs";
 import {getLogger} from "../log/logger";
 const logger = getLogger(module.filename);
@@ -13,7 +13,7 @@ export async function getAll(req, res, next) {
         res.json(apiCities);
     } catch (err) {
         logger.error("Cannot get cities " + JSON.stringify(err));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get cities", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get cities", HttpStatus.INTERNAL_SERVER));
     }
 }
 
@@ -40,7 +40,7 @@ export async function getRegistrations(req, res, next) {
         res.json(apiCitiesWithRegs);
     } catch (err) {
         logger.error("Cannot get cities with regs " + JSON.stringify(err.message));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get cities with regs", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get cities with regs", HttpStatus.INTERNAL_SERVER));
 
     }
 }

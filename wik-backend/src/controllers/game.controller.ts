@@ -1,4 +1,4 @@
-import {ErrorCode, ErrorObject, HttpStatus} from "../error/ErrorObject";
+import {ErrorCode, ApiErrorObject, HttpStatus} from "../error/ApiErrorObject";
 import {getLogger} from "../log/logger";
 import {DB} from "../db";
 import {Statistics} from "../openApi/model/statistics";
@@ -24,7 +24,7 @@ export async function nextGame(req, res, next) {
         });
     } catch (err) {
         logger.error("Cannot get next question " + JSON.stringify(err.message));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get next question", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get next question", HttpStatus.INTERNAL_SERVER));
     }
 }
 
@@ -86,7 +86,7 @@ export async function getAggregatedResults(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get aggregated results ", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get aggregated results ", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -102,7 +102,7 @@ export async function getOne(req, res, next) {
             'ON Q."uid" = A."questionId" ' +
             'WHERE Q."uid" = $1 AND Q."openTime" < $2', [gameId, currentTime])).rows;
         if (!questions || !questions.length) {
-            next(new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER));
         }
         const resQuestion: Game = {
             uid: questions[0].questionId,
@@ -125,7 +125,7 @@ export async function getOne(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get question", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get question", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -175,7 +175,7 @@ export async function getResultForGame(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get result for question", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get result for question", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -202,7 +202,7 @@ export async function getAll(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -229,7 +229,7 @@ export async function getAllForUser(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions for user", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get questions for user", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -256,7 +256,7 @@ async function userLevelChange(userId: string): Promise<void> {
             );
         } catch (err) {
             logger.error("Cannot do level change" + err.message);
-            throw new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot do level change", HttpStatus.INTERNAL_SERVER);
+            throw new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot do level change", HttpStatus.INTERNAL_SERVER);
         }
     }
 }
@@ -268,7 +268,7 @@ export async function postSolution(req, res, next) {
     try {
         const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "openTime" < $2 AND "changeToGuessTime" > $2', [gameId, new Date()])).rows[0];
         if (!question) {
-            next(new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Solution not opened currently", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_OPEN_QUESTION, "Solution not opened currently", HttpStatus.INTERNAL_SERVER));
         }
         const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
         const dbClient = await DB.getDb().pool.connect();
@@ -280,7 +280,7 @@ export async function postSolution(req, res, next) {
         } catch (err) {
             logger.error("Error on adding vote" + JSON.stringify(err.message));
             await dbClient.query('ROLLBACK');
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error on adding vote", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Error on adding vote", HttpStatus.INTERNAL_SERVER));
         } finally {
             dbClient.release();
         }
@@ -290,7 +290,7 @@ export async function postSolution(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting answer.", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting answer.", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -301,7 +301,7 @@ export async function postGuess(req, res, next) {
     try {
         const question: Question = (await DB.getDb().pool.query('SELECT * FROM "Question" WHERE "uid" = $1 AND "changeToGuessTime" < $2 AND "closeTime" > $2', [gameId, new Date()])).rows[0];
         if (!question) {
-            next(new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_OPEN_QUESTION, "Question not opened currently", HttpStatus.INTERNAL_SERVER));
         }
         const user: User = (await DB.getDb().pool.query('SELECT * FROM "User" WHERE "uid"=$1', [res.locals.userId])).rows[0];
         const answers: Array<Answer> = (await DB.getDb().pool.query('SELECT * FROM "Answer" WHERE "questionId"=$1', [gameId])).rows;
@@ -323,7 +323,7 @@ export async function postGuess(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting guess.", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting guess.", HttpStatus.INTERNAL_SERVER));
         }
     }
 }
@@ -336,11 +336,11 @@ export async function postVote(req, res, next) {
         await dbClient.query('BEGIN');
         const user = (await dbClient.query('UPDATE "User" SET "votes" = "votes" - 1 WHERE "uid"= $1 AND "votes" > 0 RETURNING *', [res.locals.userId])).rows[0];
         if (!user) {
-            next(new ErrorObject(ErrorCode.NO_VOTES, "No votes remaining", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_VOTES, "No votes remaining", HttpStatus.INTERNAL_SERVER));
         }
         const question = (await dbClient.query('UPDATE "Question" SET "votes" = "votes" + 1 WHERE "uid"= $1 AND "openTime" IS NULL RETURNING *', [gameId])).rows[0];
         if (!question) {
-            next(new ErrorObject(ErrorCode.NO_OPEN_QUESTION, "No question matches", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_OPEN_QUESTION, "No question matches", HttpStatus.INTERNAL_SERVER));
         }
         await dbClient.query('COMMIT');
         res.json({});
@@ -350,7 +350,7 @@ export async function postVote(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
         }
     } finally {
         dbClient.release();
@@ -364,7 +364,7 @@ export async function create(req, res, next) {
         await dbClient.query('BEGIN');
         const user = (await dbClient.query('UPDATE "User" SET "questions" = "questions" - 1 WHERE "uid"= $1 AND "questions" > 0 RETURNING *', [res.locals.userId])).rows[0];
         if (!user) {
-            next(new ErrorObject(ErrorCode.NO_QUESTIONS, "No questions remaining", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.NO_QUESTIONS, "No questions remaining", HttpStatus.INTERNAL_SERVER));
         }
         const questionId = (await dbClient.query('INSERT INTO "Question" ("uid", "question", "userId", "votes", "category", "createdAt") VALUES ($1, $2, $3, 0, $4, $5) RETURNING uid', [uuid.v4(), game.question, res.locals.userId, game.category, new Date()])).rows[0].uid;
         for (const answer of game.answers) {
@@ -378,7 +378,7 @@ export async function create(req, res, next) {
         if (err.ownErrorObject) {
             next(err);
         } else {
-            next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
+            next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Error posting vote.", HttpStatus.INTERNAL_SERVER));
         }
     } finally {
         dbClient.release();

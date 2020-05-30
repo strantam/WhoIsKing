@@ -332,7 +332,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/GeneralErrorModel'
 
   parameters:
     GameId:
@@ -377,7 +377,7 @@ components:
       required: true
 
   schemas:
-    Error:
+    GeneralErrorModel:
       type: object
       properties:
         errorCode:

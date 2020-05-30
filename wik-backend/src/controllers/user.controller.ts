@@ -1,5 +1,5 @@
 import {DB} from "../db";
-import {ErrorCode, ErrorObject, HttpStatus} from "../error/ErrorObject";
+import {ErrorCode, ApiErrorObject, HttpStatus} from "../error/ApiErrorObject";
 import {getLogger} from "../log/logger";
 import {Level, User} from "../db/DatabaseMapping";
 import admin from "firebase-admin";
@@ -17,7 +17,7 @@ export async function setCity(req, res, next) {
         res.json({});
     } catch (err) {
         logger.error("Cannot set city for user", JSON.stringify(err));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot set city for user", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot set city for user", HttpStatus.INTERNAL_SERVER));
     }
 }
 
@@ -35,7 +35,7 @@ export async function remove(req, res, next) {
         await dbClient.query('ROLLBACK');
 
         logger.error("Error deleting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot delete user/me", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot delete user/me", HttpStatus.INTERNAL_SERVER));
     } finally {
         dbClient.release()
     }
@@ -62,6 +62,6 @@ export async function getCurrentUser(req, res, next) {
         res.json(resultUser);
     } catch (err) {
         logger.error("Error getting user with id: " + res.locals.userId + " " + JSON.stringify(err.message));
-        next(new ErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot get user/me", HttpStatus.INTERNAL_SERVER));
     }
 }

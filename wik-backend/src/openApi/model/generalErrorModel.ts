@@ -12,7 +12,7 @@
 
 import { RequestFile } from '../api';
 
-export class ModelError {
+export class GeneralErrorModel {
     'errorCode': string;
     'message': string;
     'httpStatus'?: number;
@@ -37,7 +37,7 @@ export class ModelError {
         }    ];
 
     static getAttributeTypeMap() {
-        return ModelError.attributeTypeMap;
+        return GeneralErrorModel.attributeTypeMap;
     }
 }
 

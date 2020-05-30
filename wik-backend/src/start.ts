@@ -8,7 +8,8 @@ import addRoutes from './routes/index.routes';
 import {AsyncHookHandler} from "./log/AsyncHookHandler";
 import {getLogger} from "./log/logger";
 import {OpenApiValidator} from "express-openapi-validator/dist";
-import {ErrorObject} from "./error/ErrorObject";
+import {ApiErrorObject, ErrorCode} from "./error/ApiErrorObject";
+import {GeneralErrorModel} from "./openApi/model/generalErrorModel";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
 
@@ -98,18 +99,36 @@ class Server {
             res.sendFile(path.resolve(__dirname + '/../../wik-frontend/dist/hu/index.html'));
         });
         this.app.use((err, req, res, next) => {
-            logger.error("Error processing request: " + JSON.stringify(err.message) + JSON.stringify(err));
+            logger.error('Error processing request: ', err);
 
             if (res.headersSent) {
-                return next(err)
+                return next(err);
             }
+            let errorTyped: ApiErrorObject;
             if (err.ownErrorObject) {
-                const errorTyped: ErrorObject = err;
-                res.status(errorTyped.httpStatus);
-                res.json(err);
+                errorTyped = err;
             } else {
-                res.json(err);
+                let errorCode: ErrorCode;
+                switch (err.status) {
+                    case 400:
+                        errorCode = ErrorCode.BAD_REQUEST;
+                        break;
+                    case 401:
+                        errorCode = ErrorCode.UNAUTHENTICATED;
+                        break;
+                    default:
+                        errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+                }
+                errorTyped = new ApiErrorObject(
+                    errorCode,
+                    err.errors || 'Internal server error'
+                );
             }
+            const apiError: GeneralErrorModel = {
+                errorCode: errorTyped.errorCode,
+                message: errorTyped.message,
+            };
+            res.status(errorTyped.httpStatus).json(apiError);
         });
         // Start the server on the provided port
         this.app.listen(this.port, () => logger.info(`http is started ${this.port}`));
