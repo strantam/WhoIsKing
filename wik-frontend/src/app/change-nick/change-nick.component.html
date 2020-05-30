@@ -1,0 +1,10 @@
+<h1 mat-dialog-title i18n="@@ChangeNick.HeaderTitle">New nickname</h1>
+<div mat-dialog-content>
+  <input type="text" placeholder="New nick" i18n-placeholder="@@ChangeNick.NewNickPlaceHolder" matInput
+         autocomplete="off" [formControl]="nameCtrl">
+  <div i18n="@@ChangeNick.WrongNick" *ngIf="wrongNick">Nickname already occupied.</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" i18n="@@ChangeNick.Cancel">Cancel</button>
+  <button mat-button (click)="saveNick()" i18n="@@ChangeNick.Ok">Save</button>
+</div>

@@ -2,6 +2,7 @@ import {getUserFromToken} from "../util/auth";
 import {ErrorCode, ApiErrorObject, HttpStatus} from "../error/ApiErrorObject";
 import {DB} from "../db";
 import {getLogger} from "../log/logger";
+import * as uuid from 'uuid';
 
 const logger = getLogger(module.filename);
 

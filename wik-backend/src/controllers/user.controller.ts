@@ -21,6 +21,18 @@ export async function setCity(req, res, next) {
     }
 }
 
+export async function setNickName(req, res, next) {
+    const nickName = req.body.nickName;
+    const userId = res.locals.userId;
+    try {
+        await DB.getDb().pool.query('UPDATE "User" SET "nickName" = $1 WHERE "uid"= $2', [nickName, userId]);
+        res.json({});
+    } catch (err) {
+        logger.error("Cannot set nickname for user", err);
+        next(new ApiErrorObject(ErrorCode.DB_QUERY_ERROR, "Cannot set nickname for user"));
+    }
+}
+
 
 export async function remove(req, res, next) {
     const dbClient = await DB.getDb().pool.connect();

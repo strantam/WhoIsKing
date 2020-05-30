@@ -75,6 +75,7 @@ import {AskQuestionComponent} from './question/ask-question/ask-question.compone
 import {SpinnerWrapperComponent} from './layout/spinner-wrapper/spinner-wrapper.component';
 import {SpinnerInterceptor} from "./layout/spinner-wrapper/spinner.interceptor";
 import { InfiniteScrollComponent } from './layout/infinite-scroll/infinite-scroll.component';
+import { ChangeNickComponent } from './change-nick/change-nick.component';
 
 registerLocaleData(localeHu);
 
@@ -113,6 +114,7 @@ export function playerFactory() {
     AskQuestionComponent,
     SpinnerWrapperComponent,
     InfiniteScrollComponent,
+    ChangeNickComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
@@ -163,7 +165,8 @@ export function playerFactory() {
     AreYouSureModalComponent,
     I18nSnackBarComponent,
     LoginComponent,
-    AddCityComponent
+    AddCityComponent,
+    ChangeNickComponent
   ],
   providers: [DatePipe,
     I18nSelectPipe,

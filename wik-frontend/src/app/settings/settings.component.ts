@@ -7,6 +7,7 @@ import {fetchUser} from "../reducers/user/user";
 import {Store} from "@ngrx/store";
 import {State} from "../reducers";
 import {LoginComponent} from "../authentication/login/login.component";
+import {ChangeNickComponent} from "../change-nick/change-nick.component";
 
 @Component({
   selector: 'app-settings',
@@ -39,6 +40,12 @@ export class SettingsComponent implements OnInit {
   async deleteUser() {
     await this.httpHandlerService.removeUser();
     await this.authService.signOut();
+  }
+
+  async changeNick() {
+    const dialogRef = this.dialog.open(ChangeNickComponent);
+    await dialogRef.afterClosed().toPromise();
+    this.store.dispatch(fetchUser());
   }
 
   login() {

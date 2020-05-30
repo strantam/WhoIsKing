@@ -7,6 +7,13 @@
       </div>
     </button>
 
+    <button class="w100" mat-stroked-button (click)="changeNick()">
+      <div fxLayout="row" class="w100" fxLayoutAlign="start center">
+        <mat-icon fxFlex="0 0 fit-content">face</mat-icon>
+        <div fxFlex="1 1" i18n="@@Settings.logOut" >Change username</div>
+      </div>
+    </button>
+
     <button class="w100" mat-stroked-button (click)="openChangeCity()">
       <div fxLayout="row" class="w100" fxLayoutAlign="start center">
         <mat-icon fxFlex="0 0 fit-content">location_city</mat-icon>

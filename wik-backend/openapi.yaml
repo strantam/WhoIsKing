@@ -304,6 +304,29 @@ paths:
           description: You get an empty 200 on successful save.
         'default':
           $ref: '#/components/responses/GeneralError'
+  "/user/me/nick":
+    post:
+      tags:
+        - Auth
+        - User
+      security:
+        - bearerAuth: []
+      description: Set nickName of player.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickName:
+                  type: string
+                  maxLength: 50
+      responses:
+        '200':
+          description: You get an empty 200 on successful save.
+        'default':
+          $ref: '#/components/responses/GeneralError'
+
   "/level":
     get:
       tags:

@@ -46,6 +46,17 @@ export class HttpHandlerService {
     }
   }
 
+  public async changeNick(nickName: string): Promise<void> {
+    try {
+      await this.httpClient.post(environment.apiUrl + 'user/me/nick', {nickName}).toPromise();
+    } catch (err) {
+      // TODO handle errors on ui
+      console.error("Error post nick", err);
+
+      throw(err);
+    }
+  }
+
   public async getPersonalInfo(): Promise<User> {
     try {
       return await this.httpClient.get<User>(environment.apiUrl + 'user/me').toPromise();

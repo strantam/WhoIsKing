@@ -32,9 +32,7 @@
         <a routerLink="/spread" i18n="@@Header.Spread" routerLinkActive="activeMenu">Spread</a>
       </li>
       <li *ngIf="user$ | async">
-        <a (click)="onToggleSettings()">
-          <mat-icon>settings</mat-icon>
-        </a>
+        <a (click)="onToggleSettings()" i18n="@@Header.Settings">Settings</a>
       </li>
     </ul>
   </div>

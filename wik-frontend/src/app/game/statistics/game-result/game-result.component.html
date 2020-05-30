@@ -1,8 +1,9 @@
-<mat-list>
-  <mat-list-item *ngFor="let answer of visibleResult">
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="1.5rem grid">
+  <div *ngFor="let answer of visibleResult" fxLayout="row" fxLayoutAlign="center center">
     <p class="index">{{answer.index}}</p>
-    <p class="answer">{{answer.answer}}</p></mat-list-item>
-</mat-list>
+    <p class="answer">{{answer.answer}}</p>
+  </div>
+</div>
 <div>
   <canvas baseChart
           [data]="answersData.results"
