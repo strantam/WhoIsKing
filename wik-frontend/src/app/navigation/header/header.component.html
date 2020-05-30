@@ -12,12 +12,12 @@
     </div>
 
   </div>
-  <div *ngIf="!headerTitleService.navigationOff" fxHide.gt-xs fxFlex fxLayout fxLayoutAlign="end">
+  <div *ngIf="!headerTitleService.navigationOff" fxHide.gt-sm fxFlex fxLayout fxLayoutAlign="end">
     <button mat-icon-button (click)="onToggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <div *ngIf="!headerTitleService.navigationOff" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+  <div *ngIf="!headerTitleService.navigationOff" fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
       <li>
         <a routerLink="/game" i18n="@@Header.Game" routerLinkActive="activeMenu">Game</a>
@@ -30,6 +30,9 @@
       </li>
       <li>
         <a routerLink="/spread" i18n="@@Header.Spread" routerLinkActive="activeMenu">Spread</a>
+      </li>
+      <li>
+        <a routerLink="/help" i18n="@@Header.Help" routerLinkActive="activeMenu">Help</a>
       </li>
       <li *ngIf="user$ | async">
         <a (click)="onToggleSettings()" i18n="@@Header.Settings">Settings</a>

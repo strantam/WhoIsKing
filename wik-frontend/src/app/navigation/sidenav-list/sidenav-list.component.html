@@ -14,4 +14,7 @@
   <a *ngIf="user$ | async" mat-list-item routerLink="/settings" (click)="onSidenavClose()">
     <mat-icon>settings</mat-icon> <span class="nav-caption" i18n="@@Header.Logout">Settings</span>
   </a>
+  <a mat-list-item routerLink="/help" (click)="onSidenavClose()">
+    <mat-icon>help</mat-icon> <span class="nav-caption" i18n="@@Header.Help">Help</span>
+  </a>
 </mat-nav-list>

@@ -13,6 +13,7 @@ export enum HeaderTitles {
   "SPREAD" = "SPREAD",
   "SETTINGS" = "SETTINGS",
   "QUESTIONS" = "QUESTIONS",
+  "HELP" = "HELP",
 }
 
 export enum SnackbarTexts {

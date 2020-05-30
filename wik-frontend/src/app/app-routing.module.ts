@@ -11,6 +11,7 @@ import {NotLoggedInComponent} from "./not-logged-in/not-logged-in.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {QuestionComponent} from "./question/question.component";
 import {QuestionFooterComponent} from "./question/question-footer/question-footer.component";
+import {HelpComponent} from "./help/help.component";
 
 
 const routes: Routes = [
@@ -43,6 +44,11 @@ const routes: Routes = [
         path: 'questions',
         component: QuestionComponent,
         data: {title: HeaderTitles.QUESTIONS, hideBack: true}
+      },
+      {
+        path: 'help',
+        component: HelpComponent,
+        data: {title: HeaderTitles.HELP, hideBack: true}
       },
       {path: '', redirectTo: '/game', pathMatch: 'full'}
     ]

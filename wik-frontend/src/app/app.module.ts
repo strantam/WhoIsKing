@@ -76,6 +76,7 @@ import {SpinnerWrapperComponent} from './layout/spinner-wrapper/spinner-wrapper.
 import {SpinnerInterceptor} from "./layout/spinner-wrapper/spinner.interceptor";
 import { InfiniteScrollComponent } from './layout/infinite-scroll/infinite-scroll.component';
 import { ChangeNickComponent } from './change-nick/change-nick.component';
+import { HelpComponent } from './help/help.component';
 
 registerLocaleData(localeHu);
 
@@ -115,6 +116,7 @@ export function playerFactory() {
     SpinnerWrapperComponent,
     InfiniteScrollComponent,
     ChangeNickComponent,
+    HelpComponent,
   ],
   imports: [
     RouterModule.forRoot([]),
