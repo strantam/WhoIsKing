@@ -15,7 +15,7 @@
                i18n-placeholder="@@AskQuestion.AnswerPlaceHolder">
       </mat-form-field>
     </div>
-    <button (click)="addAnswer()">Add answer</button>
+    <button  mat-stroked-button (click)="addAnswer()" class="addAnswer">Add answer</button>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="dialogRef.close()" i18n="@@CancelButton">Cancel</button>
