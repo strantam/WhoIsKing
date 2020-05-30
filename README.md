@@ -1,8 +1,8 @@
 # WhoIsKing
 
 ## TODO
+- api refactor
 - landing
-- scripts to fill db
 
 - frontend error handling/backend generic error handling
 - SSR
