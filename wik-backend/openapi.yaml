@@ -18,7 +18,6 @@ paths:
   "/city":
     get:
       tags:
-        - No auth
         - City
       description: List of all cities.
       responses:
@@ -37,7 +36,6 @@ paths:
   "/city/registrations":
     get:
       tags:
-        - No auth
         - City
       description: List of registrations grouped by city.
       responses:
@@ -56,7 +54,6 @@ paths:
   "/game/next":
     get:
       tags:
-        - No auth
         - Game
       description: Gets when the next gameState will be.
       responses:
@@ -75,7 +72,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
-        - No auth
         - Game
       description: Gets the question with the given uid, if openTime is over.
       responses:
@@ -90,7 +86,6 @@ paths:
   "/game":
     post:
       tags:
-        - Auth
         - Game
       security:
         - bearerAuth: []
@@ -107,7 +102,6 @@ paths:
           $ref: '#/components/responses/GeneralError'
     get:
       tags:
-        - No auth
         - Game
       parameters:
         - $ref: '#/components/parameters/AskedQuestion'
@@ -125,7 +119,6 @@ paths:
   "/game/own":
     get:
       tags:
-        - Auth
         - Game
       security:
         - bearerAuth: []
@@ -148,7 +141,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
-        - Auth
         - Game
       security:
         - bearerAuth: []
@@ -164,7 +156,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
-        - Auth
         - Game
       security:
         - bearerAuth: []
@@ -189,7 +180,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
-        - Auth
         - Game
       security:
         - bearerAuth: []
@@ -222,7 +212,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/GameId'
       tags:
-        - No auth
         - Game
       description: Get the result for the given question (after closeTime)
       responses:
@@ -239,7 +228,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/DatePicker'
       tags:
-        - No auth
         - Game
       description: Get the aggregated results.
       responses:
@@ -255,7 +243,6 @@ paths:
   "/user/me":
     get:
       tags:
-        - Auth
         - User
       security:
         - bearerAuth: []
@@ -272,7 +259,7 @@ paths:
 
     delete:
       tags:
-        - Auth
+        - User
       security:
         - bearerAuth: []
       description: Removes all data related to user.
@@ -285,7 +272,6 @@ paths:
   "/user/me/city":
     post:
       tags:
-        - Auth
         - User
       security:
         - bearerAuth: []
@@ -307,7 +293,6 @@ paths:
   "/user/me/nick":
     post:
       tags:
-        - Auth
         - User
       security:
         - bearerAuth: []
@@ -330,7 +315,6 @@ paths:
   "/level":
     get:
       tags:
-        - No auth
         - Level
       description: Gets available levels.
       responses:
