@@ -1,5 +1,7 @@
 {
-  "name": "ab-assistant-repo",
+  "name": "wik-dev",
+  "author": "Tamás Stranigg",
+  "license": "AFPL",
   "version": "0.0.0",
   "private": true,
   "scripts": {
