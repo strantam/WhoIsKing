@@ -18,6 +18,7 @@ The app is a game, where users can answer questions, and guess what others vote 
 ## Backend
 - Node.js + Typescript
 - PostgreSQL DB
+- CD to Heroku
 - OpenAPI API documentation
 - Schema generation based on PostgreSQL tables
 - Schema generation and API validation based on OpenAPI
