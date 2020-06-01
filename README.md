@@ -17,7 +17,9 @@ The app is a game, where users can answer questions, and guess what others vote 
 
 ## Backend
 - Node.js + Typescript
-- PostgreSQL DB
+- Express.js
+- PostgreSQL DB (Model draft: https://docs.google.com/drawings/d/1Dlar_qLHgTtVdAg4hK8X9Cn-vMgdhtLKJu37UPHACg4/)
+- Winston logging
 - CD to Heroku
 - OpenAPI API documentation
 - Schema generation based on PostgreSQL tables
