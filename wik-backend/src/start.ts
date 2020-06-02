@@ -49,7 +49,7 @@ class Server {
         });
         this.app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(yamlConv.load(__dirname + '/../openapi.yaml')));
 
-        this.app.use(express.static(__dirname + '/../../wik-frontend/dist/hu/'));
+        this.app.use(express.static(__dirname + '/../../wik-frontend/dist/en/'));
         // Depending on your own needs, this can be extended
         this.app.use(bodyParser.json({limit: '50mb'}));
         this.app.use(bodyParser.raw({limit: '50mb'}));
