@@ -1,8 +1,11 @@
 # WhoIsKing
+## Links
+- Dev build: https://wik-dev.herokuapp.com/
+- Swagger: https://wik-dev.herokuapp.com/api/v1/docs/
+- DB model draft: https://docs.google.com/drawings/d/1Dlar_qLHgTtVdAg4hK8X9Cn-vMgdhtLKJu37UPHACg4/
 
-## Demo app for showcasing Angular/Node development skills
-
-The app is a game, where users can answer questions, and guess what others vote to that question. This way they can collect points, and reach higher levels. After reaching certain levels, they can vote which questions to be asked in the game, and ask questions too.
+## Description
+This app is a game, where users can answer questions, and guess what others vote to that question. This way they can collect points, and reach higher levels. After reaching certain levels, they can vote which questions to be asked in the game, and ask questions too.
 
 ## Frontend
 - Angular
@@ -18,7 +21,7 @@ The app is a game, where users can answer questions, and guess what others vote 
 ## Backend
 - Node.js + Typescript
 - Express.js
-- PostgreSQL DB (Model draft: https://docs.google.com/drawings/d/1Dlar_qLHgTtVdAg4hK8X9Cn-vMgdhtLKJu37UPHACg4/)
+- PostgreSQL DB 
 - Winston logging
 - CD to Heroku
 - OpenAPI API documentation
