@@ -1,9 +1,18 @@
+// TODO Create real prod env
 export const environment = {
-  production: true,
-  dev: false,
+  production: false,
+  dev: true,
+  googleMapsAPIKey: 'AIzaSyBCCxb_1EVuqM6I1m6Y4RflazFRIdYLdB4',
+  apiUrl: "https://wik-dev.herokuapp.com/api/v1/",
   questionsPerDay: 3,
   questionGetLimit: 10,
-  apiUrl: "https://wik-prd.herokuapp.com/api/v1/",
   firebaseConfig: {
+    apiKey: "AIzaSyCYHbnfzyMG9nWIuUoqO-fMEmnGf8SZnzg",
+    authDomain: "who-is-king.firebaseapp.com",
+    databaseURL: "https://who-is-king.firebaseio.com",
+    projectId: "who-is-king",
+    storageBucket: "who-is-king.appspot.com",
+    messagingSenderId: "908395210041",
+    appId: "1:908395210041:web:203fff607a097206a5b4e8"
   }
 };
