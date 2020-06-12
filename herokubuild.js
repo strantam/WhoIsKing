@@ -10,7 +10,7 @@ if (os.platform() === 'win32') {
 
 let startCmd;
 if (process.env.ENVIRONMENT === "DEV"){
-    startCmd = "build-dev";
+    startCmd = "build-prd";
 }
 if (process.env.ENVIRONMENT === "PRD"){
     startCmd = "build-prd";
