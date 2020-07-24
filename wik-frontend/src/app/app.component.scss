@@ -9,8 +9,9 @@
   padding: 0.3rem;
 }
 
-.overflow-auto {
-  overflow-y: auto;
+.main-wrapper {
+  overflow-y: hidden;
+  position: relative;
 }
 
 app-spinner-wrapper {
