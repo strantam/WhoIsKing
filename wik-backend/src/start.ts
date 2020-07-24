@@ -96,7 +96,7 @@ class Server {
         addRoutes(this.app);
 
         this.app.get('*', (req, res) => {
-            res.sendFile(path.resolve(__dirname + '/../../wik-frontend/dist/hu/index.html'));
+            res.sendFile(path.resolve(__dirname + '/../../wik-frontend/dist/en/index.html'));
         });
         this.app.use((err, req, res, next) => {
             logger.error('Error processing request: ', err);
