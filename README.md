@@ -1,7 +1,5 @@
 # WhoIsKing
 ## Links
-- Dev build: https://wik-dev.herokuapp.com/ (loads slow, because it is hosted on heroku free tier)
-- Swagger: https://wik-dev.herokuapp.com/api/v1/docs/ (loads slow, because it is hosted on heroku free tier)
 - DB model draft: https://docs.google.com/drawings/d/1Dlar_qLHgTtVdAg4hK8X9Cn-vMgdhtLKJu37UPHACg4/
 
 ## Description
